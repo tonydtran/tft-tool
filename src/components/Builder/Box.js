@@ -1,14 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 const Box = ({ data, onChange }) => {
+  const [dragHovering, setDragHovering] = useState(false)
+  
   const onDragStart = event => {
-    if (data.champ) {
-      event.dataTransfer.setData('originData', JSON.stringify(data))
-    } else {
-      event.preventDefault()
-    }
+    event.dataTransfer.setData('originData', JSON.stringify(data))
   }
 
   const onDragOver = event => {
@@ -18,14 +16,28 @@ const Box = ({ data, onChange }) => {
   const onDrop = event => {
     const originData = event.dataTransfer.getData('originData')
     onChange(JSON.parse(originData), data)
+    setDragHovering(false)
+  }
+
+  const onDragEnter = event => {
+    event.preventDefault()
+    setDragHovering(true)
+  }
+
+  const onDragLeave = event => {
+    event.preventDefault()
+    setDragHovering(false)
   }
 
   return (
     <Container
-      draggable
+      draggable={!!data.champ}
       onDragStart={e => onDragStart(e)}
       onDrop={e => onDrop(e)}
       onDragOver={e => onDragOver(e)}
+      onDragEnter={e => onDragEnter(e)}
+      onDragLeave={e => onDragLeave(e)}
+      dragHovering={dragHovering}
       {...data}
     />
   )
@@ -51,6 +63,11 @@ const Container = styled.div`
   border-radius: 2px;
   background-image: ${({ champ }) => champ ? `url(${champ.image})` : ''};
   background-size: contain;
+  transform: ${({ dragHovering }) => dragHovering ? 'scale(1.3)' : 'none'};
+
+  &:hover {
+    transform: ${({ dragHovering, champ }) => !dragHovering ? 'scale(1.1)' : 'none'}
+  }
 `
 
 Box.propTypes = {

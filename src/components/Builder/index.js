@@ -23,21 +23,23 @@ class Builder extends Component {
   }
 
   handleChangePosition = (origin, target) => {
-    const { boardData } = this.state
+    if (origin.id !== target.id) {
+      const { boardData } = this.state
 
-    boardData[target.row][target.id] = {
-      ...target,
-      champ: origin.champ,
-      items: origin.items
+      boardData[target.row][target.id] = {
+        ...target,
+        champ: origin.champ,
+        items: origin.items
+      }
+
+      boardData[origin.row][origin.id] = {
+        ...origin,
+        champ: target.champ,
+        items: target.items
+      }
+
+      this.setState({ boardData })
     }
-
-    boardData[origin.row][origin.id] = {
-      ...origin,
-      champ: target.champ,
-      items: target.items
-    }
-
-    this.setState({ boardData })
   }
 
   render () {
