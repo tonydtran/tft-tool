@@ -85,8 +85,13 @@ const Container = styled.div`
   }};
   z-index: ${({ carry }) => carry ? '1' : 'auto' };
 
-  &:hover, &:active {
+  &:hover {
     transform: ${({ dragHovering }) => !dragHovering ? 'scale(1.1)' : 'none'};
+    z-index: 2;
+  }
+
+  &:active {
+    transform: scale(1.1);
     z-index: 2;
   }
 `
