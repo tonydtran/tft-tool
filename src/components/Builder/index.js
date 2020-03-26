@@ -7,8 +7,8 @@ import champions from '../../data/champions.json'
 import Board from './Board'
 
 class Builder extends PureComponent {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
 
     this.state = {
       boardData: {
@@ -20,6 +20,32 @@ class Builder extends PureComponent {
     // this.state = {
     //   boardData: BOARD
     // }
+  }
+
+  handleChangePosition = (origin, target) => {
+    const { boardData } = this.state
+
+    const updatedBoardData = {
+      ...boardData,
+      [target.row]: {
+        ...boardData[target.row],
+        [target.id]: {
+          ...boardData[target.row][target.id],
+          champ: origin.champ,
+          items: origin.items
+        }
+      },
+      [origin.row]: {
+        ...boardData[origin.row],
+        [origin.id]: {
+          ...boardData[origin.row][origin.id],
+          champ: target.champ ? target.champ : null,
+          items: target.items ? target.champ : []
+        }
+      }
+    }
+
+    this.setState({ boardData: updatedBoardData })
   }
 
   render () {
