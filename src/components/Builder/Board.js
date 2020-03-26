@@ -1,7 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Board = ({ boardData }) => {
+import Box from './Box'
+
+const Board = ({ boardData, onChange }) => {
   return (
     <Container>
       {
@@ -9,7 +11,11 @@ const Board = ({ boardData }) => {
           <Row key={`row-${row}`}>
             {
               Object.keys(boardData[row]).map(box => (
-                <Box key={boardData[row][box].id} {...boardData[row][box]} />
+                <Box
+                  key={boardData[row][box].id}
+                  data={boardData[row][box]}
+                  onChange={onChange}
+                  />
               ))
             }
           </Row>
@@ -18,28 +24,6 @@ const Board = ({ boardData }) => {
     </Container>
   )
 }
-
-const Box = styled.div`
-  height: 2.4rem;
-  width: 2.4rem;
-  background-color: #767D92;
-  box-shadow: ${({ champ }) => {
-    if (champ) {
-      switch(champ.cost) {
-        case 2: return `0 0 1px 3px #11b288;`
-        case 3: return `0 0 1px 3px #207ac7;`
-        case 4: return `0 0 1px 3px #c440da;`
-        case 5: return `0 0 1px 3px #ffb93b;`
-        default: return `0 0 1px 3px grey;`
-      }
-    } else {
-      return `0 0 2px 2px black;`
-    }
-  }};
-  border-radius: 2px;
-  background-image: ${({ champ }) => champ ? `url(${champ.image})` : ''};
-  background-size: contain;
-`
 
 const Row = styled.div`
   display: flex;

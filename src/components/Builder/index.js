@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 // import styled from 'styled-components'
 
 import { BOARD } from '../../vars/game'
@@ -6,7 +6,7 @@ import champions from '../../data/champions.json'
 
 import Board from './Board'
 
-class Builder extends PureComponent {
+class Builder extends Component {
   constructor (props) {
     super(props)
 
@@ -25,27 +25,19 @@ class Builder extends PureComponent {
   handleChangePosition = (origin, target) => {
     const { boardData } = this.state
 
-    const updatedBoardData = {
-      ...boardData,
-      [target.row]: {
-        ...boardData[target.row],
-        [target.id]: {
-          ...boardData[target.row][target.id],
-          champ: origin.champ,
-          items: origin.items
-        }
-      },
-      [origin.row]: {
-        ...boardData[origin.row],
-        [origin.id]: {
-          ...boardData[origin.row][origin.id],
-          champ: target.champ ? target.champ : null,
-          items: target.items ? target.champ : []
-        }
-      }
+    boardData[target.row][target.id] = {
+      ...target,
+      champ: origin.champ,
+      items: origin.items
     }
 
-    this.setState({ boardData: updatedBoardData })
+    boardData[origin.row][origin.id] = {
+      ...origin,
+      champ: target.champ,
+      items: target.items
+    }
+
+    this.setState({ boardData })
   }
 
   render () {
@@ -54,7 +46,7 @@ class Builder extends PureComponent {
     return (
       <>
         <h1>Builder</h1>
-        <Board boardData={boardData} />
+        <Board boardData={boardData} onChange={this.handleChangePosition} />
       </>
     )
   }
