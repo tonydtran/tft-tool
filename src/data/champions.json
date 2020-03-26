@@ -1,0 +1,621 @@
+{
+  "ahri": {
+    "id": "ahri",
+    "name": "Ahri",
+    "championId": "TFT3_Ahri",
+    "cost": 2,
+    "traits": [
+      "starguardian",
+      "sorcerer"
+    ],
+    "image": "/assets/champions/ahri.png",
+    "recommended": [
+      37,
+      44,
+      34
+    ]
+  },
+  "annie": {
+    "id": "annie",
+    "name": "Annie",
+    "championId": "TFT3_Annie",
+    "cost": 2,
+    "traits": [
+      "mechpilot",
+      "sorcerer"
+    ],
+    "image": "/assets/champions/annie.png",
+    "recommended": []
+  },
+  "ashe": {
+    "id": "ashe",
+    "name": "Ashe",
+    "championId": "TFT3_Ashe",
+    "cost": 3,
+    "traits": [
+      "celestial",
+      "sniper"
+    ],
+    "image": "/assets/champions/ashe.png",
+    "recommended": []
+  },
+  "aurelionsol": {
+    "id": "aurelionsol",
+    "name": "Aurelion Sol",
+    "championId": "TFT3_AurelionSol",
+    "cost": 5,
+    "traits": [
+      "rebel",
+      "starship"
+    ],
+    "image": "/assets/champions/aurelionsol.png",
+    "recommended": []
+  },
+  "blitzcrank": {
+    "id": "blitzcrank",
+    "name": "Blitzcrank",
+    "championId": "TFT3_Blitzcrank",
+    "cost": 2,
+    "traits": [
+      "chrono",
+      "brawler"
+    ],
+    "image": "/assets/champions/blitzcrank.png",
+    "recommended": []
+  },
+  "caitlyn": {
+    "id": "caitlyn",
+    "name": "Caitlyn",
+    "championId": "TFT3_Caitlyn",
+    "cost": 1,
+    "traits": [
+      "chrono",
+      "sniper"
+    ],
+    "image": "/assets/champions/caitlyn.png",
+    "recommended": []
+  },
+  "chogath": {
+    "id": "chogath",
+    "name": "Cho'Gath",
+    "championId": "TFT3_ChoGath",
+    "cost": 4,
+    "traits": [
+      "void",
+      "brawler"
+    ],
+    "image": "/assets/champions/chogath.png",
+    "recommended": []
+  },
+  "darius": {
+    "id": "darius",
+    "name": "Darius",
+    "championId": "TFT3_Darius",
+    "cost": 2,
+    "traits": [
+      "spacepirate",
+      "manareaver"
+    ],
+    "image": "/assets/champions/darius.png",
+    "recommended": []
+  },
+  "ekko": {
+    "id": "ekko",
+    "name": "Ekko",
+    "championId": "TFT3_Ekko",
+    "cost": 5,
+    "traits": [
+      "cybernetic",
+      "infiltrator"
+    ],
+    "image": "/assets/champions/ekko.png",
+    "recommended": []
+  },
+  "ezreal": {
+    "id": "ezreal",
+    "name": "Ezreal",
+    "championId": "TFT3_Ezreal",
+    "cost": 3,
+    "traits": [
+      "chrono",
+      "blaster"
+    ],
+    "image": "/assets/champions/ezreal.png",
+    "recommended": []
+  },
+  "fiora": {
+    "id": "fiora",
+    "name": "Fiora",
+    "championId": "TFT3_Fiora",
+    "cost": 1,
+    "traits": [
+      "cybernetic",
+      "blademaster"
+    ],
+    "image": "/assets/champions/fiora.png",
+    "recommended": []
+  },
+  "fizz": {
+    "id": "fizz",
+    "name": "Fizz",
+    "championId": "TFT3_Fizz",
+    "cost": 4,
+    "traits": [
+      "mechpilot",
+      "infiltrator"
+    ],
+    "image": "/assets/champions/fizz.png",
+    "recommended": []
+  },
+  "gangplank": {
+    "id": "gangplank",
+    "name": "Gangplank",
+    "championId": "TFT3_Gangplank",
+    "cost": 5,
+    "traits": [
+      "spacepirate",
+      "mercenary",
+      "demolitionist"
+    ],
+    "image": "/assets/champions/gangplank.png",
+    "recommended": []
+  },
+  "graves": {
+    "id": "graves",
+    "name": "Graves",
+    "championId": "TFT3_Graves",
+    "cost": 1,
+    "traits": [
+      "spacepirate",
+      "blaster"
+    ],
+    "image": "/assets/champions/graves.png",
+    "recommended": []
+  },
+  "irelia": {
+    "id": "irelia",
+    "name": "Irelia",
+    "championId": "TFT3_Irelia",
+    "cost": 4,
+    "traits": [
+      "cybernetic",
+      "manareaver",
+      "blademaster"
+    ],
+    "image": "/assets/champions/irelia.png",
+    "recommended": []
+  },
+  "jarvaniv": {
+    "id": "jarvaniv",
+    "name": "Jarvan IV",
+    "championId": "TFT3_JarvanIV",
+    "cost": 1,
+    "traits": [
+      "darkstar",
+      "protector"
+    ],
+    "image": "/assets/champions/jarvaniv.png",
+    "recommended": []
+  },
+  "jayce": {
+    "id": "jayce",
+    "name": "Jayce",
+    "championId": "TFT3_Jayce",
+    "cost": 3,
+    "traits": [
+      "spacepirate",
+      "vanguard"
+    ],
+    "image": "/assets/champions/jayce.png",
+    "recommended": []
+  },
+  "jhin": {
+    "id": "jhin",
+    "name": "Jhin",
+    "championId": "TFT3_Jhin",
+    "cost": 4,
+    "traits": [
+      "darkstar",
+      "sniper"
+    ],
+    "image": "/assets/champions/jhin.png",
+    "recommended": []
+  },
+  "jinx": {
+    "id": "jinx",
+    "name": "Jinx",
+    "championId": "TFT3_Jinx",
+    "cost": 4,
+    "traits": [
+      "rebel",
+      "blaster"
+    ],
+    "image": "/assets/champions/jinx.png",
+    "recommended": []
+  },
+  "kaisa": {
+    "id": "kaisa",
+    "name": "Kai'Sa",
+    "championId": "TFT3_KaiSa",
+    "cost": 2,
+    "traits": [
+      "valkyrie",
+      "infiltrator"
+    ],
+    "image": "/assets/champions/kaisa.png",
+    "recommended": []
+  },
+  "karma": {
+    "id": "karma",
+    "name": "Karma",
+    "championId": "TFT3_Karma",
+    "cost": 3,
+    "traits": [
+      "darkstar",
+      "mystic"
+    ],
+    "image": "/assets/champions/karma.png",
+    "recommended": []
+  },
+  "kassadin": {
+    "id": "kassadin",
+    "name": "Kassadin",
+    "championId": "TFT3_Kassadin",
+    "cost": 3,
+    "traits": [
+      "celestial",
+      "manareaver"
+    ],
+    "image": "/assets/champions/kassadin.png",
+    "recommended": []
+  },
+  "kayle": {
+    "id": "kayle",
+    "name": "Kayle",
+    "championId": "TFT3_Kayle",
+    "cost": 4,
+    "traits": [
+      "valkyrie",
+      "blademaster"
+    ],
+    "image": "/assets/champions/kayle.png",
+    "recommended": []
+  },
+  "khazix": {
+    "id": "khazix",
+    "name": "Kha'Zix",
+    "championId": "TFT3_KhaZix",
+    "cost": 1,
+    "traits": [
+      "void",
+      "infiltrator"
+    ],
+    "image": "/assets/champions/khazix.png",
+    "recommended": []
+  },
+  "leona": {
+    "id": "leona",
+    "name": "Leona",
+    "championId": "TFT3_Leona",
+    "cost": 1,
+    "traits": [
+      "cybernetic",
+      "vanguard"
+    ],
+    "image": "/assets/champions/leona.png",
+    "recommended": []
+  },
+  "lucian": {
+    "id": "lucian",
+    "name": "Lucian",
+    "championId": "TFT3_Lucian",
+    "cost": 2,
+    "traits": [
+      "cybernetic",
+      "blaster"
+    ],
+    "image": "/assets/champions/lucian.png",
+    "recommended": []
+  },
+  "lulu": {
+    "id": "lulu",
+    "name": "Lulu",
+    "championId": "TFT3_Lulu",
+    "cost": 5,
+    "traits": [
+      "celestial",
+      "mystic"
+    ],
+    "image": "/assets/champions/lulu.png",
+    "recommended": []
+  },
+  "lux": {
+    "id": "lux",
+    "name": "Lux",
+    "championId": "TFT3_Lux",
+    "cost": 3,
+    "traits": [
+      "darkstar",
+      "sorcerer"
+    ],
+    "image": "/assets/champions/lux.png",
+    "recommended": []
+  },
+  "malphite": {
+    "id": "malphite",
+    "name": "Malphite",
+    "championId": "TFT3_Malphite",
+    "cost": 1,
+    "traits": [
+      "rebel",
+      "brawler"
+    ],
+    "image": "/assets/champions/malphite.png",
+    "recommended": []
+  },
+  "masteryi": {
+    "id": "masteryi",
+    "name": "Master Yi",
+    "championId": "TFT3_MasterYi",
+    "cost": 3,
+    "traits": [
+      "rebel",
+      "blademaster"
+    ],
+    "image": "/assets/champions/masteryi.png",
+    "recommended": []
+  },
+  "missfortune": {
+    "id": "missfortune",
+    "name": "Miss Fortune",
+    "championId": "TFT3_MissFortune",
+    "cost": 5,
+    "traits": [
+      "valkyrie",
+      "mercenary",
+      "blaster"
+    ],
+    "image": "/assets/champions/missfortune.png",
+    "recommended": []
+  },
+  "mordekaiser": {
+    "id": "mordekaiser",
+    "name": "Mordekaiser",
+    "championId": "TFT3_Mordekaiser",
+    "cost": 2,
+    "traits": [
+      "darkstar",
+      "vanguard"
+    ],
+    "image": "/assets/champions/mordekaiser.png",
+    "recommended": []
+  },
+  "neeko": {
+    "id": "neeko",
+    "name": "Neeko",
+    "championId": "TFT3_Neeko",
+    "cost": 3,
+    "traits": [
+      "starguardian",
+      "protector"
+    ],
+    "image": "/assets/champions/neeko.png",
+    "recommended": []
+  },
+  "poppy": {
+    "id": "poppy",
+    "name": "Poppy",
+    "championId": "TFT3_Poppy",
+    "cost": 1,
+    "traits": [
+      "starguardian",
+      "vanguard"
+    ],
+    "image": "/assets/champions/poppy.png",
+    "recommended": []
+  },
+  "rakan": {
+    "id": "rakan",
+    "name": "Rakan",
+    "championId": "TFT3_Rakan",
+    "cost": 2,
+    "traits": [
+      "celestial",
+      "protector"
+    ],
+    "image": "/assets/champions/rakan.png",
+    "recommended": []
+  },
+  "rumble": {
+    "id": "rumble",
+    "name": "Rumble",
+    "championId": "TFT3_Rumble",
+    "cost": 3,
+    "traits": [
+      "mechpilot",
+      "demolitionist"
+    ],
+    "image": "/assets/champions/rumble.png",
+    "recommended": []
+  },
+  "shaco": {
+    "id": "shaco",
+    "name": "Shaco",
+    "championId": "TFT3_Shaco",
+    "cost": 3,
+    "traits": [
+      "darkstar",
+      "infiltrator"
+    ],
+    "image": "/assets/champions/shaco.png",
+    "recommended": []
+  },
+  "shen": {
+    "id": "shen",
+    "name": "Shen",
+    "championId": "TFT3_Shen",
+    "cost": 2,
+    "traits": [
+      "chrono",
+      "blademaster"
+    ],
+    "image": "/assets/champions/shen.png",
+    "recommended": []
+  },
+  "sona": {
+    "id": "sona",
+    "name": "Sona",
+    "championId": "TFT3_Sona",
+    "cost": 2,
+    "traits": [
+      "rebel",
+      "mystic"
+    ],
+    "image": "/assets/champions/sona.png",
+    "recommended": []
+  },
+  "soraka": {
+    "id": "soraka",
+    "name": "Soraka",
+    "championId": "TFT3_Soraka",
+    "cost": 4,
+    "traits": [
+      "starguardian",
+      "mystic"
+    ],
+    "image": "/assets/champions/soraka.png",
+    "recommended": []
+  },
+  "syndra": {
+    "id": "syndra",
+    "name": "Syndra",
+    "championId": "TFT3_Syndra",
+    "cost": 3,
+    "traits": [
+      "starguardian",
+      "sorcerer"
+    ],
+    "image": "/assets/champions/syndra.png",
+    "recommended": []
+  },
+  "thresh": {
+    "id": "thresh",
+    "name": "Thresh",
+    "championId": "TFT3_Thresh",
+    "cost": 5,
+    "traits": [
+      "chrono",
+      "manareaver"
+    ],
+    "image": "/assets/champions/thresh.png",
+    "recommended": []
+  },
+  "twistedfate": {
+    "id": "twistedfate",
+    "name": "Twisted Fate",
+    "championId": "TFT3_TwistedFate",
+    "cost": 1,
+    "traits": [
+      "chrono",
+      "sorcerer"
+    ],
+    "image": "/assets/champions/twistedfate.png",
+    "recommended": []
+  },
+  "velkoz": {
+    "id": "velkoz",
+    "name": "Vel'Koz",
+    "championId": "TFT3_VelKoz",
+    "cost": 4,
+    "traits": [
+      "void",
+      "sorcerer"
+    ],
+    "image": "/assets/champions/velkoz.png",
+    "recommended": []
+  },
+  "vi": {
+    "id": "vi",
+    "name": "Vi",
+    "championId": "TFT3_Vi",
+    "cost": 3,
+    "traits": [
+      "cybernetic",
+      "brawler"
+    ],
+    "image": "/assets/champions/vi.png",
+    "recommended": []
+  },
+  "wukong": {
+    "id": "wukong",
+    "name": "Wukong",
+    "championId": "TFT3_WuKong",
+    "cost": 4,
+    "traits": [
+      "chrono",
+      "vanguard"
+    ],
+    "image": "/assets/champions/wukong.png",
+    "recommended": []
+  },
+  "xayah": {
+    "id": "xayah",
+    "name": "Xayah",
+    "championId": "TFT3_Xayah",
+    "cost": 1,
+    "traits": [
+      "celestial",
+      "blademaster"
+    ],
+    "image": "/assets/champions/xayah.png",
+    "recommended": []
+  },
+  "xinzhao": {
+    "id": "xinzhao",
+    "name": "Xin Zhao",
+    "championId": "TFT3_XinZhao",
+    "cost": 2,
+    "traits": [
+      "celestial",
+      "protector"
+    ],
+    "image": "/assets/champions/xinzhao.png",
+    "recommended": []
+  },
+  "yasuo": {
+    "id": "yasuo",
+    "name": "Yasuo",
+    "championId": "TFT3_Yasuo",
+    "cost": 2,
+    "traits": [
+      "rebel",
+      "blademaster"
+    ],
+    "image": "/assets/champions/yasuo.png",
+    "recommended": []
+  },
+  "ziggs": {
+    "id": "ziggs",
+    "name": "Ziggs",
+    "championId": "TFT3_Ziggs",
+    "cost": 1,
+    "traits": [
+      "rebel",
+      "demolitionist"
+    ],
+    "image": "/assets/champions/ziggs.png",
+    "recommended": []
+  },
+  "zoe": {
+    "id": "zoe",
+    "name": "Zoe",
+    "championId": "TFT3_Zoe",
+    "cost": 1,
+    "traits": [
+      "starguardian",
+      "sorcerer"
+    ],
+    "image": "/assets/champions/zoe.png",
+    "recommended": []
+  }
+}

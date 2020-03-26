@@ -1,0 +1,272 @@
+{
+  "1": {
+    "id": 1,
+    "name": "B.F. Sword",
+    "image": "/assets/items/01.png"
+  },
+  "2": {
+    "id": 2,
+    "name": "Recurve Bow",
+    "image": "/assets/items/02.png"
+  },
+  "3": {
+    "id": 3,
+    "name": "Needlessly Large Rod",
+    "image": "/assets/items/03.png"
+  },
+  "4": {
+    "id": 4,
+    "name": "Tear of the Goddess",
+    "image": "/assets/items/04.png"
+  },
+  "5": {
+    "id": 5,
+    "name": "Chain Vest",
+    "image": "/assets/items/05.png"
+  },
+  "6": {
+    "id": 6,
+    "name": "Negatron Cloak",
+    "image": "/assets/items/06.png"
+  },
+  "7": {
+    "id": 7,
+    "name": "Giant's Belt",
+    "image": "/assets/items/07.png"
+  },
+  "8": {
+    "id": 8,
+    "name": "Spatula",
+    "image": "/assets/items/08.png"
+  },
+  "9": {
+    "id": 9,
+    "name": "Sparring Gloves",
+    "image": "/assets/items/09.png"
+  },
+  "11": {
+    "id": 11,
+    "name": "Deathblade",
+    "image": "/assets/items/11.png"
+  },
+  "12": {
+    "id": 12,
+    "name": "Giant Slayer",
+    "image": "/assets/items/12.png"
+  },
+  "13": {
+    "id": 13,
+    "name": "Hextech Gunblade",
+    "image": "/assets/items/13.png"
+  },
+  "14": {
+    "id": 14,
+    "name": "Spear of Shojin",
+    "image": "/assets/items/14.png"
+  },
+  "15": {
+    "id": 15,
+    "name": "Guardian Angel",
+    "image": "/assets/items/15.png"
+  },
+  "16": {
+    "id": 16,
+    "name": "Bloodthirster",
+    "image": "/assets/items/16.png"
+  },
+  "17": {
+    "id": 17,
+    "name": "Zeke's Herald",
+    "image": "/assets/items/17.png"
+  },
+  "18": {
+    "id": 18,
+    "name": "Blade of the Ruined King",
+    "image": "/assets/items/18.png"
+  },
+  "19": {
+    "id": 19,
+    "name": "Infinity Edge",
+    "image": "/assets/items/19.png"
+  },
+  "22": {
+    "id": 22,
+    "name": "Rapid Firecannon",
+    "image": "/assets/items/22.png"
+  },
+  "23": {
+    "id": 23,
+    "name": "Guinsoo's Rageblade",
+    "image": "/assets/items/23.png"
+  },
+  "24": {
+    "id": 24,
+    "name": "Statikk Shiv",
+    "image": "/assets/items/24.png"
+  },
+  "25": {
+    "id": 25,
+    "name": "Titan's Resolve",
+    "image": "/assets/items/25.png"
+  },
+  "26": {
+    "id": 26,
+    "name": "Runaan's Hurricane",
+    "image": "/assets/items/26.png"
+  },
+  "27": {
+    "id": 27,
+    "name": "Zz'Rot Portal",
+    "image": "/assets/items/27.png"
+  },
+  "28": {
+    "id": 28,
+    "name": "Infiltrator's Talons",
+    "image": "/assets/items/28.png"
+  },
+  "29": {
+    "id": 29,
+    "name": "Last Whisper",
+    "image": "/assets/items/29.png"
+  },
+  "33": {
+    "id": 33,
+    "name": "Rabadon's Deathcap",
+    "image": "/assets/items/33.png"
+  },
+  "34": {
+    "id": 34,
+    "name": "Luden's Echo",
+    "image": "/assets/items/34.png"
+  },
+  "35": {
+    "id": 35,
+    "name": "Locket of the Iron Solari",
+    "image": "/assets/items/35.png"
+  },
+  "36": {
+    "id": 36,
+    "name": "Ionic Spark",
+    "image": "/assets/items/36.png"
+  },
+  "37": {
+    "id": 37,
+    "name": "Morellonomicon",
+    "image": "/assets/items/37.png"
+  },
+  "38": {
+    "id": 38,
+    "name": "Demolitionist's Charge",
+    "image": "/assets/items/38.png"
+  },
+  "39": {
+    "id": 39,
+    "name": "Jeweled Gauntlet",
+    "image": "/assets/items/39.png"
+  },
+  "44": {
+    "id": 44,
+    "name": "Seraph's Embrace",
+    "image": "/assets/items/44.png"
+  },
+  "45": {
+    "id": 45,
+    "name": "Frozen Heart",
+    "image": "/assets/items/45.png"
+  },
+  "46": {
+    "id": 46,
+    "name": "Chalice of Favor",
+    "image": "/assets/items/46.png"
+  },
+  "47": {
+    "id": 47,
+    "name": "Redemption",
+    "image": "/assets/items/47.png"
+  },
+  "48": {
+    "id": 48,
+    "name": "Star Guardian's Charm",
+    "image": "/assets/items/48.png"
+  },
+  "49": {
+    "id": 49,
+    "name": "Hand Of Justice",
+    "image": "/assets/items/49.png"
+  },
+  "55": {
+    "id": 55,
+    "name": "Bramble Vest",
+    "image": "/assets/items/55.png"
+  },
+  "56": {
+    "id": 56,
+    "name": "Sword Breaker",
+    "image": "/assets/items/56.png"
+  },
+  "57": {
+    "id": 57,
+    "name": "Red Buff",
+    "image": "/assets/items/57.png"
+  },
+  "58": {
+    "id": 58,
+    "name": "Rebel Medal",
+    "image": "/assets/items/58.png"
+  },
+  "59": {
+    "id": 59,
+    "name": "Shroud of Stillness",
+    "image": "/assets/items/59.png"
+  },
+  "66": {
+    "id": 66,
+    "name": "Dragon's Claw",
+    "image": "/assets/items/66.png"
+  },
+  "67": {
+    "id": 67,
+    "name": "Zephyr",
+    "image": "/assets/items/67.png"
+  },
+  "68": {
+    "id": 68,
+    "name": "Celestial Orb",
+    "image": "/assets/items/68.png"
+  },
+  "69": {
+    "id": 69,
+    "name": "Quicksilver",
+    "image": "/assets/items/69.png"
+  },
+  "77": {
+    "id": 77,
+    "name": "Warmog's Armor",
+    "image": "/assets/items/77.png"
+  },
+  "78": {
+    "id": 78,
+    "name": "Protector's Chestguard",
+    "image": "/assets/items/78.png"
+  },
+  "79": {
+    "id": 79,
+    "name": "Trap Claw",
+    "image": "/assets/items/79.png"
+  },
+  "88": {
+    "id": 88,
+    "name": "Force of Nature",
+    "image": "/assets/items/88.png"
+  },
+  "89": {
+    "id": 89,
+    "name": "Dark Star's Heart",
+    "image": "/assets/items/89.png"
+  },
+  "99": {
+    "id": 99,
+    "name": "Thief's Gloves",
+    "image": "/assets/items/99.png"
+  }
+}
