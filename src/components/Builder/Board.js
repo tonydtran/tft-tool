@@ -32,7 +32,7 @@ const Row = styled.div`
     margin-left: 1.2rem;
   }
 
-  * + * {
+  > * + * {
     margin-left: 0.6rem;
   }
 `
@@ -42,7 +42,7 @@ const Container = styled.div`
   flex-direction: column;
 
   > * + * {
-    margin-top: 0.6rem;
+    margin-top: 0.8rem;
   }
 `
 

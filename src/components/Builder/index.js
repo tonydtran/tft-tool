@@ -13,7 +13,7 @@ class Builder extends Component {
     this.state = {
       boardData: {
         ...BOARD,
-        a: {...BOARD.a, a4: { ...BOARD.a.a4, champ: champions['ahri'], carry: true }},
+        a: {...BOARD.a, a4: { ...BOARD.a.a4, champ: champions['ahri'], carry: false, items: [1, 2, 3] }},
         b: { ...BOARD.b, b4: { ...BOARD.b.b4, champ: champions['syndra'] }, b5: { ...BOARD.b.b5, champ: champions['zoe'] }},
       }
     }

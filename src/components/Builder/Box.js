@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
+import itemsDataset from '../../data/items.json'
+
 const Box = ({ data, onChange }) => {
   const [dragHovering, setDragHovering] = useState(false)
-  
+
   const onDragStart = event => {
     event.dataTransfer.setData('originData', JSON.stringify(data))
   }
@@ -39,11 +41,24 @@ const Box = ({ data, onChange }) => {
       onDragLeave={e => onDragLeave(e)}
       dragHovering={dragHovering}
       {...data}
-    />
+    >
+      <ItemContainer>
+        {
+          data.items.map(item => (
+            <Item
+              key={`${data.champ.id}-${item}`}
+              image={itemsDataset[item].image}
+            />
+          ))
+        }
+      </ItemContainer>
+    </Container>
   )
 }
 
 const Container = styled.div`
+  position: relative;
+  display: block;
   height: 2.4rem;
   width: 2.4rem;
   background-color: #767D92;
@@ -68,10 +83,30 @@ const Container = styled.div`
     if (carry) return 'scale(1.2)'
     return 'none'
   }};
+  z-index: ${({ carry }) => carry ? '1' : 'auto' };
 
-  &:hover {
-    transform: ${({ dragHovering, champ }) => !dragHovering ? 'scale(1.1)' : 'none'}
+  &:hover, &:active {
+    transform: ${({ dragHovering }) => !dragHovering ? 'scale(1.1)' : 'none'};
+    z-index: 2;
   }
+`
+
+const ItemContainer = styled.div`
+  position: absolute;
+  bottom: -0.4rem;
+  display: flex;
+  justify-content: center;
+`
+
+const Item = styled.div`
+  display: block;
+  height: 0.8rem;
+  width: 0.8rem;
+  border-radius: 2px;
+  background-image: ${({ image }) => `url(${image})`};
+  background-size: contain;
+  background-position: center;
+  box-shadow: inset 0 0 1px 0 white;
 `
 
 Box.propTypes = {
