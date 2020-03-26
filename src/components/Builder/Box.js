@@ -63,7 +63,11 @@ const Container = styled.div`
   border-radius: 2px;
   background-image: ${({ champ }) => champ ? `url(${champ.image})` : ''};
   background-size: contain;
-  transform: ${({ dragHovering }) => dragHovering ? 'scale(1.3)' : 'none'};
+  transform: ${({ dragHovering, carry }) => {
+    if (dragHovering) return 'scale(1.3)'
+    if (carry) return 'scale(1.2)'
+    return 'none'
+  }};
 
   &:hover {
     transform: ${({ dragHovering, champ }) => !dragHovering ? 'scale(1.1)' : 'none'}
