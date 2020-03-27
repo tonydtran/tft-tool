@@ -1,15 +1,17 @@
 import React from 'react'
 
-import NavBar from './Layout/NavBar'
-import View from './Layout/View'
-import Builder from './Builder'
+import NavBar from './layouts/NavBar'
+import View from './layouts/View'
+// import Builder from './Builder'
+import SignUp from './auth/SignUp'
 
 const App = () => {
   return (
     <>
       <NavBar />
       <View>
-        <Builder />
+        {/* <Builder /> */}
+        <SignUp />
       </View>
     </>
   )
