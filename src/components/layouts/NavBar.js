@@ -1,12 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink, useRouteMatch } from 'react-router-dom'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
+import Button from 'react-bootstrap/Button'
 // import NavDropdown from 'react-bootstrap/NavDropdown'
+
+import { AuthUserContext } from '../Session'
 
 // Documentation: https://react-bootstrap.github.io/components/navbar/#navbars-mobile-friendly
 
 const NavBar = () => {
+  const authUser = useContext(AuthUserContext)
+
   return (
     <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" fixed="top">
       <Navbar.Brand as={NavLink} to="/">
@@ -14,9 +19,19 @@ const NavBar = () => {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
-        <Nav>
-          <Link to="/signup" label="Sign up" />
-          <Link to="/signin" label="Sign in" />
+        <Nav className="mt-3">
+          {
+            !authUser
+            ? (
+              <>
+                <Link to="/signup" label="Sign up" />
+                <Link to="/signin" label="Sign in" />
+              </>
+            )
+            : (
+                <Nav.Link>Logout</Nav.Link>
+            )
+          }
         </Nav>
       </Navbar.Collapse>
     </Navbar>

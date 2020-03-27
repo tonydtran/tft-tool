@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 
 import routes from './Router'
-import { withAuthentication } from '../Session'
+import { withAuthentication } from './Session'
 
 import NavBar from './layouts/NavBar'
 import View from './layouts/View'

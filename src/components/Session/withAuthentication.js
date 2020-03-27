@@ -13,7 +13,7 @@ const withAuthentication = Component => props => {
       currentAuthUser ? setAuthUser(currentAuthUser) : setAuthUser(null)
     })
 
-    return listener()
+    return () => listener()
   }, [])
 
   return (
