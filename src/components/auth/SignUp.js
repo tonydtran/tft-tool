@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
 import Form from 'react-bootstrap/Form'
@@ -17,13 +17,16 @@ const firebaseErrorHandler = error => {
 
 const SignUp = () => {
   const firebase = useContext(FirebaseContext)
+  const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, errors, setError, watch } = useForm()
 
   const onSubmit = async ({ email, password }) => {
+    setIsLoading(true)
     try {
       const authUser = await firebase.doCreateUserWithEmailAndPassword(email, password)
       console.log(authUser)
     } catch (err) {
+      setIsLoading(false)
       const { field, type, message } = firebaseErrorHandler(err)
       setError(field, type, message)
     }
@@ -93,9 +96,9 @@ const SignUp = () => {
             type="submit"
             size="lg"
             block
-            disabled={Object.keys(errors).length > 0}
+            disabled={Object.keys(errors).length > 0 || isLoading}
           >
-            Submit
+            { isLoading ? 'Loading...' : 'Submit' }
           </Button>
         </Form>
       </FormContainer>
