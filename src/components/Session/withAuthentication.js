@@ -1,41 +1,26 @@
-import React from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect, useContext } from 'react'
 
 import AuthUserContext from './context'
-import { withFirebase } from '../Firebase'
+import { FirebaseContext } from '../Firebase'
 
-const withAuthentication = Component => {
-  class WithAuthentication extends React.Component {
-    constructor(props) {
-      super(props)
-      this.state = {
-        authUser: null,
-      }
-    }
+const withAuthentication = Component => props => {
+  const firebase = useContext(FirebaseContext)
+  const [authUser, setAuthUser] = useState(null)
 
-    componentDidMount() {
-      this.listener = this.props.firebase.auth.onAuthStateChanged(
-        authUser => {
-          authUser
-            ? this.setState({ authUser })
-            : this.setState({ authUser: null })
-        },
-      )
-    }
+  useEffect(() => {
+    const listener = firebase.auth.onAuthStateChanged(currentAuthUser => {
+      currentAuthUser ? setAuthUser(currentAuthUser) : setAuthUser(null)
+    })
 
-    componentWillUnmount() {
-      this.listener()
-    }
+    return listener()
+  }, [])
 
-    render() {
-      return (
-        <AuthUserContext.Provider value={this.state.authUser}>
-          <Component {...this.props} />
-        </AuthUserContext.Provider>
-      )
-    }
-  }
-
-  return withFirebase(WithAuthentication)
+  return (
+    <AuthUserContext.Provider value={authUser}>
+      <Component {...props} />
+    </AuthUserContext.Provider>
+  )
 }
 
 export default withAuthentication
