@@ -61,7 +61,7 @@ const Container = styled.div`
   display: block;
   height: 2.4rem;
   width: 2.4rem;
-  background-color: #767D92;
+  background-color: #444;
   box-shadow: ${({ champ }) => {
     if (champ) {
       switch (champ.cost) {
@@ -69,7 +69,7 @@ const Container = styled.div`
         case 3: return `0 0 1px 3px #207ac7;`
         case 4: return `0 0 1px 3px #c440da;`
         case 5: return `0 0 1px 3px #ffb93b;`
-        default: return `0 0 1px 3px grey;`
+        default: return `0 0 1px 3px #303030;`
       }
     } else {
       return `0 0 2px 2px black;`

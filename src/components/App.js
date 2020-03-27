@@ -1,11 +1,16 @@
 import React from 'react'
 
+import NavBar from './Layout/NavBar'
+import View from './Layout/View'
 import Builder from './Builder'
 
 const App = () => {
   return (
     <>
-      <Builder />
+      <NavBar />
+      <View>
+        <Builder />
+      </View>
     </>
   )
 }
