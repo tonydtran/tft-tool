@@ -1,17 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+import { FirebaseContext } from '../Firebase'
 // import viewports from '../../vars/viewports'
 
 const SignUp = () => {
+  const firebase = useContext(FirebaseContext)
   const { register, handleSubmit, errors, watch } = useForm()
 
   const onSubmit = data => {
     console.log(data)
-    console.log('submit')
+    // firebase.doCreateUserWithEmailAndPassword()
   }
 
   const watchPassword = watch('password')
@@ -47,7 +49,8 @@ const SignUp = () => {
                 pattern: {
                   value: new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})'),
                   message: 'Invalid password'
-                }
+                },
+                validate: value => (!value.includes('Qwerty123') && !value.includes('Azerty123')) || 'Seriously, bro?'
               })}
             />
             { errors.password && (
@@ -77,6 +80,7 @@ const SignUp = () => {
             type="submit"
             size="lg"
             block
+            disabled={Object.keys(errors).length > 0}
           >
             Submit
           </Button>
