@@ -9,7 +9,7 @@ import Nav from 'react-bootstrap/Nav'
 const NavBar = () => {
   return (
     <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" fixed="top">
-      <Navbar.Brand href="#home">
+      <Navbar.Brand as={NavLink} to="/">
         TFT Tool <small className="text-muted">BETA</small>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
