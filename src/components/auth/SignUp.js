@@ -7,13 +7,26 @@ import Button from 'react-bootstrap/Button'
 import { FirebaseContext } from '../Firebase'
 // import viewports from '../../vars/viewports'
 
+const firebaseErrorHandler = error => {
+  return {
+    field: error.code.includes('password') ? 'password' : 'email',
+    type: error.code.replace('auth/', ''),
+    message: error.message
+  }
+}
+
 const SignUp = () => {
   const firebase = useContext(FirebaseContext)
-  const { register, handleSubmit, errors, watch } = useForm()
+  const { register, handleSubmit, errors, setError, watch } = useForm()
 
-  const onSubmit = data => {
-    console.log(data)
-    // firebase.doCreateUserWithEmailAndPassword()
+  const onSubmit = async ({ email, password }) => {
+    try {
+      const authUser = await firebase.doCreateUserWithEmailAndPassword(email, password)
+      console.log(authUser)
+    } catch (err) {
+      const { field, type, message } = firebaseErrorHandler(err)
+      setError(field, type, message)
+    }
   }
 
   const watchPassword = watch('password')
@@ -30,7 +43,7 @@ const SignUp = () => {
               type="email"
               placeholder="typical.yasuo@rito.com"
               isInvalid={errors.email}
-              ref={register({ required: 'Required' })} // TODO: Add async check if existing game
+              ref={register({ required: 'Required.' })}
             />
             {errors.email && (
               <Form.Control.Feedback type="invalid">{errors.email.message}</Form.Control.Feedback>
@@ -48,7 +61,7 @@ const SignUp = () => {
                 required: 'Required',
                 pattern: {
                   value: new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})'),
-                  message: 'Invalid password'
+                  message: 'Invalid password.'
                 },
                 validate: value => (!value.includes('Qwerty123') && !value.includes('Azerty123')) || 'Seriously, bro?'
               })}
@@ -65,8 +78,8 @@ const SignUp = () => {
               type="password"
               isInvalid={errors.passwordConfirm}
               ref={register({
-                required: 'Required',
-                validate: value => value === watchPassword || 'Passwords do not match'
+                required: 'Required.',
+                validate: value => value === watchPassword || 'Passwords do not match.'
               })}
             />
             {errors.passwordConfirm && (
