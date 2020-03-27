@@ -1,20 +1,26 @@
 import React from 'react'
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
+
+import routes from './Router'
 
 import NavBar from './layouts/NavBar'
 import View from './layouts/View'
-// import Builder from './Builder'
-// import SignUp from './auth/SignUp'
-import SignIn from './auth/SignIn'
 
 const App = () => {
   return (
-    <>
+    <Router>
       <NavBar />
       <View>
-        {/* <Builder /> */}
-        <SignIn />
+        <Switch>
+          {
+            routes.map(route => (
+              <Route key={route.path} {...route} />
+            ))
+          }
+          <Redirect to="/notfound" />
+        </Switch>
       </View>
-    </>
+    </Router>
   )
 }
 
