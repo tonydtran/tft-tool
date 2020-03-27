@@ -3,7 +3,8 @@ import React from 'react'
 import NavBar from './layouts/NavBar'
 import View from './layouts/View'
 // import Builder from './Builder'
-import SignUp from './auth/SignUp'
+// import SignUp from './auth/SignUp'
+import SignIn from './auth/SignIn'
 
 const App = () => {
   return (
@@ -11,7 +12,7 @@ const App = () => {
       <NavBar />
       <View>
         {/* <Builder /> */}
-        <SignUp />
+        <SignIn />
       </View>
     </>
   )
