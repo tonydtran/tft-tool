@@ -32,7 +32,12 @@ const NavBar = () => {
                   <Link to="/signin" label="Sign in" />
                 </>
               )
-            : <Nav.Link onClick={firebase.doSignOut}>Logout</Nav.Link>
+            : (
+                <>
+                  <Link to="/settings" label="Settings" />
+                  <Nav.Link onClick={firebase.doSignOut}>Logout</Nav.Link>
+                </>
+            )
           }
         </NavContainer>
       </Navbar.Collapse>

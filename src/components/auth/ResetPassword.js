@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -72,6 +73,11 @@ const ResetPassword = ({ history }) => {
           </Button>
         </Form>
       </FormContainer>
+      <div className="text-center mt-2">
+        <p className="mt-4">
+          Don't have an account? <Link to="/signup">Sign up here!</Link>
+        </p>
+      </div>
     </>
   )
 }
