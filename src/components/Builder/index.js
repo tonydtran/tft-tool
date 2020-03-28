@@ -5,7 +5,7 @@ import BoardSet from '../../models/BoardSet'
 import champions from '../../data/champions.json'
 
 import Board from './Board'
-
+// TODO extract board logic into another component
 class Builder extends Component {
   constructor (props) {
     super(props)
@@ -13,20 +13,25 @@ class Builder extends Component {
     const defaultBoard = new BoardSet()
 
     this.state = {
-      boardData: {
-        ...defaultBoard,
-        a: {...defaultBoard.a, a4: { ...defaultBoard.a.a4, champ: champions['ahri'], carry: false, items: [1, 2, 3] }},
-        b: { ...defaultBoard.b, b4: { ...defaultBoard.b.b4, champ: champions['syndra'] }, b5: { ...defaultBoard.b.b5, champ: champions['zoe'] }},
+      collection: {
+        id: 'test',
+        boards: [
+          {
+            ...defaultBoard,
+            board: {
+              a: { ...defaultBoard.board.a, a4: { ...defaultBoard.board.a.a4, champ: champions['ahri'], carry: false, items: [1, 2, 3] } },
+              b: { ...defaultBoard.board.b, b4: { ...defaultBoard.board.b.b4, champ: champions['syndra'] }, b5: { ...defaultBoard.board.b.b5, champ: champions['zoe'] } },
+            }
+          }
+        ]
       }
     }
-    // this.state = {
-    //   boardData: new BoardSet()
-    // }
   }
 
   handleChangePosition = (origin, target) => {
     if (origin.id !== target.id) {
-      const { boardData } = this.state
+      const { collection: { boards } } = this.state
+      const { board: boardData } = boards[0]
 
       boardData[target.row][target.id] = {
         ...target,
@@ -42,12 +47,23 @@ class Builder extends Component {
         carry: target.carry
       }
 
-      this.setState({ boardData })
+      this.setState({
+        collection: {
+          ...this.state.collection,
+          boards: [
+            {
+              ...this.state.collection.boards[0],
+              board: boardData
+            }
+          ]
+        }
+      })
     }
   }
 
   render () {
-    const { boardData } = this.state
+    const { collection: { boards } } = this.state
+    const { board: boardData } = boards[0]
 
     return (
       <>
