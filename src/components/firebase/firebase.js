@@ -38,18 +38,15 @@ class Firebase {
     return this.auth.currentUser.updatePassword(password)
   }
 
-  doPasswordReset = email => this.auth.sendPasswordResetEmail(email)
-
-  doPasswordUpdate = password => this.auth.updatePassword(password)
+  doEmailUpdate = email => {
+    return this.auth.currentUser.updateEmail(email)
+  }
 
   // Database API
   //- Users API
   user = uid => this.db.ref(`users/${uid}`)
 
-  getUserData = async uid => {
-    const userData = this.db.ref(`/users/${uid}`).once('value')
-    return userData.val()
-  }
+  getUserData = uid => this.db.ref(`/users/${uid}`).once('value')
 
   users = () => this.db.ref('users')
 }

@@ -18,7 +18,7 @@ const firebaseErrorHandler = error => {
   }
 }
 
-const SignUp = () => {
+const SignUp = ({ history }) => {
   const firebase = useContext(FirebaseContext)
   const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, errors, setError, watch } = useForm()
@@ -34,6 +34,7 @@ const SignUp = () => {
         role: ['user'],
         username: email.substring(0, email.indexOf('@'))
       })
+      history.push('/settings')
     } catch (err) {
       setIsLoading(false)
       const { field, type, message } = firebaseErrorHandler(err)

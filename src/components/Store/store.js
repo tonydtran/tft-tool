@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import StoreContext from './context' 
+import StoreContext from './context'
 
 class StoreProvider extends Component {
   constructor(props) {
@@ -13,22 +13,20 @@ class StoreProvider extends Component {
 
   addMessage = message => {
     const messages = [...this.state.messages, message]
-    return this.setState({ messages }, () => this.state.messages)
+    this.setState({ messages })
   }
 
   deleteMessage = id => {
     const { messages } = this.state
     if (messages.length > 0) {
-      return this.setState({
+      this.setState({
         messages: messages.filter(message => message.id !== id)
-      }, () => this.state.messages)
+      })
     }
-
-    return messages
   }
 
   clearMessages = () => {
-    return this.setState({ messages: [] }, () => this.state.message)
+    this.setState({ messages: [] })
   }
 
   render () {
