@@ -3,15 +3,15 @@ import ReactDOM from 'react-dom'
 import 'drag-drop-touch'
 
 import Firebase, { FirebaseContext } from './components/Firebase'
-import Store, { StoreContext } from './components/Store'
+import StoreProvider from './components/Store'
 
 import App from './components/App'
 
 ReactDOM.render(
   <FirebaseContext.Provider value={new Firebase()}>
-    <StoreContext.Provider value={new Store()}>
-      <App />
-    </StoreContext.Provider>
+    <StoreProvider>
+      {() => <App />}
+    </StoreProvider>
   </FirebaseContext.Provider>,
   document.getElementById('root')
 )

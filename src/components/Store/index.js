@@ -1,6 +1,6 @@
 import StoreContext from './context'
-import Store from './store'
+import StoreProvider from './store'
 
-export default Store
+export default StoreProvider
 
 export { StoreContext }

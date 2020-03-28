@@ -1,16 +1,14 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 
 import routes from './Router'
 import { withAuthentication } from './Session'
-import { StoreContext } from './Store'
 
 import NavBar from './layouts/NavBar'
 import View from './layouts/View'
+import Toasts from './layouts/Toasts'
 
 const App = () => {
-  const store = useContext(StoreContext)
-  console.log(store)
   return (
     <Router>
       <NavBar />
@@ -24,6 +22,7 @@ const App = () => {
           <Redirect to="/notfound" />
         </Switch>
       </View>
+      <Toasts />
     </Router>
   )
 }

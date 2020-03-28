@@ -14,16 +14,16 @@ const row = letter => {
   return newRow
 }
 
-const board = ROWS.reduce((acc, rowLetter) => {
+const emptyBoard = ROWS.reduce((acc, rowLetter) => {
   return {
     ...acc,
     [rowLetter]: row(rowLetter)
   }
 }, {})
 
-export default function BoardSet() {
+export default function BoardSet(board) {
   return {
     id: Math.random().toString(36).substr(2, 9),
-    board
+    board: board ? board : emptyBoard
   }
 }
