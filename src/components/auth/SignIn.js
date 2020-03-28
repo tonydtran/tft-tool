@@ -25,8 +25,8 @@ const SignIn = () => {
   const onSubmit = async ({ email, password }) => {
     setIsLoading(true)
     try {
-      const authUser = await firebase.doSignInWithEmailAndPassword(email, password)
-      console.log(authUser)
+      await firebase.doSignInWithEmailAndPassword(email, password)
+      console.log('Sign in success')
     } catch (err) {
       setIsLoading(false)
       const { field, type, message } = firebaseErrorHandler(err)

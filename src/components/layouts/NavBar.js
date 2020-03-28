@@ -2,14 +2,15 @@ import React, { useContext } from 'react'
 import { NavLink, useRouteMatch } from 'react-router-dom'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-import Button from 'react-bootstrap/Button'
 // import NavDropdown from 'react-bootstrap/NavDropdown'
 
+import { FirebaseContext } from '../Firebase'
 import { AuthUserContext } from '../Session'
 
 // Documentation: https://react-bootstrap.github.io/components/navbar/#navbars-mobile-friendly
 
 const NavBar = () => {
+  const firebase = useContext(FirebaseContext)
   const authUser = useContext(AuthUserContext)
 
   return (
@@ -23,14 +24,12 @@ const NavBar = () => {
           {
             !authUser
             ? (
-              <>
-                <Link to="/signup" label="Sign up" />
-                <Link to="/signin" label="Sign in" />
-              </>
-            )
-            : (
-                <Nav.Link>Logout</Nav.Link>
-            )
+                <>
+                  <Link to="/signup" label="Sign up" />
+                  <Link to="/signin" label="Sign in" />
+                </>
+              )
+            : <Nav.Link onClick={firebase.doSignOut}>Logout</Nav.Link>
           }
         </Nav>
       </Navbar.Collapse>
