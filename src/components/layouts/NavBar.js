@@ -41,10 +41,10 @@ const NavBar = () => {
 }
 
 const NavContainer = styled(Nav)`
-  margin-top: 0;
+  margin-top: 16px;
 
-  @media ${viewports.mobile} {
-    margin-top: 16px;
+  @media ${viewports.tablet} {
+    margin-top: 0;
   }
 `
 
