@@ -8,10 +8,10 @@ import { FirebaseContext } from '../Firebase'
 const withAuthorization = condition => Component => props => {
   const firebase = useContext(FirebaseContext)
   const authUser = useContext(AuthUserContext)
+  const history = useHistory()
 
   useEffect(() => {
-    const listener = firebase.auth.onAuthStateChanged(authUser => {
-      const history = useHistory()
+    const listener = firebase.auth.onAuthStateChanged(async authUser => {
       if (!condition(authUser)) history.push('/signin')
     })
 

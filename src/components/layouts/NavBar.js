@@ -35,7 +35,7 @@ const NavBar = () => {
             : (
                 <>
                   <Link to="/settings" label="Settings" />
-                  <Nav.Link onClick={firebase.doSignOut}>Logout</Nav.Link>
+                  <Nav.Link onClick={firebase.doSignOut}>Sign Out</Nav.Link>
                 </>
             )
           }

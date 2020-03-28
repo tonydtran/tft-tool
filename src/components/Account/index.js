@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { withAuthorization } from '../Session'
+
 const Settings = () => {
   return (
     <>
@@ -8,4 +10,6 @@ const Settings = () => {
   )
 }
 
-export default Settings
+const condition = authUser => !!authUser
+
+export default withAuthorization(condition)(Settings)

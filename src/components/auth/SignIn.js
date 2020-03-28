@@ -18,7 +18,7 @@ const firebaseErrorHandler = error => {
   }
 }
 
-const SignIn = () => {
+const SignIn = ({ history }) => {
   const firebase = useContext(FirebaseContext)
   const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, errors, setError } = useForm()
@@ -26,8 +26,8 @@ const SignIn = () => {
   const onSubmit = async ({ email, password }) => {
     setIsLoading(true)
     try {
-      const test = await firebase.doSignInWithEmailAndPassword(email, password)
-      console.log(test)
+      await firebase.doSignInWithEmailAndPassword(email, password)
+      history.push('/settings')
     } catch (err) {
       setIsLoading(false)
       const { field, type, message } = firebaseErrorHandler(err)

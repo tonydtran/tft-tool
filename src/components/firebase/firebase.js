@@ -46,6 +46,11 @@ class Firebase {
   //- Users API
   user = uid => this.db.ref(`users/${uid}`)
 
+  getUserData = async uid => {
+    const userData = this.db.ref(`/users/${uid}`).once('value')
+    return userData.val()
+  }
+
   users = () => this.db.ref('users')
 }
 
