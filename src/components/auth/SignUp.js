@@ -110,7 +110,7 @@ const SignUp = () => {
             block
             disabled={Object.keys(errors).length > 0 || isLoading}
           >
-            { isLoading ? 'Loading...' : 'Submit' }
+            { isLoading ? 'Loading...' : 'Sign Up' }
           </Button>
         </Form>
       </FormContainer>
