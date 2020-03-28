@@ -1,8 +1,11 @@
 import React, { useContext } from 'react'
+import styled from 'styled-components'
 import { NavLink, useRouteMatch } from 'react-router-dom'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 // import NavDropdown from 'react-bootstrap/NavDropdown'
+
+import viewports from '../../vars/viewports'
 
 import { FirebaseContext } from '../Firebase'
 import { AuthUserContext } from '../Session'
@@ -20,7 +23,7 @@ const NavBar = () => {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
-        <Nav className="mt-3">
+        <NavContainer>
           {
             !authUser
             ? (
@@ -31,11 +34,19 @@ const NavBar = () => {
               )
             : <Nav.Link onClick={firebase.doSignOut}>Logout</Nav.Link>
           }
-        </Nav>
+        </NavContainer>
       </Navbar.Collapse>
     </Navbar>
   )
 }
+
+const NavContainer = styled(Nav)`
+  margin-top: 0;
+
+  @media ${viewports.mobile} {
+    margin-top: 16px;
+  }
+`
 
 const Link = ({ to, label }) => {
   const match = useRouteMatch(to)

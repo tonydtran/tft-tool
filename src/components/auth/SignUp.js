@@ -8,6 +8,8 @@ import { FirebaseContext } from '../Firebase'
 // import viewports from '../../vars/viewports'
 
 const firebaseErrorHandler = error => {
+  // TODO: Check once write/read change if errors change as well
+  // This method might be not valid anymore
   return {
     field: error.code.includes('password') ? 'password' : 'email',
     type: error.code.replace('auth/', ''),
@@ -23,8 +25,16 @@ const SignUp = () => {
   const onSubmit = async ({ email, password }) => {
     setIsLoading(true)
     try {
-      await firebase.doCreateUserWithEmailAndPassword(email, password)
+      const authUser = await firebase.doCreateUserWithEmailAndPassword(email, password)
       console.log('Sign up success')
+      console.log(authUser)
+      // TODO: Change db write/read rules before deploying
+      // https://firebase.google.com/docs/database/security/quickstart#sample-rules
+      await firebase.user(authUser.user.uid).set({
+        email,
+        role: []
+      })
+      console.log('User created')
     } catch (err) {
       setIsLoading(false)
       const { field, type, message } = firebaseErrorHandler(err)
