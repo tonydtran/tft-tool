@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 // import styled from 'styled-components'
 
-import { BOARD } from '../../vars/game'
+import BoardSet from '../../models/BoardSet'
 import champions from '../../data/champions.json'
 
 import Board from './Board'
@@ -10,15 +10,17 @@ class Builder extends Component {
   constructor (props) {
     super(props)
 
+    const defaultBoard = new BoardSet()
+
     this.state = {
       boardData: {
-        ...BOARD,
-        a: {...BOARD.a, a4: { ...BOARD.a.a4, champ: champions['ahri'], carry: false, items: [1, 2, 3] }},
-        b: { ...BOARD.b, b4: { ...BOARD.b.b4, champ: champions['syndra'] }, b5: { ...BOARD.b.b5, champ: champions['zoe'] }},
+        ...defaultBoard,
+        a: {...defaultBoard.a, a4: { ...defaultBoard.a.a4, champ: champions['ahri'], carry: false, items: [1, 2, 3] }},
+        b: { ...defaultBoard.b, b4: { ...defaultBoard.b.b4, champ: champions['syndra'] }, b5: { ...defaultBoard.b.b5, champ: champions['zoe'] }},
       }
     }
     // this.state = {
-    //   boardData: BOARD
+    //   boardData: new BoardSet()
     // }
   }
 

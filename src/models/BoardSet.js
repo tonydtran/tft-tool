@@ -14,9 +14,13 @@ const row = letter => {
   return newRow
 }
 
-export const BOARD = ROWS.reduce((acc, rowLetter) => {
+const board = ROWS.reduce((acc, rowLetter) => {
   return {
     ...acc,
     [rowLetter]: row(rowLetter)
   }
 }, {})
+
+export default function BoardSet() {
+  return board
+}
