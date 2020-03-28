@@ -2,14 +2,12 @@ import React, { Component } from 'react'
 
 import StoreContext from './context' 
 
-import Message from '../../models/Message'
-
 class StoreProvider extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      messages: [new Message('Reset link sent!', 'Please check your spam box')]
+      messages: []
     }
   }
 
@@ -35,7 +33,7 @@ class StoreProvider extends Component {
 
   render () {
     const { children } = this.props
- 
+
     return (
       <StoreContext.Provider value={this}>
         {children()}

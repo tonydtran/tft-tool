@@ -27,8 +27,6 @@ const SignUp = () => {
     setIsLoading(true)
     try {
       const authUser = await firebase.doCreateUserWithEmailAndPassword(email, password)
-      console.log('Sign up success')
-      console.log(authUser)
       // TODO: Change db write/read rules before deploying
       // https://firebase.google.com/docs/database/security/quickstart#sample-rules
       await firebase.user(authUser.user.uid).set({
@@ -36,7 +34,6 @@ const SignUp = () => {
         role: ['user'],
         username: email.substring(0, email.indexOf('@'))
       })
-      console.log('User created')
     } catch (err) {
       setIsLoading(false)
       const { field, type, message } = firebaseErrorHandler(err)

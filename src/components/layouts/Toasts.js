@@ -39,7 +39,7 @@ const Container = styled.div`
 `
 
 const AutoToast = ({ message: { id, title, body }, onClose }) => (
-  <Toast autohide delay={3000} onClose={() => onClose(id)}>
+  <Toast autohide delay={5000} onClose={() => onClose(id)}>
     <Toast.Header>
       <strong className="mr-auto">
         {title}

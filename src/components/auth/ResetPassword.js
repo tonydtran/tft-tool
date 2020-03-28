@@ -4,7 +4,9 @@ import { useForm } from 'react-hook-form'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
+import { StoreContext } from '../Store'
 import { FirebaseContext } from '../Firebase'
+import Message from '../../models/Message'
 // import viewports from '../../vars/viewports'
 
 const firebaseErrorHandler = error => {
@@ -19,6 +21,7 @@ const firebaseErrorHandler = error => {
 
 const ResetPassword = ({ history }) => {
   const firebase = useContext(FirebaseContext)
+  const store = useContext(StoreContext)
   const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, errors, setError } = useForm()
 
@@ -26,12 +29,14 @@ const ResetPassword = ({ history }) => {
     setIsLoading(true)
     try {
       await firebase.doPasswordReset(email)
-      console.log('Reset link sent')
+      store.addMessage(new Message(
+        'Reset link sent!',
+        "You should receive it soon in your mail box. Don't forget to check your spam box ;)"
+      ))
       history.push('/signin')
     } catch (err) {
       const { field, type, message } = firebaseErrorHandler(err)
       setError(field, type, message)
-    } finally {
       setIsLoading(false)
     }
   }

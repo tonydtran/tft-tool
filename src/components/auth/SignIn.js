@@ -27,7 +27,6 @@ const SignIn = () => {
     setIsLoading(true)
     try {
       await firebase.doSignInWithEmailAndPassword(email, password)
-      console.log('Sign in success')
     } catch (err) {
       setIsLoading(false)
       const { field, type, message } = firebaseErrorHandler(err)
