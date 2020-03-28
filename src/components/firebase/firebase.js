@@ -38,6 +38,10 @@ class Firebase {
     return this.auth.currentUser.updatePassword(password)
   }
 
+  doPasswordReset = email => this.auth.sendPasswordResetEmail(email)
+
+  doPasswordUpdate = password => this.auth.updatePassword(password)
+
   // Database API
   //- Users API
   user = uid => this.db.ref(`users/${uid}`)

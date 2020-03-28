@@ -13,10 +13,10 @@ const View = ({ children }) => {
 
 const Container = styled.div`
   display: block;
-  padding: 2rem 1rem;
+  padding: 1rem 1rem 2rem;
 
   @media ${viewports.desktop} {
-    padding: 2rem 4rem;
+    padding: 1rem 4rem 2rem;
   }
 `
 

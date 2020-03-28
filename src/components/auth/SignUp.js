@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -32,7 +33,8 @@ const SignUp = () => {
       // https://firebase.google.com/docs/database/security/quickstart#sample-rules
       await firebase.user(authUser.user.uid).set({
         email,
-        role: []
+        role: ['user'],
+        username: email.substring(0, email.indexOf('@'))
       })
       console.log('User created')
     } catch (err) {
@@ -101,7 +103,7 @@ const SignUp = () => {
             <Form.Text>To make sure you won't ask for a password reset in a minute</Form.Text>
           </Form.Group>
           <Button
-            className="mt-5"
+            className="mt-4"
             variant="primary"
             type="submit"
             size="lg"
@@ -112,6 +114,11 @@ const SignUp = () => {
           </Button>
         </Form>
       </FormContainer>
+      <div className="text-center mt-2">
+        <p>
+          Already have an account? <Link to="/signin">Sign in here!</Link>
+        </p>
+      </div>
     </>
   )
 }
