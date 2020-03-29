@@ -1,21 +1,20 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Toast from 'react-bootstrap/Toast'
 
 import viewports from '../../vars/viewports'
-import { StoreContext } from '../Store'
+// import { StoreContext } from '../Store'
 
-const Toasts = () => {
-  const store = useContext(StoreContext)
-
+const Toasts = ({ messages, deleteMessage }) => {
   const onClose = id => {
-    store.deleteMessage(id)
+    deleteMessage(id)
   }
 
   return (
     <Container>
       {
-        store.state.messages.map(message => (
+        messages.map(message => (
           <AutoToast key={message.id} message={message} onClose={onClose} />
         ))
       }
@@ -52,5 +51,10 @@ const AutoToast = ({ message: { id, title, body, duration }, onClose }) => (
     )}
   </Toast>
 )
+
+Toasts.propTypes = {
+  messages: PropTypes.array.isRequired,
+  deleteMessage: PropTypes.func.isRequired
+}
 
 export default Toasts

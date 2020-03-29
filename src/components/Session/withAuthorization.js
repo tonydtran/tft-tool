@@ -12,7 +12,7 @@ const withAuthorization = condition => Component => props => {
 
   useEffect(() => {
     const listener = firebase.auth.onAuthStateChanged(async authUser => {
-      if (!condition(authUser)) history.push('/signin')
+      if (!condition(authUser)) history.push('/')
     })
 
     return () => listener()

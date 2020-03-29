@@ -1,8 +1,9 @@
-import React, { Suspense } from 'react'
+import React, { useContext, Suspense } from 'react'
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 
 import routes from './Router'
 import { withAuthentication } from './Session'
+import { StoreContext } from './Store'
 
 import ErrorBoundary from './layouts/ErrorBoundary'
 import Loading from './layouts/Loading'
@@ -11,6 +12,7 @@ import View from './layouts/View'
 import Toasts from './layouts/Toasts'
 
 const App = () => {
+  const { state: { messages }, deleteMessage } = useContext(StoreContext)
   return (
     <Router>
       <NavBar />
@@ -28,7 +30,7 @@ const App = () => {
           </Suspense>
         </ErrorBoundary>
       </View>
-      <Toasts />
+      {messages.length > 0 && <Toasts messages={messages} deleteMessage={deleteMessage} />}
     </Router>
   )
 }
