@@ -1,3 +1,7 @@
+// NOTE: Prepare for code splitting
+// import React from 'react'
+// const MyComponent = React.lazy(() => import('...'))
+
 import SignUp from './auth/SignUp'
 import SignIn from './auth/SignIn'
 import ResetPassword from './auth/ResetPassword'
