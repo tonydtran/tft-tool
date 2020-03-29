@@ -8,6 +8,7 @@ import Card from 'react-bootstrap/Card'
 
 import { StoreContext } from '../Store'
 import { FirebaseContext } from '../Firebase'
+import { AuthUserContext } from '../Session'
 import Message from '../../models/Message'
 // import viewports from '../../vars/viewports'
 
@@ -24,6 +25,7 @@ const firebaseErrorHandler = error => {
 const ResetPassword = ({ history }) => {
   const firebase = useContext(FirebaseContext)
   const store = useContext(StoreContext)
+  const authUser = useContext(AuthUserContext)
   const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, errors, setError } = useForm()
 
@@ -45,6 +47,15 @@ const ResetPassword = ({ history }) => {
 
   return (
     <>
+      {
+        authUser && (
+          <div className="mt-2 mb-2">
+            <Link to="/settings/update_password">
+              <i className="fas fa-chevron-left fa-sm" /> Update password
+            </Link>
+          </div>
+        )
+      }
       <h1>Reset Password</h1>
       <Card bg="dark">
         <Card.Body>
@@ -78,11 +89,15 @@ const ResetPassword = ({ history }) => {
               }
             </Button>
           </Form>
-          <div className="text-center mt-4">
-            <p className="mb-0">
-              Don't have an account? <Link to="/signup">Sign up here!</Link>
-            </p>
-          </div>
+          {
+            !authUser && (
+              <div className="text-center mt-4">
+                <p className="mb-0">
+                  Don't have an account? <Link to="/signup">Sign up here!</Link>
+                </p>
+              </div>
+            )
+          }
         </Card.Body>
       </Card>
     </>

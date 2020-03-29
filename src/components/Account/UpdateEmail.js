@@ -21,7 +21,7 @@ const firebaseErrorHandler = error => {
   }
 }
 
-const Settings = () => {
+const UpdateEmail = ({ history }) => {
   const firebase = useContext(FirebaseContext)
   const store = useContext(StoreContext)
   const [isLoading, setIsLoading] = useState(true)
@@ -51,10 +51,10 @@ const Settings = () => {
         "Your email address has been updated. Don't forget to use it as your new login for your next sign in!",
         10000
       ))
+      history.push('/settings')
     } catch (err) {
       const { field, type, message } = firebaseErrorHandler(err)
       setError(field, type, message)
-    } finally {
       setIsLoading(false)
     }
   }
@@ -118,4 +118,4 @@ const Settings = () => {
 
 const condition = authUser => !!authUser
 
-export default withAuthorization(condition)(Settings)
+export default withAuthorization(condition)(UpdateEmail)

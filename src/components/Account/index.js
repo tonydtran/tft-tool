@@ -28,19 +28,29 @@ const Settings = () => {
           <h4 className="mb-0">My account</h4>
         </Card.Header>
         <Card.Body>
-          <div className="d-flex justify-content-between mb-2">
-            <p className="font-weight-bold mb-0">Email address</p>
-            <Link to="/settings/update_email">
-              <i className="fas fa-pencil-alt fa-sm" /> Edit
-            </Link>
+          <div className="mb-4">
+            <div className="d-flex justify-content-between mb-2">
+              <p className="font-weight-bold mb-0">Email address</p>
+              <Link to="/settings/update_email">
+                <i className="fas fa-pencil-alt fa-sm" /> Edit
+              </Link>
+            </div>
+            <p>
+              {
+                userEmail
+                  ? userEmail
+                  : <Spinner as="span" animation="border" variant="light" size="sm" />
+              }
+            </p>
           </div>
-          <p>
-            {
-              userEmail
-                ? userEmail
-                : <Spinner as="span" animation="border" variant="light" size="sm" />
-            }
-          </p>
+          <div className="">
+            <div className="d-flex justify-content-between mb-2">
+              <p className="font-weight-bold mb-0">Password</p>
+              <Link to="/settings/update_password">
+                <i className="fas fa-pencil-alt fa-sm" /> Edit
+              </Link>
+            </div>
+          </div>
         </Card.Body>
       </Card>
     </>
