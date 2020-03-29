@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Spinner from 'react-bootstrap/Spinner'
 
 import { FirebaseContext } from '../Firebase'
 // import viewports from '../../vars/viewports'
@@ -108,7 +109,11 @@ const SignUp = ({ history }) => {
             block
             disabled={Object.keys(errors).length > 0 || isLoading}
           >
-            { isLoading ? 'Loading...' : 'Sign Up' }
+            {
+              isLoading
+                ? <Spinner as="span" animation="border" variant="light" />
+                : 'Sign up'
+            }
           </Button>
         </Form>
       </FormContainer>

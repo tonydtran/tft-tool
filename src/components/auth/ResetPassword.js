@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Spinner from 'react-bootstrap/Spinner'
 
 import { StoreContext } from '../Store'
 import { FirebaseContext } from '../Firebase'
@@ -69,7 +70,11 @@ const ResetPassword = ({ history }) => {
             block
             disabled={Object.keys(errors).length > 0 || isLoading}
           >
-            {isLoading ? 'Loading...' : 'Send reset link'}
+            {
+              isLoading
+                ? <Spinner className="ml-2" as="span" animation="border" variant="light" size="sm" />
+                : 'Send reset link'
+            }
           </Button>
         </Form>
       </FormContainer>

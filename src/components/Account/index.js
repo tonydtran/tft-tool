@@ -1,29 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react'
-import styled from 'styled-components'
+// import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
+// import Button from 'react-bootstrap/Button'
+import Spinner from 'react-bootstrap/Spinner'
 
 import { FirebaseContext } from '../Firebase'
 import { withAuthorization } from '../Session'
-import { StoreContext } from '../Store'
-import Message from '../../models/Message'
-
-const firebaseErrorHandler = error => {
-  // const isEmailRelated = error.code.includes('email')
-
-  // return {
-  //   field: isEmailRelated ? 'email' : 'password',
-  //   type: error.code.replace('auth/', ''),
-  //   message: error.message
-  // }
-}
 
 const Settings = () => {
   const firebase = useContext(FirebaseContext)
-  const store = useContext(StoreContext)
-  const [isLoading, setIsLoading] = useState(true)
   const [userEmail, setUserEmail] = useState('')
 
   useEffect(() => {
@@ -31,90 +17,33 @@ const Settings = () => {
       const userData = await firebase.getUserData(firebase.auth.currentUser.uid)
 
       setUserEmail(userData.val().email)
-      setIsLoading(false)
     })()
   }, [firebase])
 
-  const { register, handleSubmit, errors, setError } = useForm()
-
-  const onSubmit = async ({email, password}) => {
-    setIsLoading(true)
-    try {
-      const authUser = await firebase.doSignInWithEmailAndPassword(userEmail, password)
-      await firebase.doEmailUpdate(email)
-      await firebase.user(authUser.user.uid).update({
-        email
-      })
-      store.addMessage(new Message(
-        'GGWP!',
-        "Your email address has been updated. Don't forget to use it as your new login for your next sign in!",
-        10000
-      ))
-    } catch (err) {
-      const { field, type, message } = firebaseErrorHandler(err)
-      setError(field, type, message)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
   return (
     <>
-      <h1>Settings</h1>
-      <FormContainer>
-        <Form noValidate onSubmit={handleSubmit(onSubmit)}>
-          <Form.Group controlId="email">
-            <Form.Label>My email address</Form.Label>
-            <Form.Control
-              name="email"
-              type="email"
-              defaultValue={userEmail}
-              placeholder="typical.yasuo@rito.com"
-              isInvalid={errors.email}
-              ref={register({ required: 'Required.' })}
-            />
-            {errors.email && (
-              <Form.Control.Feedback type="invalid">{errors.email.message}</Form.Control.Feedback>
-            )}
-            <Form.Text>Used as login</Form.Text>
-          </Form.Group>
-          <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              name="password"
-              type="password"
-              isInvalid={errors.password}
-              ref={register({ required: 'Required' })}
-            />
-            { errors.password && (
-              <Form.Control.Feedback type="invalid">{errors.password.message}</Form.Control.Feedback>
-            )}
-            <Form.Text>Enter your password to update your email address</Form.Text>
-          </Form.Group>
-          <Button
-            className="mt-4"
-            variant="primary"
-            type="submit"
-            block
-            disabled={Object.keys(errors).length > 0 || isLoading}
-          >
-            { isLoading ? 'Loading...' : 'Update my email address' }
-          </Button>
-        </Form>
-      </FormContainer>
-      {/* <div className="text-center mt-2">
-        <Link to="/resetpassword">Forgot your password?</Link>
-        <p className="mt-4">
-          Don't have an account? <Link to="/signup">Sign up here!</Link>
-        </p>
-      </div> */}
+      <h1 className="mb-5">Settings</h1>
+      <Card bg="dark">
+        <Card.Header>
+          <h4 className="mb-0">My account</h4>
+        </Card.Header>
+        <Card.Body>
+          <div className="d-flex justify-content-between mb-2">
+            <p className="font-weight-bold mb-0">Email address</p>
+            <Link to="/settings/change_email">Edit</Link>
+          </div>
+          <p>
+            {
+              userEmail
+                ? userEmail
+                : <Spinner as="span" animation="border" variant="light" size="sm" />
+            }
+          </p>
+        </Card.Body>
+      </Card>
     </>
   )
 }
-
-const FormContainer = styled.div`
-  padding: 1rem;
-`
 
 const condition = authUser => !!authUser
 

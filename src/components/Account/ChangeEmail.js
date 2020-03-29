@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -7,45 +7,72 @@ import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 
 import { FirebaseContext } from '../Firebase'
-// import viewports from '../../vars/viewports'
+import { withAuthorization } from '../Session'
+import { StoreContext } from '../Store'
+import Message from '../../models/Message'
 
 const firebaseErrorHandler = error => {
-  const isPasswordRelated = error.code.includes('password')
+  const isEmailRelated = error.code.includes('email')
 
   return {
-    field: isPasswordRelated ? 'password' : 'email',
+    field: isEmailRelated ? 'email' : 'password',
     type: error.code.replace('auth/', ''),
     message: error.message
   }
 }
 
-const SignIn = ({ history }) => {
+const Settings = () => {
   const firebase = useContext(FirebaseContext)
-  const [isLoading, setIsLoading] = useState(false)
+  const store = useContext(StoreContext)
+  const [isLoading, setIsLoading] = useState(true)
+  const [userEmail, setUserEmail] = useState('')
+
+  useEffect(() => {
+    (async () => {
+      const userData = await firebase.getUserData(firebase.auth.currentUser.uid)
+
+      setUserEmail(userData.val().email)
+      setIsLoading(false)
+    })()
+  }, [firebase])
+
   const { register, handleSubmit, errors, setError } = useForm()
 
   const onSubmit = async ({ email, password }) => {
     setIsLoading(true)
     try {
-      await firebase.doSignInWithEmailAndPassword(email, password)
-      history.push('/settings')
+      const authUser = await firebase.doSignInWithEmailAndPassword(userEmail, password)
+      await firebase.doEmailUpdate(email)
+      await firebase.user(authUser.user.uid).update({
+        email
+      })
+      store.addMessage(new Message(
+        'GGWP!',
+        "Your email address has been updated. Don't forget to use it as your new login for your next sign in!",
+        10000
+      ))
     } catch (err) {
-      setIsLoading(false)
       const { field, type, message } = firebaseErrorHandler(err)
       setError(field, type, message)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
     <>
-      <h1>Sign In</h1>
+      <div className="mt-2 mb-2">
+        <Link to="/settings">Settings</Link>
+      </div>
+      <h1>Change email</h1>
       <FormContainer>
         <Form noValidate onSubmit={handleSubmit(onSubmit)}>
           <Form.Group controlId="email">
-            <Form.Label>Email address</Form.Label>
+            <Form.Label>My email address</Form.Label>
             <Form.Control
               name="email"
               type="email"
+              defaultValue={userEmail}
               placeholder="typical.yasuo@rito.com"
               isInvalid={errors.email}
               ref={register({ required: 'Required.' })}
@@ -53,6 +80,7 @@ const SignIn = ({ history }) => {
             {errors.email && (
               <Form.Control.Feedback type="invalid">{errors.email.message}</Form.Control.Feedback>
             )}
+            <Form.Text>Used as login</Form.Text>
           </Form.Group>
           <Form.Group controlId="password">
             <Form.Label>Password</Form.Label>
@@ -62,32 +90,26 @@ const SignIn = ({ history }) => {
               isInvalid={errors.password}
               ref={register({ required: 'Required' })}
             />
-            { errors.password && (
+            {errors.password && (
               <Form.Control.Feedback type="invalid">{errors.password.message}</Form.Control.Feedback>
             )}
+            <Form.Text>Enter your password to update your email address</Form.Text>
           </Form.Group>
           <Button
-            className="mt-5"
+            className="mt-4"
             variant="primary"
             type="submit"
-            size="lg"
             block
             disabled={Object.keys(errors).length > 0 || isLoading}
           >
             {
               isLoading
-                ? <Spinner as="span" animation="border" variant="light" />
-                : 'Sign in'
-            }
+                ? <Spinner className="ml-2" as="span" animation="border" variant="light" size="sm" />
+                : 'Update my email address'
+                }
           </Button>
         </Form>
       </FormContainer>
-      <div className="text-center mt-2">
-        <Link to="/resetpassword">Forgot your password?</Link>
-        <p className="mt-4">
-          Don't have an account? <Link to="/signup">Sign up here!</Link>
-        </p>
-      </div>
     </>
   )
 }
@@ -96,4 +118,6 @@ const FormContainer = styled.div`
   padding: 1rem;
 `
 
-export default React.memo(SignIn)
+const condition = authUser => !!authUser
+
+export default withAuthorization(condition)(Settings)
