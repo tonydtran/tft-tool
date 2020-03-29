@@ -18,7 +18,7 @@ const NavBar = () => {
 
   return (
     <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" fixed="top">
-      <Navbar.Brand as={NavLink} to="/">
+      <Navbar.Brand as={NavLink} to={authUser ? '/builds' : '/'}>
         TFT Tool <small className="text-muted">BETA</small>
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
