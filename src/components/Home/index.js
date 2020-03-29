@@ -1,9 +1,17 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
 
-const Home = ({ history }) => {
+import { AuthUserContext } from '../Session'
+
+const Home = ({ history, location }) => {
+  const authUser = useContext(AuthUserContext)
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location])
+
   return (
     <Container>
       <Banner />
@@ -16,12 +24,12 @@ const Home = ({ history }) => {
           variant="outline-info"
           size="lg"
           block
-          onClick={() => history.push('/signup')}
+          onClick={() => history.push(authUser ? '/settings' : '/signup')}
         >
           Get started
         </Button>
         <p className="text-center mt-4">
-          Already have an account? <Link to="/signin">Sign in here!</Link>
+          Already have an account? <Link to={authUser ? '/settings' : '/signin'}>Sign in here!</Link>
         </p>
       </Content>
     </Container>

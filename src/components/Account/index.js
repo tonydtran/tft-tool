@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
-// import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
-// import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 
 import { FirebaseContext } from '../Firebase'
@@ -53,6 +52,15 @@ const Settings = () => {
           </div>
         </Card.Body>
       </Card>
+      <Button
+        variant="outline-danger"
+        className="mt-5"
+        block
+        size="sm"
+        onClick={firebase.doSignOut}
+      >
+        <i className="fas fa-sign-out-alt fa-sm fa-rotate-180" /> Disconnect
+      </Button>
     </>
   )
 }
