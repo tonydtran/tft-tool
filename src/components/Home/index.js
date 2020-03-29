@@ -44,7 +44,7 @@ const Container = styled.div`
 
 const Content = styled.div`
   display: block;
-  margin: 2rem 1rem;
+  margin: 2rem 1rem 3rem;
 `
 
 const Banner = styled.div`
