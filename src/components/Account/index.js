@@ -30,7 +30,9 @@ const Settings = () => {
         <Card.Body>
           <div className="d-flex justify-content-between mb-2">
             <p className="font-weight-bold mb-0">Email address</p>
-            <Link to="/settings/change_email">Edit</Link>
+            <Link to="/settings/update_email">
+              <i className="fas fa-pencil-alt fa-sm" /> Edit
+            </Link>
           </div>
           <p>
             {

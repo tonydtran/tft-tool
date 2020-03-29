@@ -28,14 +28,25 @@ const NavBar = () => {
             !authUser
             ? (
                 <>
-                  <Link to="/signup" label="Sign up" />
-                  <Link to="/signin" label="Sign in" />
+                  <Link
+                    to="/signup"
+                    label={<><i className="fas fa-user-plus fa-sm" /> Sign up</>}
+                  />
+                  <Link
+                    to="/signin"
+                    label={<><i className="fas fa-sign-in-alt fa-sm" /> Sign in</>}
+                  />
                 </>
               )
             : (
                 <>
-                  <Link to="/settings" label="Settings" />
-                  <Nav.Link onClick={firebase.doSignOut}>Sign Out</Nav.Link>
+                  <Link
+                    to="/settings"
+                    label={<><i className="fas fa-cog fa-sm"/> Settings</>}
+                  />
+                  <Nav.Link onClick={firebase.doSignOut}>
+                    <i className="fas fa-sign-out-alt fa-sm fa-rotate-180" /> Sign Out
+                  </Nav.Link>
                 </>
             )
           }

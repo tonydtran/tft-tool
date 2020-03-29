@@ -62,9 +62,11 @@ const Settings = () => {
   return (
     <>
       <div className="mt-2 mb-2">
-        <Link to="/settings">Settings</Link>
+        <Link to="/settings">
+          <i className="fas fa-chevron-left fa-sm" /> Settings
+        </Link>
       </div>
-      <h1>Change email</h1>
+      <h1>Update email</h1>
       <FormContainer>
         <Form noValidate onSubmit={handleSubmit(onSubmit)}>
           <Form.Group controlId="email">
@@ -73,7 +75,6 @@ const Settings = () => {
               name="email"
               type="email"
               defaultValue={userEmail}
-              placeholder="typical.yasuo@rito.com"
               isInvalid={errors.email}
               ref={register({ required: 'Required.' })}
             />

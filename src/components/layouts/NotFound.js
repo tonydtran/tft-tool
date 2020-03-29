@@ -8,10 +8,10 @@ const NotFound = ({ history }) => (
     <h1>Page not found</h1>
     <p>
       The content you were looking for does not exist.
-      </p>
-    <Button variant="link" onClick={() => history.goBack()}>
-      Back
-      </Button>
+    </p>
+    <Button className="p-0 mt-4" variant="link" onClick={() => history.goBack()}>
+      <i className="fas fa-chevron-left fa-sm" /> Back
+    </Button>
   </Jumbotron>
 )
 
