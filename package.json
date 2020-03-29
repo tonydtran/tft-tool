@@ -27,7 +27,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "map": "node ./utils/dataMapper.js",
-    "generate": "node ./utils/generateEmptyRecommendedItems.js"
+    "generate": "node ./utils/generateEmptyRecommendedItems.js",
+    "deploy:staging": "yarn build:staging && firebase use staging && firebase deploy",
+    "deploy:prod": "yarn build && firebase use production && firebase deploy"
   },
   "eslintConfig": {
     "extends": "react-app"
