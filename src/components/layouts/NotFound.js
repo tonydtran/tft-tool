@@ -2,7 +2,6 @@ import React from 'react'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button'
 
-// TODO: Remplace the history.replace to actual home page
 const NotFound = ({ history }) => (
   <Jumbotron>
     <h1>Page not found</h1>
@@ -17,7 +16,7 @@ const NotFound = ({ history }) => (
           </Button>
         )
         : (
-          <Button className="p-0 mt-4" variant="link" onClick={() => history.replace('/signup')}>
+          <Button className="p-0 mt-4" variant="link" onClick={() => history.replace('/')}>
             <i className="fas fa-chevron-left fa-sm" /> Home
           </Button>
         )

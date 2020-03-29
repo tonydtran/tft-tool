@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { withAuthorization } from '../Session'
+
 const MyBuilds = () => {
   return (
     <>
@@ -8,4 +10,6 @@ const MyBuilds = () => {
   )
 }
 
-export default MyBuilds
+const condition = authUser => !!authUser
+
+export default withAuthorization(condition)(MyBuilds)

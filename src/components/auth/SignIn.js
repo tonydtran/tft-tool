@@ -28,7 +28,7 @@ const SignIn = ({ history }) => {
     setIsLoading(true)
     try {
       await firebase.doSignInWithEmailAndPassword(email, password)
-      history.push('/settings')
+      history.push('/builds')
     } catch (err) {
       setIsLoading(false)
       const { field, type, message } = firebaseErrorHandler(err)

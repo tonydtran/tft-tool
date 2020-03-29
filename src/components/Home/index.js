@@ -24,12 +24,12 @@ const Home = ({ history, location }) => {
           variant="outline-info"
           size="lg"
           block
-          onClick={() => history.push(authUser ? '/settings' : '/signup')}
+          onClick={() => history.push(authUser ? '/builds' : '/signup')}
         >
           Get started
         </Button>
         <p className="text-center mt-4">
-          Already have an account? <Link to={authUser ? '/settings' : '/signin'}>Sign in here!</Link>
+          Already have an account? <Link to={authUser ? '/builds' : '/signin'}>Sign in here!</Link>
         </p>
       </Content>
     </Container>

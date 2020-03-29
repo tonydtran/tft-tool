@@ -41,6 +41,10 @@ const NavBar = () => {
             : (
                 <>
                   <Link
+                    to="/builds"
+                    label={<><i className="fas fa-book fa-sm" /> My builds</>}
+                  />
+                  <Link
                     to="/settings"
                     label={<><i className="fas fa-cog fa-sm"/> Settings</>}
                   />

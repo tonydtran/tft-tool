@@ -39,7 +39,7 @@ const SignUp = ({ history, location }) => {
         role: ['user'],
         username: email.substring(0, email.indexOf('@'))
       })
-      history.push('/settings')
+      history.push('/builds')
     } catch (err) {
       setIsLoading(false)
       const { field, type, message } = firebaseErrorHandler(err)
