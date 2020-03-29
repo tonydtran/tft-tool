@@ -51,13 +51,13 @@ const Content = styled.div`
 const Banner = styled.div`
   display: block;
   height: calc(100vh - 230.375px);
-  background-image: url('/assets/images/banner-1x.jpg');
+  background-image: url('/assets/images/banner-1x.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 
   @media ${viewports.desktop} {
-    background-image: url('/assets/images/banner-2x.jpg');
+    background-image: url('/assets/images/banner-2x.png');
   }
 `
 
