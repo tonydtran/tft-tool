@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react'
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
+import Card from 'react-bootstrap/Card'
 
 import { StoreContext } from '../Store'
 import { FirebaseContext } from '../Firebase'
@@ -46,49 +46,47 @@ const ResetPassword = ({ history }) => {
   return (
     <>
       <h1>Reset Password</h1>
-      <FormContainer>
-        <Form noValidate onSubmit={handleSubmit(onSubmit)}>
-          <Form.Group controlId="email">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              name="email"
-              type="email"
-              placeholder="typical.yasuo@rito.com"
-              isInvalid={errors.email}
-              ref={register({ required: 'Required.' })}
-            />
-            {errors.email && (
-              <Form.Control.Feedback type="invalid">{errors.email.message}</Form.Control.Feedback>
-            )}
-            <Form.Text>We will send you a link to reset your password</Form.Text>
-          </Form.Group>
-          <Button
-            className="mt-5"
-            variant="primary"
-            type="submit"
-            size="lg"
-            block
-            disabled={Object.keys(errors).length > 0 || isLoading}
-          >
-            {
-              isLoading
-                ? <Spinner className="ml-2" as="span" animation="border" variant="light" size="sm" />
-                : 'Send reset link'
-            }
-          </Button>
-        </Form>
-      </FormContainer>
-      <div className="text-center mt-2">
-        <p className="mt-4">
-          Don't have an account? <Link to="/signup">Sign up here!</Link>
-        </p>
-      </div>
+      <Card bg="dark">
+        <Card.Body>
+          <Form noValidate onSubmit={handleSubmit(onSubmit)}>
+            <Form.Group controlId="email">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder="typical.yasuo@rito.com"
+                isInvalid={errors.email}
+                ref={register({ required: 'Required.' })}
+              />
+              {errors.email && (
+                <Form.Control.Feedback type="invalid">{errors.email.message}</Form.Control.Feedback>
+              )}
+              <Form.Text>We will send you a link to reset your password</Form.Text>
+            </Form.Group>
+            <Button
+              className="mt-4"
+              variant="primary"
+              type="submit"
+              size="lg"
+              block
+              disabled={Object.keys(errors).length > 0 || isLoading}
+            >
+              {
+                isLoading
+                  ? <Spinner as="span" animation="border" variant="light" />
+                  : 'Send reset link'
+              }
+            </Button>
+          </Form>
+          <div className="text-center mt-4">
+            <p className="mb-0">
+              Don't have an account? <Link to="/signup">Sign up here!</Link>
+            </p>
+          </div>
+        </Card.Body>
+      </Card>
     </>
   )
 }
-
-const FormContainer = styled.div`
-  padding: 1rem;
-`
 
 export default React.memo(ResetPassword)

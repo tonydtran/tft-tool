@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
+import Card from 'react-bootstrap/Card'
 
 import { FirebaseContext } from '../Firebase'
 import { withAuthorization } from '../Session'
@@ -67,57 +67,54 @@ const Settings = () => {
         </Link>
       </div>
       <h1>Update email</h1>
-      <FormContainer>
-        <Form noValidate onSubmit={handleSubmit(onSubmit)}>
-          <Form.Group controlId="email">
-            <Form.Label>My email address</Form.Label>
-            <Form.Control
-              name="email"
-              type="email"
-              defaultValue={userEmail}
-              isInvalid={errors.email}
-              ref={register({ required: 'Required.' })}
-            />
-            {errors.email && (
-              <Form.Control.Feedback type="invalid">{errors.email.message}</Form.Control.Feedback>
-            )}
-            <Form.Text>Used as login</Form.Text>
-          </Form.Group>
-          <Form.Group controlId="password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              name="password"
-              type="password"
-              isInvalid={errors.password}
-              ref={register({ required: 'Required' })}
-            />
-            {errors.password && (
-              <Form.Control.Feedback type="invalid">{errors.password.message}</Form.Control.Feedback>
-            )}
-            <Form.Text>Enter your password to update your email address</Form.Text>
-          </Form.Group>
-          <Button
-            className="mt-4"
-            variant="primary"
-            type="submit"
-            block
-            disabled={Object.keys(errors).length > 0 || isLoading}
-          >
-            {
-              isLoading
-                ? <Spinner className="ml-2" as="span" animation="border" variant="light" size="sm" />
-                : 'Update my email address'
-                }
-          </Button>
-        </Form>
-      </FormContainer>
+      <Card bg="dark">
+        <Card.Body>
+          <Form noValidate onSubmit={handleSubmit(onSubmit)}>
+            <Form.Group controlId="email">
+              <Form.Label>New email address</Form.Label>
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder={userEmail}
+                isInvalid={errors.email}
+                ref={register({ required: 'Required.' })}
+              />
+              {errors.email && (
+                <Form.Control.Feedback type="invalid">{errors.email.message}</Form.Control.Feedback>
+              )}
+            </Form.Group>
+            <Form.Group controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                name="password"
+                type="password"
+                isInvalid={errors.password}
+                ref={register({ required: 'Required' })}
+              />
+              {errors.password && (
+                <Form.Control.Feedback type="invalid">{errors.password.message}</Form.Control.Feedback>
+              )}
+              <Form.Text>Enter your password to update your email address</Form.Text>
+            </Form.Group>
+            <Button
+              className="mt-4"
+              variant="primary"
+              type="submit"
+              block
+              disabled={Object.keys(errors).length > 0 || isLoading}
+            >
+              {
+                isLoading
+                  ? <Spinner className="ml-2" as="span" animation="border" variant="light" size="sm" />
+                  : 'Update my email address'
+              }
+            </Button>
+          </Form>
+        </Card.Body>
+      </Card>
     </>
   )
 }
-
-const FormContainer = styled.div`
-  padding: 1rem;
-`
 
 const condition = authUser => !!authUser
 
