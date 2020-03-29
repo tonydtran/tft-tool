@@ -56,7 +56,7 @@ const ResetPassword = ({ history }) => {
           </div>
         )
       }
-      <h1>Reset Password</h1>
+      <h1>Reset password</h1>
       <Card bg="dark">
         <Card.Body>
           <Form noValidate onSubmit={handleSubmit(onSubmit)}>

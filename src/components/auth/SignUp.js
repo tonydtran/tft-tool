@@ -47,7 +47,7 @@ const SignUp = ({ history }) => {
 
   return (
     <>
-      <h1>Sign Up</h1>
+      <h1>Sign up</h1>
       <Card bg="dark">
         <Card.Body>
           <Form noValidate onSubmit={handleSubmit(onSubmit)}>
