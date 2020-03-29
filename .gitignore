@@ -27,4 +27,4 @@ yarn-error.log*
 
 # firebase settings
 .firebaserc
-frebase.json
+firebase.json
