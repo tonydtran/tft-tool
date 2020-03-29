@@ -40,7 +40,7 @@ const Home = ({ history, location }) => {
 const Container = styled.div`
   position: relative;
   display: block;
-  margin: -1rem -1rem -2rem;
+  margin: -1rem -1rem 0;
 `
 
 const Content = styled.div`
