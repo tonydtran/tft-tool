@@ -23,6 +23,14 @@ const NavBar = () => {
       </Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
+        {authUser && (
+            <NavContainer className="mr-auto">
+            <Link
+              to="/builds"
+              label={<><i className="fas fa-book fa-sm" /> My builds</>}
+            />
+          </NavContainer>
+        )}
         <NavContainer>
           {
             !authUser
@@ -40,10 +48,6 @@ const NavBar = () => {
               )
             : (
                 <>
-                  <Link
-                    to="/builds"
-                    label={<><i className="fas fa-book fa-sm" /> My builds</>}
-                  />
                   <Link
                     to="/settings"
                     label={<><i className="fas fa-cog fa-sm"/> Settings</>}
