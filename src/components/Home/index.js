@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
 
 import { AuthUserContext } from '../Session'
+import viewports from '../../vars/viewports'
 
 const Home = ({ history, location }) => {
   const authUser = useContext(AuthUserContext)
@@ -50,10 +51,14 @@ const Content = styled.div`
 const Banner = styled.div`
   display: block;
   height: calc(100vh - 230.375px);
-  background-image: url('/assets/images/banner.png');
+  background-image: url('/assets/images/banner-1x.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+
+  @media ${viewports.desktop} {
+    background-image: url('/assets/images/banner-2x.jpg');
+  }
 `
 
 export default React.memo(Home)
