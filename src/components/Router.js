@@ -2,6 +2,7 @@
 // import React from 'react'
 // const MyComponent = React.lazy(() => import('...'))
 
+import Home from './Home'
 import SignUp from './auth/SignUp'
 import SignIn from './auth/SignIn'
 import ResetPassword from './auth/ResetPassword'
@@ -18,4 +19,5 @@ export default [
   { path: '/settings', component: Settings, exact: true, strict: true },
   { path: '/settings/update_email', component: UpdateEmail, exact: true, strict: true },
   { path: '/settings/update_password', component: UpdatePassword, exact: true, strict: true },
+  { path: '/', component: Home, exact: true, strict: true },
 ]
