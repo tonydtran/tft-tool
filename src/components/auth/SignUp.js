@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 import Card from 'react-bootstrap/Card'
 
+import User from '../../models/User'
 import { FirebaseContext } from '../Firebase'
 // import viewports from '../../vars/viewports'
 
@@ -34,11 +35,7 @@ const SignUp = ({ history, location }) => {
       const authUser = await firebase.doCreateUserWithEmailAndPassword(email, password)
       // TODO: Change db write/read rules before deploying
       // https://firebase.google.com/docs/database/security/quickstart#sample-rules
-      await firebase.user(authUser.user.uid).set({
-        email,
-        role: ['user'],
-        username: email.substring(0, email.indexOf('@'))
-      })
+      await firebase.user(authUser.user.uid).set(new User({ email }))
       history.push('/builds')
     } catch (err) {
       setIsLoading(false)
