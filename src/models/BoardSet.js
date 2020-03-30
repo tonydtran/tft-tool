@@ -21,11 +21,13 @@ const emptyBoard = ROWS.reduce((acc, rowLetter) => {
   }
 }, {})
 
-export default function BoardSet(board) {
+export default function BoardSet(boardSet) {
   return {
+    uid: null,
     id: Math.random().toString(36).substr(2, 9),
-    board: board ? board : emptyBoard,
-    name: '',
-    traits: []
+    board: boardSet ? boardSet.board : emptyBoard,
+    name: boardSet ? boardSet.name : '',
+    note: boardSet ? boardSet.note : '',
+    traits: boardSet ? boardSet.traits : []
   }
 }
