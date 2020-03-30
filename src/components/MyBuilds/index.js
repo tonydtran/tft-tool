@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
+import { useHistory } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 
 import Loading from '../layouts/Loading'
@@ -44,12 +45,18 @@ const MyBuilds = () => {
 }
 
 const NewBuild = ({ large }) => {
+  const history = useHistory()
+
+  const onClick = () => {
+    history.push('/builds/new')
+  }
+
   const iconCn = large
     ? 'fas fa-plus-circle fa-3x text-info mb-3'
     : 'fas fa-plus-circle text-info mr-2'
 
   return (
-    <NewBuildButton large={large}>
+    <NewBuildButton large={large} onClick={onClick}>
       <i className={iconCn} />
       <strong className="text-info">Start a new build</strong>
     </NewBuildButton>

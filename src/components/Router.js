@@ -11,15 +11,17 @@ import Settings from './Account'
 import UpdateEmail from './Account/UpdateEmail'
 import UpdatePassword from './Account/UpdatePassword'
 import MyBuilds from './MyBuilds'
+import Builder from './Builder'
 
 export default [
   { path: '/signup', component: SignUp, exact: true, strict: true },
   { path: '/signin', component: SignIn, exact: true, strict: true },
   { path: '/resetpassword', component: ResetPassword, exact: true, strict: true },
   { path: '/notfound', component: NotFound, exact: true, strict: true },
-  { path: '/settings', component: Settings, exact: true, strict: true },
   { path: '/settings/update_email', component: UpdateEmail, exact: true, strict: true },
   { path: '/settings/update_password', component: UpdatePassword, exact: true, strict: true },
+  { path: '/settings', component: Settings, exact: true, strict: true },
+  { path: '/builds/new', component: Builder, exact: true, strict: true },
   { path: '/builds', component: MyBuilds, exact: true, strict: true },
   { path: '/', component: Home, exact: true, strict: true },
 ]
