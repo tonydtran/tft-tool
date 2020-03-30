@@ -48,6 +48,11 @@ class Firebase {
 
   getUserData = uid => this.db.ref(`/users/${uid}`).once('value')
 
+  getCurrentUserData = () => {
+    const currentUserUid = this.auth.currentUser.uid
+    return this.db.ref(`/users/${currentUserUid}`).once('value')
+  }
+
   users = () => this.db.ref('users')
 }
 
