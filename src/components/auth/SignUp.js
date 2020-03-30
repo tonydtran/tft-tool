@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Form from 'react-bootstrap/Form'
@@ -20,14 +20,10 @@ const firebaseErrorHandler = error => {
   }
 }
 
-const SignUp = ({ history, location }) => {
+const SignUp = ({ history }) => {
   const firebase = useContext(FirebaseContext)
   const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, errors, setError, watch } = useForm()
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [location])
 
   const onSubmit = async ({ email, password }) => {
     setIsLoading(true)

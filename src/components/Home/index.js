@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
@@ -6,12 +6,8 @@ import { Link } from 'react-router-dom'
 import { AuthUserContext } from '../Session'
 import viewports from '../../vars/viewports'
 
-const Home = ({ history, location }) => {
+const Home = ({ history }) => {
   const authUser = useContext(AuthUserContext)
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [location])
 
   return (
     <Container>
