@@ -24,6 +24,8 @@ const emptyBoard = ROWS.reduce((acc, rowLetter) => {
 export default function BoardSet(board) {
   return {
     id: Math.random().toString(36).substr(2, 9),
-    board: board ? board : emptyBoard
+    board: board ? board : emptyBoard,
+    name: '',
+    traits: []
   }
 }

@@ -4,5 +4,5 @@ export default function Message(title, body, duration = 3000) {
     title,
     body,
     duration
-  }  
+  }
 }
