@@ -4,6 +4,9 @@ import { useLocation } from 'react-router-dom'
 
 import viewports from '../../vars/viewports'
 
+// TODO: add viewport listener
+// https://kentcdodds.com/blog/useeffect-vs-uselayouteffect
+// https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react
 const View = ({ children }) => {
   const location = useLocation()
 
