@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import { /*useRouteMatch,*/ /*useHistory*/ } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
 
+import { FirebaseContext } from '../Firebase'
+// import { AuthUserContext } from '../Session'
+import Build from '../../models/Build'
 import ViewHeader from '../shared/layouts/ViewHeader'
 import BuildSettings from './menus/BuildSettings'
 
@@ -11,6 +15,20 @@ const Builder = () => {
   // console.log(routeMatch)
   // TODO: Use routeMatch to fetch existing build
   // const history = useHistory()
+
+  const firebase = useContext(FirebaseContext)
+
+  const [settingsModal, setSettingsModal] = useState(false)
+  const [build, setBuild] = useState(null)
+
+  useEffect(() => {
+    (async () => {
+      console.log(firebase)
+    })()
+  })
+
+  const openModal = () => setSettingsModal(true)
+  const closeModal = () => setSettingsModal(false)
 
 
   return (
@@ -22,11 +40,16 @@ const Builder = () => {
           </Button>
           <div className="d-flex align-items-center">
             <h1 className="d-inline-block text-truncate">New build</h1>
-            <I className="fas fa-cog fa-lg text-success ml-2" />
+            <I
+              className="fas fa-tools fa-lg text-success ml-2"
+              onClick={openModal}
+            />
           </div>
         </div>
       </ViewHeader>
-      <BuildSettings />
+      <Modal show={settingsModal} onHide={closeModal} centered>
+        <BuildSettings onHide={closeModal} />
+      </Modal>
     </>
   )
 }
