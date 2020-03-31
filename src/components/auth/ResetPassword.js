@@ -10,7 +10,7 @@ import { StoreContext } from '../Store'
 import { FirebaseContext } from '../Firebase'
 import { AuthUserContext } from '../Session'
 import Message from '../../models/Message'
-// import viewports from '../../vars/viewports'
+import ViewHeader from '../shared/layouts/ViewHeader'
 
 const firebaseErrorHandler = error => {
   // TODO: Check once write/read change if errors change as well
@@ -47,16 +47,18 @@ const ResetPassword = ({ history }) => {
 
   return (
     <>
-      {
-        authUser && (
-          <div className="mt-2 mb-2">
-            <Link to="/settings/update_password">
-              <i className="fas fa-chevron-left fa-sm" /> Update password
-            </Link>
-          </div>
-        )
-      }
-      <h1>Reset password</h1>
+        <ViewHeader>
+          {
+            authUser && (
+              <div className="mt-2 mb-2">
+                <Link to="/settings/update_password">
+                  <i className="fas fa-chevron-left fa-sm" /> Update password
+              </Link>
+              </div>
+            )
+          }
+          <h1>Reset password</h1>
+        </ViewHeader>
       <Card bg="dark">
         <Card.Body>
           <Form noValidate onSubmit={handleSubmit(onSubmit)}>

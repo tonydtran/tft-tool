@@ -10,6 +10,7 @@ import { FirebaseContext } from '../Firebase'
 import { withAuthorization } from '../Session'
 import { StoreContext } from '../Store'
 import Message from '../../models/Message'
+import ViewHeader from '../shared/layouts/ViewHeader'
 
 const firebaseErrorHandler = error => {
   const isEmailRelated = error.code.includes('email')
@@ -61,12 +62,14 @@ const UpdateEmail = ({ history }) => {
 
   return (
     <>
-      <div className="mt-2 mb-2">
-        <Link to="/settings">
-          <i className="fas fa-chevron-left fa-sm" /> Settings
+      <ViewHeader>
+        <div className="mt-2 mb-2">
+          <Link to="/settings">
+            <i className="fas fa-chevron-left fa-sm" /> Settings
         </Link>
-      </div>
-      <h1>Update email</h1>
+        </div>
+        <h1>Update email</h1>
+      </ViewHeader>
       <Card bg="dark">
         <Card.Body>
           <Form noValidate onSubmit={handleSubmit(onSubmit)}>

@@ -21,7 +21,7 @@ const View = ({ children }) => {
 const Container = styled.div`
   position: relative;
   display: block;
-  padding: 1rem 1rem 2rem;
+  padding: 1rem 0 3rem;
   min-height: calc(100vh - 70.375px);
 
   @media ${viewports.desktop} {

@@ -36,12 +36,12 @@ const Home = ({ history }) => {
 const Container = styled.div`
   position: relative;
   display: block;
-  margin: -1rem -1rem 0;
+  margin-top: -1rem;
 `
 
 const Content = styled.div`
   display: block;
-  margin: 2rem 1rem 3rem;
+  padding: 2rem 1rem 1rem;
 `
 
 const Banner = styled.div`

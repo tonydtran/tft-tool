@@ -10,6 +10,7 @@ import { FirebaseContext } from '../Firebase'
 import { withAuthorization } from '../Session'
 import { StoreContext } from '../Store'
 import Message from '../../models/Message'
+import ViewHeader from '../shared/layouts/ViewHeader'
 
 const firebaseErrorHandler = error => {
   const isNewPasswordRelated = error.code.includes('weak-password')
@@ -60,12 +61,14 @@ const UpdatePassword = ({ history }) => {
 
   return (
     <>
-      <div className="mt-2 mb-2">
-        <Link to="/settings">
-          <i className="fas fa-chevron-left fa-sm" /> Settings
+      <ViewHeader>
+        <div className="mt-2 mb-2">
+          <Link to="/settings">
+            <i className="fas fa-chevron-left fa-sm" /> Settings
         </Link>
-      </div>
-      <h1>Update password</h1>
+        </div>
+        <h1>Update password</h1>
+      </ViewHeader>
       <Card bg="dark">
         <Card.Body>
           <Form noValidate onSubmit={handleSubmit(onSubmit)}>

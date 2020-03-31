@@ -8,7 +8,7 @@ import Card from 'react-bootstrap/Card'
 
 import User from '../../models/User'
 import { FirebaseContext } from '../Firebase'
-// import viewports from '../../vars/viewports'
+import ViewHeader from '../shared/layouts/ViewHeader'
 
 const firebaseErrorHandler = error => {
   // TODO: Check once write/read change if errors change as well
@@ -44,7 +44,9 @@ const SignUp = ({ history }) => {
 
   return (
     <>
-      <h1>Sign up</h1>
+      <ViewHeader>
+        <h1>Sign up</h1>
+      </ViewHeader>
       <Card bg="dark">
         <Card.Body>
           <Form noValidate onSubmit={handleSubmit(onSubmit)}>

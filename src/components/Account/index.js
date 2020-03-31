@@ -6,6 +6,7 @@ import Spinner from 'react-bootstrap/Spinner'
 
 import { FirebaseContext } from '../Firebase'
 import { withAuthorization } from '../Session'
+import ViewHeader from '../shared/layouts/ViewHeader'
 
 const Settings = () => {
   const firebase = useContext(FirebaseContext)
@@ -21,7 +22,9 @@ const Settings = () => {
 
   return (
     <>
-      <h1 className="mb-5">Settings</h1>
+      <ViewHeader>
+        <h1>Settings</h1>
+      </ViewHeader>
       <Card bg="dark">
         <Card.Header>
           <h4 className="mb-0">My account</h4>
@@ -52,15 +55,16 @@ const Settings = () => {
           </div>
         </Card.Body>
       </Card>
-      <Button
-        variant="outline-danger"
-        className="mt-5"
-        block
-        size="sm"
-        onClick={firebase.doSignOut}
-      >
-        <i className="fas fa-sign-out-alt fa-sm fa-rotate-180" /> Disconnect
+      <div className="mt-5 pl-3 pr-3">
+        <Button
+          variant="outline-danger"
+          block
+          size="sm"
+          onClick={firebase.doSignOut}
+        >
+          <i className="fas fa-sign-out-alt fa-sm fa-rotate-180" /> Disconnect
       </Button>
+      </div>
     </>
   )
 }

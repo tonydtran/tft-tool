@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { /*useRouteMatch,*/ /*useHistory*/ } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 
+import ViewHeader from '../shared/layouts/ViewHeader'
 import BuildSettings from './menus/BuildSettings'
 
 const Builder = () => {
@@ -14,15 +15,17 @@ const Builder = () => {
 
   return (
     <>
-      <div className="mt-2 mb-2">
-        <Button variant="link" className="p-0">
-          <i className="fas fa-chevron-left fa-sm" /> My builds
-        </Button>
-      </div>
-      <div className="d-flex align-items-center mb-5">
-        <h1 className="d-inline-block text-truncate">New build</h1>
-        <I className="fas fa-cog fa-lg text-success ml-2" />
-      </div>
+      <ViewHeader>
+        <div className="mt-2 mb-2">
+          <Button variant="link" className="p-0">
+            <i className="fas fa-chevron-left fa-sm" /> My builds
+          </Button>
+          <div className="d-flex align-items-center">
+            <h1 className="d-inline-block text-truncate">New build</h1>
+            <I className="fas fa-cog fa-lg text-success ml-2" />
+          </div>
+        </div>
+      </ViewHeader>
       <BuildSettings />
     </>
   )

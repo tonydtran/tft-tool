@@ -8,6 +8,7 @@ import Loading from '../layouts/Loading'
 
 import { withAuthorization } from '../Session'
 import { FirebaseContext } from '../Firebase'
+import ViewHeader from '../shared/layouts/ViewHeader'
 import colors from '../../vars/colors'
 
 const MyBuilds = () => {
@@ -33,7 +34,9 @@ const MyBuilds = () => {
 
   return (
     <>
-      <h1 className="mb-5">My builds</h1>
+      <ViewHeader>
+        <h1 className="mb-5">My builds</h1>
+      </ViewHeader>
       <Card bg="dark" className="pb-3">
         {/* TODO: Add a header with date filter */}
         <Card.Body>

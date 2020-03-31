@@ -7,7 +7,7 @@ import Spinner from 'react-bootstrap/Spinner'
 import Card from 'react-bootstrap/Card'
 
 import { FirebaseContext } from '../Firebase'
-// import viewports from '../../vars/viewports'
+import ViewHeader from '../shared/layouts/ViewHeader'
 
 const firebaseErrorHandler = error => {
   const isPasswordRelated = error.code.includes('password')
@@ -38,7 +38,9 @@ const SignIn = ({ history }) => {
 
   return (
     <>
-      <h1>Sign in</h1>
+      <ViewHeader>
+        <h1>Sign in</h1>
+      </ViewHeader>
       <Card bg="dark">
         <Card.Body>
           <Form noValidate onSubmit={handleSubmit(onSubmit)}>
