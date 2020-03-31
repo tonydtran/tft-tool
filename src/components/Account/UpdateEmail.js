@@ -30,7 +30,7 @@ const UpdateEmail = ({ history }) => {
 
   useEffect(() => {
     (async () => {
-      const userData = await firebase.getUserData(firebase.auth.currentUser.uid)
+      const userData = await firebase.getCurrentUserData()
 
       setUserEmail(userData.val().email)
       setIsLoading(false)

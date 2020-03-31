@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import styled from 'styled-components'
 import { /*useRouteMatch,*/ /*useHistory*/ } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
 import { FirebaseContext } from '../Firebase'
-// import { AuthUserContext } from '../Session'
+import { withAuthorization } from '../Session'
 import Build from '../../models/Build'
 import ViewHeader from '../shared/layouts/ViewHeader'
 import BuildSettings from './menus/BuildSettings'
@@ -19,13 +19,9 @@ const Builder = () => {
   const firebase = useContext(FirebaseContext)
 
   const [settingsModal, setSettingsModal] = useState(false)
-  const [build, setBuild] = useState(null)
-
-  useEffect(() => {
-    (async () => {
-      console.log(firebase)
-    })()
-  })
+  const [build, setBuild] = useState(new Build({
+    authorUid: firebase.getCurrentUserUid()
+  }))
 
   const openModal = () => setSettingsModal(true)
   const closeModal = () => setSettingsModal(false)
@@ -62,4 +58,6 @@ const I = styled.i`
   }
 `
 
-export default Builder
+const condition = () => true
+
+export default withAuthorization(condition)(Builder)
