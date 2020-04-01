@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 import Modal from 'react-bootstrap/Modal'
 
-const BuildSettings = ({ onHide }) => {
+const BuildSettings = ({ onHide, build, saveBuild }) => {
   const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, errors, setError } = useForm()
 
@@ -24,7 +24,7 @@ const BuildSettings = ({ onHide }) => {
       <Modal.Body className="bg-dark">
         <Form className="mt-2" noValidate onSubmit={handleSubmit(onSubmit)}>
           <Form.Group controlId="title">
-            <Form.Label>Title</Form.Label>
+            <Form.Label>{build.name}</Form.Label>
             <Form.Control
               name="title"
               type="text"
@@ -42,6 +42,7 @@ const BuildSettings = ({ onHide }) => {
               label="Public"
               name="isPublic"
               ref={register()}
+              defaultValue={build.isPublic}
             />
             <Form.Text>Allow your build to be viewable by everyone</Form.Text>
           </Form.Group>

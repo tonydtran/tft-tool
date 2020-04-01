@@ -20,12 +20,21 @@ const Builder = () => {
 
   const [settingsModal, setSettingsModal] = useState(false)
   const [build, setBuild] = useState(new Build({
-    authorUid: firebase.getCurrentUserUid()
+    authorUid: ''
   }))
 
   const openModal = () => setSettingsModal(true)
   const closeModal = () => setSettingsModal(false)
 
+  const saveBuild = update => {
+    const newBuild = { ...build }
+
+    Object.keys(update).forEach(key => {
+      newBuild[key] = update[key]
+    })
+
+    setBuild(newBuild)
+  }
 
   return (
     <>
@@ -44,7 +53,7 @@ const Builder = () => {
         </div>
       </ViewHeader>
       <Modal show={settingsModal} onHide={closeModal} centered>
-        <BuildSettings onHide={closeModal} />
+        <BuildSettings onHide={closeModal} build={build} saveBuild={saveBuild} />
       </Modal>
     </>
   )
