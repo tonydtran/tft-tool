@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import { /*useRouteMatch,*/ /*useHistory*/ } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
@@ -10,7 +11,7 @@ import Build from '../../models/Build'
 import ViewHeader from '../shared/layouts/ViewHeader'
 import BuildSettings from './menus/BuildSettings'
 
-const Builder = () => {
+const Builder = ({ authUser }) => {
   // const routeMatch = useRouteMatch()
   // console.log(routeMatch)
   // TODO: Use routeMatch to fetch existing build
@@ -19,9 +20,13 @@ const Builder = () => {
   const firebase = useContext(FirebaseContext)
 
   const [settingsModal, setSettingsModal] = useState(false)
-  const [build, setBuild] = useState(new Build({
-    // authorUid: firebase.getCurrentUserUid()
-  })) // Handle case invited user
+  const [build, setBuild] = useState(new Build({}))
+
+  useEffect(() => {
+    if (authUser) {
+      saveBuild({ authorUid: authUser.uid })
+    }
+  }, [authUser])
 
   const openModal = () => setSettingsModal(true)
   const closeModal = () => setSettingsModal(false)

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { NavLink, useRouteMatch } from 'react-router-dom'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
-// import NavDropdown from 'react-bootstrap/NavDropdown'
+import { useHistory } from 'react-router-dom'
 
 import viewports from '../../vars/viewports'
 
@@ -15,6 +15,12 @@ import { AuthUserContext } from '../Session'
 const NavBar = () => {
   const firebase = useContext(FirebaseContext)
   const authUser = useContext(AuthUserContext)
+  const history = useHistory()
+
+  const signOut = () => {
+    firebase.doSignOut()
+    if (history.location.pathname !== '/') history.push('/')
+  }
 
   return (
     <Navbar collapseOnSelect expand="md" bg="dark" variant="dark" fixed="top">
@@ -52,7 +58,7 @@ const NavBar = () => {
                     to="/settings"
                     label={<><i className="fas fa-cog fa-sm"/> Settings</>}
                   />
-                  <Nav.Link onClick={firebase.doSignOut}>
+                  <Nav.Link onClick={signOut}>
                     <i className="fas fa-sign-out-alt fa-sm fa-rotate-180" /> Sign Out
                   </Nav.Link>
                 </>
