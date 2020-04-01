@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
 import { FirebaseContext } from '../Firebase'
-import { withAuthorization } from '../Session'
+import { withOrWithoutAuthorization } from '../Session'
 import Build from '../../models/Build'
 import ViewHeader from '../shared/layouts/ViewHeader'
 import BuildSettings from './menus/BuildSettings'
@@ -20,7 +20,7 @@ const Builder = () => {
 
   const [settingsModal, setSettingsModal] = useState(false)
   const [build, setBuild] = useState(new Build({
-    authorUid: firebase.getCurrentUserUid()
+    // authorUid: firebase.getCurrentUserUid()
   })) // Handle case invited user
 
   const openModal = () => setSettingsModal(true)
@@ -67,6 +67,4 @@ const I = styled.i`
   }
 `
 
-const condition = () => true
-
-export default withAuthorization(condition)(Builder)
+export default withOrWithoutAuthorization(Builder)
