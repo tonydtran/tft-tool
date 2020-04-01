@@ -18,6 +18,7 @@ const MyBuilds = () => {
 
   useEffect(() => {
     (async () => {
+      // TODO: Implement error handling
       const fetchUserData = await firebase.getCurrentUserData()
       setUserData(fetchUserData.val())
     })()

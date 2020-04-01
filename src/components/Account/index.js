@@ -14,6 +14,7 @@ const Settings = () => {
 
   useEffect(() => {
     (async () => {
+      // TODO: Implement error handling
       const userData = await firebase.getCurrentUserData()
 
       setUserEmail(userData.val().email)

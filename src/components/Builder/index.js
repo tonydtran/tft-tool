@@ -20,8 +20,8 @@ const Builder = () => {
 
   const [settingsModal, setSettingsModal] = useState(false)
   const [build, setBuild] = useState(new Build({
-    authorUid: ''
-  }))
+    authorUid: firebase.getCurrentUserUid()
+  })) // Handle case invited user
 
   const openModal = () => setSettingsModal(true)
   const closeModal = () => setSettingsModal(false)
