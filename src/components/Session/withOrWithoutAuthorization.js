@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 
 import { FirebaseContext } from '../Firebase'
+
 import Loading from '../layouts/Loading'
 
 const withOrWithoutAuthorization = Component => props => {

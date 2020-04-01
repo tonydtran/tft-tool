@@ -31,7 +31,10 @@ const SignUp = ({ history }) => {
       const authUser = await firebase.doCreateUserWithEmailAndPassword(email, password)
       // TODO: Change db write/read rules before deploying
       // https://firebase.google.com/docs/database/security/quickstart#sample-rules
-      await firebase.user(authUser.user.uid).set(new User({ email }))
+      await firebase.user(authUser.user.uid).set(new User({
+        uid: authUser.user.uid,
+        email
+      }))
       history.push('/builds')
     } catch (err) {
       setIsLoading(false)

@@ -20,25 +20,37 @@ const Builder = ({ authUser }) => {
   const firebase = useContext(FirebaseContext)
 
   const [settingsModal, setSettingsModal] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [build, setBuild] = useState(new Build({}))
-
-  useEffect(() => {
-    if (authUser) {
-      saveBuild({ authorUid: authUser.uid })
-    }
-  }, [authUser])
 
   const openModal = () => setSettingsModal(true)
   const closeModal = () => setSettingsModal(false)
 
-  const saveBuild = update => {
-    const newBuild = { ...build }
+  const saveBuild = async update => {
+    if (authUser) {
+      if (!isLoading) {
+        setIsLoading(true)
 
-    Object.keys(update).forEach(key => {
-      newBuild[key] = update[key]
-    })
+        const newBuild = { ...build }
 
-    setBuild(newBuild)
+        Object.keys(update).forEach(key => {
+          newBuild[key] = update[key]
+        })
+
+        newBuild.authorUid = authUser.uid
+        newBuild.lastUpdate = Date.now()
+
+        // TODO: implement error handler
+        await firebase.build(newBuild.id).set(newBuild)
+
+        setBuild(newBuild)
+        setIsLoading(false)
+      }
+    } else {
+      alert('You must sign in/up to save this build')
+      // TODO: Save the build in local storage
+      // Add variable to redirect user here and auto save
+    }
   }
 
   return (
@@ -58,7 +70,12 @@ const Builder = ({ authUser }) => {
         </div>
       </ViewHeader>
       <Modal show={settingsModal} onHide={closeModal} centered>
-        <BuildSettings onHide={closeModal} build={build} saveBuild={saveBuild} />
+        <BuildSettings
+          onHide={closeModal}
+          build={build}
+          saveBuild={saveBuild}
+          isLoading={isLoading}
+        />
       </Modal>
     </>
   )

@@ -1,4 +1,5 @@
 export default function User({
+  uid,
   email,
   roles = ['user'],
   username = email.substring(0, email.indexOf('@')),
@@ -7,6 +8,7 @@ export default function User({
   builds = []
 }) {
   return {
+    uid,
     email,
     roles,
     username,

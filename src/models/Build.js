@@ -1,14 +1,16 @@
+import { v4 as uuidv4 } from 'uuid'
+
 export default function Build({
-  uid = null,
+  id = uuidv4(),
   authorUid = null,
-  lastUpdate = new Date(),
+  lastUpdate = null,
   title = 'New build',
   traits = [],
   boards = [],
   isPublic = false
 }) {
   return {
-    uid,
+    id,
     authorUid,
     lastUpdate,
     title,

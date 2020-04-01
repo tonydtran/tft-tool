@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
 import Form from 'react-bootstrap/Form'
@@ -6,12 +6,11 @@ import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 import Modal from 'react-bootstrap/Modal'
 
-const BuildSettings = ({ onHide, build, saveBuild }) => {
-  const [isLoading, setIsLoading] = useState(false)
+const BuildSettings = ({ onHide, build, saveBuild, isLoading }) => {
   const { register, handleSubmit, errors, setError } = useForm()
 
   const onSubmit = async ({ title, isPublic }) => {
-    saveBuild({ title, isPublic: !!isPublic })
+    await saveBuild({ title, isPublic: !!isPublic })
     onHide()
   }
 

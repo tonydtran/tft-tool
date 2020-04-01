@@ -1,6 +1,8 @@
+import { v4 as uuidv4 } from 'uuid'
+
 export default function Message(title, body, duration = 3000) {
   return {
-    id: Math.random().toString(36).substr(2,9),
+    id: uuidv4(),
     title,
     body,
     duration

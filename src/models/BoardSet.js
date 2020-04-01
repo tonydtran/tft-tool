@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid'
+
 const ROWS = ['a', 'b', 'c', 'd']
 const BOXES_BY_ROW = 7
 
@@ -23,8 +25,7 @@ const emptyBoard = ROWS.reduce((acc, rowLetter) => {
 
 export default function BoardSet(boardSet) {
   return {
-    uid: null,
-    id: Math.random().toString(36).substr(2, 9),
+    id: uuidv4(),
     board: boardSet ? boardSet.board : emptyBoard,
     name: boardSet ? boardSet.name : '',
     note: boardSet ? boardSet.note : '',
