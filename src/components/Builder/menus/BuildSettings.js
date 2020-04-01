@@ -10,8 +10,9 @@ const BuildSettings = ({ onHide, build, saveBuild }) => {
   const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, errors, setError } = useForm()
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async ({ title, isPublic }) => {
+    saveBuild({ title, isPublic: !!isPublic })
+    onHide()
   }
 
   return (
@@ -24,11 +25,12 @@ const BuildSettings = ({ onHide, build, saveBuild }) => {
       <Modal.Body className="bg-dark">
         <Form className="mt-2" noValidate onSubmit={handleSubmit(onSubmit)}>
           <Form.Group controlId="title">
-            <Form.Label>{build.name}</Form.Label>
+            <Form.Label>Title</Form.Label>
             <Form.Control
               name="title"
               type="text"
-              placeholder="My awesomme build"
+              placeholder="My awesome build"
+              defaultValue={build.title}
               isInvalid={errors.title}
               ref={register({ required: 'Required.' })}
             />
@@ -42,6 +44,7 @@ const BuildSettings = ({ onHide, build, saveBuild }) => {
               label="Public"
               name="isPublic"
               ref={register()}
+              defaultChecked={build.isPublic}
               defaultValue={build.isPublic}
             />
             <Form.Text>Allow your build to be viewable by everyone</Form.Text>

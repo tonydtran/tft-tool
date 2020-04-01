@@ -2,7 +2,7 @@ export default function Build({
   uid = null,
   authorUid = null,
   lastUpdate = new Date(),
-  name = 'New build',
+  title = 'New build',
   traits = [],
   boards = [],
   isPublic = false
@@ -11,7 +11,7 @@ export default function Build({
     uid,
     authorUid,
     lastUpdate,
-    name,
+    title,
     traits,
     boards,
     isPublic
