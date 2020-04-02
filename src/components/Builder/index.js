@@ -42,10 +42,11 @@ const Builder = ({ authUser }) => {
 
         // TODO: implement error handler
         await firebase.build(newBuild.id).set(newBuild)
-        const userBuilds = firebase.getCurrentUserData()
-        const newUserBuilds = userBuilds.builds
-          ? [...userBuilds.builds, newBuild.id]
+        const userBuilds = await firebase.getCurrentUserData()
+        const newUserBuilds = userBuilds.val().builds
+          ? [...userBuilds.val().builds, newBuild.id]
           : [newBuild.id]
+
         await firebase.user(authUser.uid).update({ builds: newUserBuilds })
 
         setBuild(newBuild)

@@ -19,8 +19,15 @@ const MyBuilds = () => {
   useEffect(() => {
     (async () => {
       // TODO: Implement error handling
-      const fetchUserData = await firebase.getCurrentUserData()
-      setUserData(fetchUserData.val())
+      // const fetchUserData = await firebase.getCurrentUserData()
+      // setUserData(fetchUserData.val())
+      const userUid = await firebase.getCurrentUserUid()
+      const userBuilds = await firebase.builds()
+        .orderByChild('authorUid')
+        .equalTo(userUid)
+        .ref.once('value')
+        // .once('value')
+      console.log(userBuilds.val())
     })()
   }, [])
 
@@ -41,7 +48,7 @@ const MyBuilds = () => {
       <Card bg="dark" className="pb-3">
         {/* TODO: Add a header with date filter */}
         <Card.Body>
-          {userData.builds ? <NewBuild /> : noBuilds }
+          {userData.builds ? noBuilds : <NewBuild /> }
         </Card.Body>
       </Card>
     </>
