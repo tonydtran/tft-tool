@@ -14,20 +14,20 @@ import colors from '../../vars/colors'
 const MyBuilds = () => {
   const firebase = useContext(FirebaseContext)
 
-  const [userData, setUserData] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [builds, setBuilds] = useState(null)
 
   useEffect(() => {
     (async () => {
       // TODO: Implement error handling
-      // const fetchUserData = await firebase.getCurrentUserData()
-      // setUserData(fetchUserData.val())
       const userUid = await firebase.getCurrentUserUid()
       const userBuilds = await firebase.builds()
         .orderByChild('authorUid')
         .equalTo(userUid)
         .ref.once('value')
-        // .once('value')
-      console.log(userBuilds.val())
+      
+      if (userBuilds.val()) setBuilds(userBuilds.val())
+      setIsLoading(false)
     })()
   }, [])
 
@@ -38,7 +38,7 @@ const MyBuilds = () => {
     </>
   )
 
-  if (!userData) return <Loading />
+  if (isLoading) return <Loading />
 
   return (
     <>
@@ -48,7 +48,7 @@ const MyBuilds = () => {
       <Card bg="dark" className="pb-3">
         {/* TODO: Add a header with date filter */}
         <Card.Body>
-          {userData.builds ? noBuilds : <NewBuild /> }
+          {builds ? <NewBuild /> : noBuilds }
         </Card.Body>
       </Card>
     </>
