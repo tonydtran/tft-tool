@@ -1,15 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from 'react'
-import styled from 'styled-components'
-import { useHistory } from 'react-router-dom'
+// import styled from 'styled-components'
+// import { useHistory } from 'react-router-dom'
+import { formatDistance } from 'date-fns'
 import Card from 'react-bootstrap/Card'
 
 import Loading from '../layouts/Loading'
+import ViewHeader from '../shared/layouts/ViewHeader'
+import NewBuildButton from './NewBuildButton'
 
 import { withAuthorization } from '../Session'
 import { FirebaseContext } from '../Firebase'
-import ViewHeader from '../shared/layouts/ViewHeader'
-import colors from '../../vars/colors'
+// import colors from '../../vars/colors'
 
 const MyBuilds = () => {
   const firebase = useContext(FirebaseContext)
@@ -34,7 +36,7 @@ const MyBuilds = () => {
   const noBuilds = (
     <>
       <p className="lead mb-4">No build found. Let's create one!</p>
-      <NewBuild large />
+      <NewBuildButton large />
     </>
   )
 
@@ -48,54 +50,33 @@ const MyBuilds = () => {
       <Card bg="dark" className="pb-3">
         {/* TODO: Add a header with date filter */}
         <Card.Body>
-          {builds ? <NewBuild /> : noBuilds }
+          {builds ? <NewBuildButton /> : noBuilds }
+          {
+            builds && Object.keys(builds).map(key => (
+              <div key={key} className="mt-4">
+                <div className="d-flex justify-content-between align-items-baseline">
+                  <div className="d-flex align-items-baseline">
+                    {
+                      builds[key].isPublic
+                        ? <i className="fas fa-lock mr-2 text-warning" />
+                        : <i className="fas fa-unlock mr-2 text-info" />
+                    }
+                    <strong>
+                      {builds[key].title}
+                    </strong>
+                  </div>
+                  <span className="small text-muted text-nowrap">
+                    {formatDistance(builds[key].lastUpdate, Date.now())}
+                  </span>
+                </div>
+              </div>
+            ))
+          }
         </Card.Body>
       </Card>
     </>
   )
 }
-
-const NewBuild = ({ large }) => {
-  const history = useHistory()
-
-  const onClick = () => {
-    history.push('/builds/new')
-  }
-
-  const iconCn = large
-    ? 'fas fa-plus-circle fa-3x text-info mb-3'
-    : 'fas fa-plus-circle text-info mr-2'
-
-  return (
-    <NewBuildButton large={large} onClick={onClick}>
-      <i className={iconCn} />
-      <strong className="text-info">Start a new build</strong>
-    </NewBuildButton>
-  )
-}
-
-const NewBuildButton = styled.div`
-  border: 4px solid ${colors.primary};
-  border-radius: 0.25rem;
-  padding: ${({ large }) => large
-    ? '3rem 1rem'
-    : '1rem'
-  };
-  display: flex;
-  flex-direction: ${({ large }) => large
-    ? 'column'
-    : 'row'
-  };
-  align-items: center;
-  justify-content: center;
-  background-color: ${colors.secondary};
-
-  &:hover, &:active {
-    transform: scale(1.05);
-    cursor: pointer;
-    transition: transform 300ms;
-  }
-`
 
 const condition = authUser => !!authUser
 
