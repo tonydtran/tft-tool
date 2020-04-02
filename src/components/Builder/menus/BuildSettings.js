@@ -7,7 +7,7 @@ import Spinner from 'react-bootstrap/Spinner'
 import Modal from 'react-bootstrap/Modal'
 
 const BuildSettings = ({ onHide, build, saveBuild, isLoading }) => {
-  const { register, handleSubmit, errors, setError } = useForm()
+  const { register, handleSubmit, errors/*, setError*/ } = useForm()
 
   const onSubmit = async ({ title, isPublic }) => {
     await saveBuild({ title, isPublic: !!isPublic })
