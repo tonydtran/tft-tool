@@ -9,7 +9,6 @@ import Card from 'react-bootstrap/Card'
 import { StoreContext } from '../Store'
 import { FirebaseContext } from '../Firebase'
 import { AuthUserContext } from '../Session'
-import Message from '../../models/Message'
 import ViewHeader from '../shared/layouts/ViewHeader'
 
 const firebaseErrorHandler = error => {
@@ -33,10 +32,10 @@ const ResetPassword = ({ history }) => {
     setIsLoading(true)
     try {
       await firebase.doPasswordReset(email)
-      store.addMessage(new Message(
+      store.addMessage(
         'Reset link sent!',
         "You should receive it soon in your mail box. Don't forget to check your spam box ;)"
-      ))
+      )
       history.push('/signin')
     } catch (err) {
       const { field, type, message } = firebaseErrorHandler(err)

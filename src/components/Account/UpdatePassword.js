@@ -9,7 +9,6 @@ import Card from 'react-bootstrap/Card'
 import { FirebaseContext } from '../Firebase'
 import { withAuthorization } from '../Session'
 import { StoreContext } from '../Store'
-import Message from '../../models/Message'
 import ViewHeader from '../shared/layouts/ViewHeader'
 
 const firebaseErrorHandler = error => {
@@ -45,11 +44,11 @@ const UpdatePassword = ({ history }) => {
     try {
       await firebase.doSignInWithEmailAndPassword(userEmail, password)
       await firebase.doPasswordUpdate(newPassword)
-      store.addMessage(new Message(
+      store.addMessage(
         'GGWP!',
         "Your password has been updated. Don't forget to use it for your next sign in!",
         10000
-      ))
+      )
       history.push('/settings')
     } catch (err) {
       const { field, type, message } = firebaseErrorHandler(err)

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import StoreContext from './context'
+import Message from '../../models/Message'
 
 class StoreProvider extends Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class StoreProvider extends Component {
     }
   }
 
-  addMessage = message => {
+  addMessage = (title, body, duration) => {
+    const message = new Message(title, body, duration)
     const messages = [...this.state.messages, message]
     this.setState({ messages })
   }
