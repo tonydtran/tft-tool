@@ -3,7 +3,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 
-
 import colors from '../../vars/colors'
 
 const NewBuildButton = ({ large }) => {
@@ -14,19 +13,19 @@ const NewBuildButton = ({ large }) => {
   }
 
   const iconCn = large
-    ? 'fas fa-plus-circle fa-3x text-info mb-3'
-    : 'fas fa-plus-circle text-info mr-2'
+    ? 'fas fa-plus-circle fa-3x mb-3'
+    : 'fas fa-plus-circle mr-2'
 
   return (
     <Container large={large} onClick={onClick}>
       <i className={iconCn} />
-      <strong className="text-info">Start a new build</strong>
+      <strong>Start a new build</strong>
     </Container>
   )
 }
 
 const Container = styled.div`
-  border: 4px solid ${colors.primary};
+  box-shadow: 0 0 0 4px ${colors.primary};
   border-radius: 0.25rem;
   padding: ${({ large }) => large
     ? '3rem 1rem'
@@ -40,11 +39,15 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${colors.secondary};
+  color: ${colors.info};
 
   &:hover, &:active {
     transform: scale(1.05);
     cursor: pointer;
     transition: transform 300ms;
+    background-color: ${colors.light};
+    color: ${colors.primary};
+    box-shadow: none;
   }
 `
 
