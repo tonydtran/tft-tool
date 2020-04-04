@@ -21,6 +21,7 @@ const Builder = ({ authUser }) => {
 
   const [settingsModal, setSettingsModal] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [isSaving, setIsSaving] = useState(false)
   const [build, setBuild] = useState(new Build({}))
 
   useEffect(() => {
@@ -42,8 +43,8 @@ const Builder = ({ authUser }) => {
 
   const saveBuild = async update => {
     if (authUser) {
-      if (!isLoading) {
-        setIsLoading(true)
+      if (!isSaving) {
+        setIsSaving(true)
 
         const newBuild = { ...build }
 
@@ -55,16 +56,22 @@ const Builder = ({ authUser }) => {
         newBuild.lastUpdate = Date.now()
 
         // TODO: implement error handler
-        await firebase.build(newBuild.id).set(newBuild)
-        const userBuilds = await firebase.getCurrentUserData()
-        const newUserBuilds = userBuilds.val().builds
-          ? [...userBuilds.val().builds, newBuild.id]
-          : [newBuild.id]
+        const checkUserBuilds = await firebase.getCurrentUserData()
+        const userBuilds = checkUserBuilds.val().builds
+        const checkBuildExist = await firebase.build(newBuild.id).once('value')
+        const buildExist = checkBuildExist.val()
 
-        await firebase.user(authUser.uid).update({ builds: newUserBuilds })
+        if (buildExist) {
+          await firebase.build(newBuild.id).update(newBuild)
+        } else {
+          await firebase.build(newBuild.id).set(newBuild)
+          await firebase.user(authUser.uid).update({
+            builds: userBuilds ? [...userBuilds, newBuild.id] : [newBuild.id]
+          })
+        }
 
         setBuild(newBuild)
-        setIsLoading(false)
+        setIsSaving(false)
       }
     } else {
       alert('You must sign in/up to save this build')
@@ -96,7 +103,7 @@ const Builder = ({ authUser }) => {
           onHide={closeModal}
           build={build}
           saveBuild={saveBuild}
-          isLoading={isLoading}
+          isLoading={isSaving}
         />
       </Modal>
     </>
