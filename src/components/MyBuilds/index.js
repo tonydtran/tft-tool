@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from 'react'
 // import styled from 'styled-components'
-// import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 
 import Loading from '../layouts/Loading'
@@ -14,6 +14,7 @@ import { FirebaseContext } from '../Firebase'
 
 const MyBuilds = () => {
   const firebase = useContext(FirebaseContext)
+  const history = useHistory()
 
   const [isLoading, setIsLoading] = useState(true)
   const [builds, setBuilds] = useState(null)
@@ -31,6 +32,10 @@ const MyBuilds = () => {
       setIsLoading(false)
     })()
   }, [])
+
+  const goTo = buildId => {
+    history.push(`/builds/${buildId}`)
+  }
 
   const noBuilds = (
     <>
@@ -52,7 +57,11 @@ const MyBuilds = () => {
           {builds ? <NewBuildButton /> : noBuilds }
           {
             builds && Object.keys(builds).map(key => (
-              <Item key={key} {...builds[key]} />
+              <Item
+                key={key}
+                {...builds[key]}
+                onClick={goTo}
+              />
             ))
           }
         </Card.Body>

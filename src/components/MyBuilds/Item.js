@@ -4,8 +4,8 @@ import styled from 'styled-components'
 import { formatDistance } from 'date-fns'
 import colors from '../../vars/colors'
 
-const Item = ({ isPublic, title, lastUpdate }) => (
-  <Container>
+const Item = ({ id, isPublic, title, lastUpdate, onClick }) => (
+  <Container onClick={() => onClick(id)}>
     <div className="d-flex justify-content-between align-items-baseline">
       <div className="d-flex align-items-baseline">
         {

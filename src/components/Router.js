@@ -22,6 +22,7 @@ export default [
   { path: '/settings/update_password', component: UpdatePassword, exact: true, strict: true },
   { path: '/settings', component: Settings, exact: true, strict: true },
   { path: '/builds/new', component: Builder, exact: true, strict: true },
+  { path: '/builds/:id', component: Builder, exact: true, strict: true },
   { path: '/builds', component: MyBuilds, exact: true, strict: true },
   { path: '/', component: Home, exact: true, strict: true },
 ]

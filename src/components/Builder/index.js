@@ -1,27 +1,41 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
-import { /*useRouteMatch,*/ /*useHistory*/ } from 'react-router-dom'
+import { useRouteMatch/*, useHistory*/ } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
 import { FirebaseContext } from '../Firebase'
 import { withOrWithoutAuthorization } from '../Session'
+import Loading from '../layouts/Loading'
 import Build from '../../models/Build'
 import ViewHeader from '../shared/layouts/ViewHeader'
 import BuildSettings from './menus/BuildSettings'
 
 const Builder = ({ authUser }) => {
-  // const routeMatch = useRouteMatch()
-  // console.log(routeMatch)
+  const routeMatch = useRouteMatch()
   // TODO: Use routeMatch to fetch existing build
   // const history = useHistory()
 
   const firebase = useContext(FirebaseContext)
 
   const [settingsModal, setSettingsModal] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [build, setBuild] = useState(new Build({}))
+
+  useEffect(() => {
+    (async () => {
+      const { params: { id } } = routeMatch
+      // TODO: handle error
+      if (id) {
+        const loadedBuild = await firebase.build(id).once('value')
+        setBuild(loadedBuild.val())
+        setIsLoading(false)
+      } else {
+        setIsLoading(false)
+      }
+    })()
+  }, [])
 
   const openModal = () => setSettingsModal(true)
   const closeModal = () => setSettingsModal(false)
@@ -58,6 +72,8 @@ const Builder = ({ authUser }) => {
       // Add variable to redirect user here and auto save
     }
   }
+
+  if (isLoading) return <Loading />
 
   return (
     <>
