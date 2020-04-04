@@ -25,7 +25,7 @@ const NewBuildButton = ({ large }) => {
 }
 
 const Container = styled.div`
-  box-shadow: 0 0 0 4px ${colors.primary};
+  box-shadow: 0 0 0 2px ${colors.primary};
   border-radius: 0.25rem;
   padding: ${({ large }) => large
     ? '3rem 1rem'
@@ -47,7 +47,7 @@ const Container = styled.div`
     transition: transform 300ms;
     background-color: ${colors.light};
     color: ${colors.primary};
-    box-shadow: none;
+    box-shadow: 0 0 0 2px ${colors.light};
   }
 `
 
