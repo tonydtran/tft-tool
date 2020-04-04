@@ -2,16 +2,15 @@
 import React, { useState, useEffect, useContext } from 'react'
 // import styled from 'styled-components'
 // import { useHistory } from 'react-router-dom'
-import { formatDistance } from 'date-fns'
 import Card from 'react-bootstrap/Card'
 
 import Loading from '../layouts/Loading'
 import ViewHeader from '../shared/layouts/ViewHeader'
 import NewBuildButton from './NewBuildButton'
+import Item from './Item'
 
 import { withAuthorization } from '../Session'
 import { FirebaseContext } from '../Firebase'
-// import colors from '../../vars/colors'
 
 const MyBuilds = () => {
   const firebase = useContext(FirebaseContext)
@@ -53,23 +52,7 @@ const MyBuilds = () => {
           {builds ? <NewBuildButton /> : noBuilds }
           {
             builds && Object.keys(builds).map(key => (
-              <div key={key} className="mt-4">
-                <div className="d-flex justify-content-between align-items-baseline">
-                  <div className="d-flex align-items-baseline">
-                    {
-                      builds[key].isPublic
-                        ? <i className="fas fa-lock mr-2 text-warning" />
-                        : <i className="fas fa-unlock mr-2 text-info" />
-                    }
-                    <strong>
-                      {builds[key].title}
-                    </strong>
-                  </div>
-                  <span className="small text-muted text-nowrap">
-                    {formatDistance(builds[key].lastUpdate, Date.now())}
-                  </span>
-                </div>
-              </div>
+              <Item key={key} {...builds[key]} />
             ))
           }
         </Card.Body>
