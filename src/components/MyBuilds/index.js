@@ -28,7 +28,12 @@ const MyBuilds = () => {
         .equalTo(userUid)
         .ref.once('value')
       
-      if (userBuilds.val()) setBuilds(userBuilds.val())
+      if (userBuilds.val()) {
+        const sortedBuilds = Object.values(userBuilds.val()).sort((a, b) => b.lastUpdate - a.lastUpdate)
+
+        setBuilds(sortedBuilds)
+      }
+
       setIsLoading(false)
     })()
   }, [])
@@ -56,10 +61,10 @@ const MyBuilds = () => {
         <Card.Body>
           {builds ? <NewBuildButton /> : noBuilds }
           {
-            builds && Object.keys(builds).map(key => (
+            builds && builds.map(build => (
               <Item
-                key={key}
-                {...builds[key]}
+                key={build.id}
+                {...build}
                 onClick={goTo}
               />
             ))
