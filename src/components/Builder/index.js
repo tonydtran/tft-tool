@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
-import { useRouteMatch/*, useHistory*/ } from 'react-router-dom'
+import { useRouteMatch, useHistory } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
@@ -14,8 +14,7 @@ import BuildSettings from './menus/BuildSettings'
 
 const Builder = ({ authUser }) => {
   const routeMatch = useRouteMatch()
-  // TODO: Use routeMatch to fetch existing build
-  // const history = useHistory()
+  const history = useHistory()
 
   const firebase = useContext(FirebaseContext)
 
@@ -87,7 +86,11 @@ const Builder = ({ authUser }) => {
       <ViewHeader>
         <div className={authUser ? 'mt-2' : null}>
           {authUser && (
-            <Button variant="link" className="p-0">
+            <Button
+              variant="link"
+              className="p-0"
+              onClick={() => history.push('/builds')}
+            >
               <i className="fas fa-chevron-left fa-sm" /> My builds
             </Button>
           )}
