@@ -85,10 +85,12 @@ const Builder = ({ authUser }) => {
   return (
     <>
       <ViewHeader>
-        <div className="mt-2 mb-2">
-          <Button variant="link" className="p-0">
-            <i className="fas fa-chevron-left fa-sm" /> My builds
-          </Button>
+        <div className={authUser ? 'mt-2' : null}>
+          {authUser && (
+            <Button variant="link" className="p-0">
+              <i className="fas fa-chevron-left fa-sm" /> My builds
+            </Button>
+          )}
           <div className="d-flex align-items-center">
             <h1 className="d-inline-block text-truncate">{build.title}</h1>
             <I
