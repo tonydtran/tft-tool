@@ -27,12 +27,12 @@ const Item = ({ id, isPublic, title, lastUpdate, onClick }) => (
 const Container = styled.div`
   margin-top: 1.25rem;
   border-radius: 0.25rem;
-  border: 2px solid ${colors.secondary};
+  box-shadow: 0 0 0 2px ${colors.secondary};
   padding: 1.25rem;
 
   &:hover, &:active {
     background-color: ${colors.primary};
-    border-color: ${colors.primary};
+    box-shadow: 0 0 0 2px ${colors.primary};
     cursor: pointer;
   }
 `
