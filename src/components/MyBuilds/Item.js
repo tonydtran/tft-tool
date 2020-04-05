@@ -6,20 +6,20 @@ import colors from '../../vars/colors'
 
 const Item = ({ id, isPublic, title, lastUpdate, onClick }) => (
   <Container onClick={() => onClick(id)}>
-    <div className="d-flex justify-content-between align-items-baseline">
+    <div className="d-flex flex-column">
       <div className="d-flex align-items-baseline">
         {
           isPublic
             ? <i className="fas fa-unlock mr-2 text-info" />
             : <i className="fas fa-lock mr-2 text-warning" />
         }
-        <strong>
+        <strong className="text-break">
           {title}
         </strong>
       </div>
-      <span className="small text-muted text-nowrap">
+      <div className="align-self-end small text-muted text-nowrap mt-3">
         {formatDistance(lastUpdate, Date.now())} ago
-      </span>
+      </div>
     </div>
   </Container>
 )

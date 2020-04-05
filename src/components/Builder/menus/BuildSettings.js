@@ -40,6 +40,7 @@ const BuildSettings = ({ onHide, build, saveBuild, deleteBuild, isLoading }) => 
               defaultValue={build.title}
               isInvalid={errors.title}
               ref={register({ required: 'Required.' })}
+              maxLength={70}
             />
             {errors.title && (
               <Form.Control.Feedback type="invalid">{errors.title.message}</Form.Control.Feedback>
