@@ -6,12 +6,20 @@ import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 import Modal from 'react-bootstrap/Modal'
 
-const BuildSettings = ({ onHide, build, saveBuild, isLoading }) => {
-  const { register, handleSubmit, errors/*, setError*/ } = useForm()
+import colors from '../../../vars/colors'
 
-  const onSubmit = async ({ title, isPublic }) => {
-    await saveBuild({ title, isPublic: !!isPublic })
-    onHide()
+const BuildSettings = ({ onHide, build, saveBuild, deleteBuild, isLoading }) => {
+  const { register, handleSubmit, errors, watch } = useForm()
+
+  const deleting = watch('deleting', false)
+
+  const onSubmit = async ({ title, isPublic, deleting }) => {
+    if (deleting) {
+      await deleteBuild()
+    } else {
+      await saveBuild({ title, isPublic: !!isPublic })
+      onHide()
+    }
   }
 
   return (
@@ -48,9 +56,23 @@ const BuildSettings = ({ onHide, build, saveBuild, isLoading }) => {
             />
             <Form.Text>Allow your build to be viewable by everyone</Form.Text>
           </Form.Group>
+          {
+            build.lastUpdate && (
+              <Form.Group controlId="deleting">
+                <Delete
+                  type="switch"
+                  label="Delete"
+                  name="deleting"
+                  ref={register()}
+                  defaultChecked={false}
+                />
+                <Form.Text>Delete for good. No way back.</Form.Text>
+              </Form.Group>
+            )
+          }
           <Button
             className="mt-4"
-            variant="primary"
+            variant={deleting ? 'danger' : 'primary'}
             type="submit"
             size="lg"
             block
@@ -59,7 +81,7 @@ const BuildSettings = ({ onHide, build, saveBuild, isLoading }) => {
             {
               isLoading
                 ? <Spinner as="span" animation="border" variant="light" />
-                : 'Save'
+                : deleting ? 'Delete' : 'Save'
             }
           </Button>
         </Form>
@@ -71,6 +93,15 @@ const BuildSettings = ({ onHide, build, saveBuild, isLoading }) => {
 const Header = styled(Modal.Header)`
   button {
     font-size: 2rem;
+  }
+`
+
+const Delete = styled(Form.Check)`
+  input:checked ~ label {
+    &:before {
+      border-color: ${colors.danger} !important;
+      background-color: ${colors.danger} !important;
+    }
   }
 `
 

@@ -7,6 +7,7 @@ import Modal from 'react-bootstrap/Modal'
 
 import { FirebaseContext } from '../Firebase'
 import { withOrWithoutAuthorization } from '../Session'
+import { StoreContext } from '../Store'
 import Loading from '../layouts/Loading'
 import Build from '../../models/Build'
 import ViewHeader from '../shared/layouts/ViewHeader'
@@ -15,8 +16,8 @@ import BuildSettings from './menus/BuildSettings'
 const Builder = ({ authUser }) => {
   const routeMatch = useRouteMatch()
   const history = useHistory()
-
   const firebase = useContext(FirebaseContext)
+  const store = useContext(StoreContext)
 
   const [settingsModal, setSettingsModal] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -79,6 +80,28 @@ const Builder = ({ authUser }) => {
     }
   }
 
+  const deleteBuild = async () => {
+    if (!isSaving) {
+      setIsSaving(true)
+
+      // TODO: implement error handler
+      const checkUserBuilds = await firebase.getCurrentUserData()
+      const userBuilds = checkUserBuilds.val().builds
+
+      await firebase.build(build.id).remove()
+      await firebase.user(authUser.uid).update({
+        builds: userBuilds.filter(currentBuild => currentBuild !== build.id)
+      })
+
+      store.addMessage(
+        'Build deleted',
+        'No Guardian Angel, this build is gone for good...'
+      )
+
+      history.push('/builds')
+    }
+  }
+
   if (isLoading) return <Loading />
 
   return (
@@ -108,6 +131,7 @@ const Builder = ({ authUser }) => {
           onHide={closeModal}
           build={build}
           saveBuild={saveBuild}
+          deleteBuild={deleteBuild}
           isLoading={isSaving}
         />
       </Modal>

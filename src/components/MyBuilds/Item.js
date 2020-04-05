@@ -10,8 +10,8 @@ const Item = ({ id, isPublic, title, lastUpdate, onClick }) => (
       <div className="d-flex align-items-baseline">
         {
           isPublic
-            ? <i className="fas fa-lock mr-2 text-warning" />
-            : <i className="fas fa-unlock mr-2 text-info" />
+            ? <i className="fas fa-unlock mr-2 text-info" />
+            : <i className="fas fa-lock mr-2 text-warning" />
         }
         <strong>
           {title}
