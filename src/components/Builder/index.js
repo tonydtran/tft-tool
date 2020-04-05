@@ -71,6 +71,7 @@ const Builder = ({ authUser }) => {
         }
 
         setBuild(newBuild)
+        window.history.replaceState(null, '', `/builds/${newBuild.id}`)
         setIsSaving(false)
       }
     } else {
