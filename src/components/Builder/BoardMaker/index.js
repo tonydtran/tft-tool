@@ -9,17 +9,18 @@ class BoardMaker extends Component {
   constructor (props) {
     super(props)
 
+    const demoBoard = props.board
+    demoBoard.a.a4 = { ...props.board.a.a4, champ: champions['ahri'], carry: false, items: [1, 2, 3] }
+    demoBoard.b.b4 = { ...props.board.b.b4, champ: champions['syndra'] }
+    demoBoard.b.b5 = { ...props.board.b.b5, champ: champions['zoe'] }
+
     this.state = {
       id: props.id,
       name: props.name,
       note: props.note,
       traits: props.traits,
-      // board: props.board,
-      board: {
-        ...props.board,
-        a: { ...props.board.a, a4: { ...props.board.a.a4, champ: champions['ahri'], carry: false, items: [1, 2, 3] } },
-        b: { ...props.board.b, b4: { ...props.board.b.b4, champ: champions['syndra'] }, b5: { ...props.board.b.b5, champ: champions['zoe'] } }
-      }
+      // board: props.board
+      board: demoBoard
     }
   }
 
