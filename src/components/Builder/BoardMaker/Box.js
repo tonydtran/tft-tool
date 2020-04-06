@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-import itemsDataset from '../../data/items.json'
+import itemsDataset from '../../../data/items.json'
 
 const Box = ({ data, onChange }) => {
   const [dragHovering, setDragHovering] = useState(false)

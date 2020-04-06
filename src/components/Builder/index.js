@@ -10,8 +10,10 @@ import { withOrWithoutAuthorization } from '../Session'
 import { StoreContext } from '../Store'
 import Loading from '../layouts/Loading'
 import Build from '../../models/Build'
+import BoardSet from '../../models/BoardSet'
 import ViewHeader from '../shared/layouts/ViewHeader'
 import BuildSettings from './menus/BuildSettings'
+import BoardMaker from './BoardMaker'
 
 const Builder = ({ authUser }) => {
   const routeMatch = useRouteMatch()
@@ -22,7 +24,9 @@ const Builder = ({ authUser }) => {
   const [settingsModal, setSettingsModal] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
-  const [build, setBuild] = useState(new Build({}))
+  const [build, setBuild] = useState(new Build({
+    boards: [new BoardSet()]
+  }))
 
   useEffect(() => {
     (async () => {
@@ -124,6 +128,13 @@ const Builder = ({ authUser }) => {
               className="fas fa-tools fa-lg text-success ml-2"
               onClick={openModal}
             />
+          </div>
+          <div className="mt-3">
+            {
+              build.boards.map(board => (
+                <BoardMaker key={board.id} {...board} />
+              ))
+            }
           </div>
         </div>
       </ViewHeader>

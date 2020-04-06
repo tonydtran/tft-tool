@@ -27,7 +27,7 @@ export default function BoardSet(boardSet) {
   return {
     id: uuidv4(),
     board: boardSet ? boardSet.board : emptyBoard,
-    name: boardSet ? boardSet.name : '',
+    name: boardSet ? boardSet.name : 'New board',
     note: boardSet ? boardSet.note : '',
     traits: boardSet ? boardSet.traits : []
   }
