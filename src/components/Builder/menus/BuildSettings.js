@@ -14,6 +14,7 @@ const BuildSettings = ({ onHide, build, saveBuild, deleteBuild, isLoading }) => 
   const deleting = watch('deleting', false)
 
   const onSubmit = async ({ title, isPublic, deleting }) => {
+    // TODO: Handle errors
     if (deleting) {
       await deleteBuild()
     } else {
@@ -41,6 +42,7 @@ const BuildSettings = ({ onHide, build, saveBuild, deleteBuild, isLoading }) => 
               isInvalid={errors.title}
               ref={register({ required: 'Required.' })}
               maxLength={70}
+              disabled={deleting}
             />
             {errors.title && (
               <Form.Control.Feedback type="invalid">{errors.title.message}</Form.Control.Feedback>
@@ -54,6 +56,7 @@ const BuildSettings = ({ onHide, build, saveBuild, deleteBuild, isLoading }) => 
               ref={register()}
               defaultChecked={build.isPublic}
               defaultValue={build.isPublic}
+              disabled={deleting}
             />
             <Form.Text>Allow your build to be viewable by everyone</Form.Text>
           </Form.Group>
@@ -62,12 +65,12 @@ const BuildSettings = ({ onHide, build, saveBuild, deleteBuild, isLoading }) => 
               <Form.Group controlId="deleting">
                 <Delete
                   type="switch"
-                  label="Delete"
+                  label="Delete build"
                   name="deleting"
                   ref={register()}
                   defaultChecked={false}
                 />
-                <Form.Text>Delete for good. No way back.</Form.Text>
+                {deleting && <Form.Text>Delete for good. No way back.</Form.Text>}
               </Form.Group>
             )
           }
@@ -82,7 +85,7 @@ const BuildSettings = ({ onHide, build, saveBuild, deleteBuild, isLoading }) => 
             {
               isLoading
                 ? <Spinner as="span" animation="border" variant="light" />
-                : deleting ? 'Delete' : 'Save'
+                : deleting ? 'Delete build' : 'Save build settings'
             }
           </Button>
         </Form>
