@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Toast from 'react-bootstrap/Toast'
 
 import viewports from '../../vars/viewports'
-// import { StoreContext } from '../Store'
+import colors from '../../vars/colors'
 
 const Toasts = ({ messages, deleteMessage }) => {
   const onClose = id => {
@@ -38,7 +38,12 @@ const Container = styled.div`
 `
 
 const AutoToast = ({ message: { id, title, body, duration }, onClose }) => (
-  <Toast autohide delay={duration} onClose={() => onClose(id)}>
+  <Toast
+    autohide
+    delay={duration}
+    onClose={() => onClose(id)}
+    style={{ boxShadow: `0 1px 4px 0 ${colors.gray}` }}
+  >
     <Toast.Header>
       <strong className="mr-auto">
         {title}
