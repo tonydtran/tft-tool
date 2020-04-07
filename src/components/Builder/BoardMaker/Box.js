@@ -44,7 +44,7 @@ const Box = ({ data, onChange }) => {
     >
       <ItemContainer>
         {
-          data.items.map(item => (
+          data.items && data.items.map(item => (
             <Item
               key={`${data.champ.id}-${item}`}
               image={itemsDataset[item].image}

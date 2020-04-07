@@ -4,10 +4,13 @@ import styled from 'styled-components'
 import { useRouteMatch, useHistory } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
+import Spinner from 'react-bootstrap/Spinner'
+import { formatDistance } from 'date-fns'
 
 import { FirebaseContext } from '../Firebase'
 import { withOrWithoutAuthorization } from '../Session'
 import { StoreContext } from '../Store'
+import colors from '../../vars/colors'
 import Loading from '../layouts/Loading'
 import Build from '../../models/Build'
 import BoardSet from '../../models/BoardSet'
@@ -42,8 +45,7 @@ const Builder = ({ authUser }) => {
     })()
   }, [])
 
-  const openModal = () => setSettingsModal(true)
-  const closeModal = () => setSettingsModal(false)
+  const toggleModal = () => setSettingsModal(!settingsModal)
 
   const saveBuild = async update => {
     if (authUser) {
@@ -52,9 +54,11 @@ const Builder = ({ authUser }) => {
 
         const newBuild = { ...build }
 
-        Object.keys(update).forEach(key => {
-          newBuild[key] = update[key]
-        })
+        if (update) {
+          Object.keys(update).forEach(key => {
+            newBuild[key] = update[key]
+          })
+        }
 
         newBuild.authorUid = authUser.uid
         newBuild.lastUpdate = Date.now()
@@ -75,7 +79,7 @@ const Builder = ({ authUser }) => {
         }
 
         setBuild(newBuild)
-        window.history.replaceState(null, '', `/builds/${newBuild.id}`)
+        if (buildExist) window.history.replaceState(null, '', `/builds/${newBuild.id}`)
         setIsSaving(false)
       }
     } else {
@@ -107,6 +111,24 @@ const Builder = ({ authUser }) => {
     }
   }
 
+  const deleteBoard = boardId => {
+    const currentBoards = [...build.boards].filter(board => board.id !== boardId)
+
+    setBuild({...build, boards: currentBoards })
+  }
+
+  const updateBoard = updatingBoard => {
+    const currentBoards = [...build.boards].map(board => {
+      if (board.id === updatingBoard.id) {
+        return updatingBoard
+      }
+      
+      return board
+    })
+
+    setBuild({ ...build, boards: currentBoards })
+  }
+
   if (isLoading) return <Loading />
 
   return (
@@ -122,25 +144,48 @@ const Builder = ({ authUser }) => {
               <i className="fas fa-chevron-left fa-sm" /> My builds
             </Button>
           )}
-          <div className="d-flex align-items-center">
-            <h1 className="d-inline-block text-truncate">{build.title}</h1>
+          <div className="d-flex align-items-baseline">
+            <h1 className="d-inline-block text-truncate mb-0">{build.title}</h1>
             <I
               className="fas fa-tools fa-lg text-success ml-2"
-              onClick={openModal}
+              onClick={toggleModal}
             />
-          </div>
-          <div className="mt-3">
-            {
-              build.boards.map(board => (
-                <BoardMaker key={board.id} {...board} />
-              ))
-            }
           </div>
         </div>
       </ViewHeader>
-      <Modal show={settingsModal} onHide={closeModal} centered>
+      <Container className="">
+        {
+          build.boards && build.boards.map(board => (
+            <BoardMaker
+              key={board.id}
+              deleteBoard={deleteBoard}
+              updateBoard={updateBoard}
+              {...board}
+            />
+          ))
+        }
+      </Container>
+      <SaveButton onClick={() => saveBuild()}>
+        { //TODO: check if builder is dirty or not to display button or reset wording
+        // Merge save from modal and this button
+          isSaving
+            ? (<Spinner
+                style={{ margin: '0.344rem 0' }}
+                as="span"
+                animation="border"
+                variant="light"
+              />)
+            : (<>
+                <p className="font-weight-bold mb-0">Save</p>
+                <small>
+                  Last save {formatDistance(build.lastUpdate, Date.now())} ago
+                </small>
+              </>)
+        }
+      </SaveButton>
+      <Modal show={settingsModal} onHide={toggleModal} centered>
         <BuildSettings
-          onHide={closeModal}
+          onHide={toggleModal}
           build={build}
           saveBuild={saveBuild}
           deleteBuild={deleteBuild}
@@ -156,6 +201,26 @@ const I = styled.i`
     transform: scale(1.3);
     cursor: pointer;
     transition: transform 300ms;
+  }
+`
+
+const Container = styled.div`
+  padding: 0 1rem 1rem;
+`
+
+const SaveButton = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  background-color: ${colors.primary};
+  padding: .25rem 0;
+
+  &:active {
+    background-color: ${colors.light};
+    color: ${colors.primary};
   }
 `
 
