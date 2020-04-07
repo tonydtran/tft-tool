@@ -58,7 +58,8 @@ class BoardMaker extends Component {
 
     board[row][boxId] = {
       ...board[row][boxId],
-      champ
+      champ,
+      items: champ.id ? items : []
     }
 
     this.setState({ board })
