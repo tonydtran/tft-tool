@@ -23,22 +23,14 @@ class BoardMaker extends Component {
       traits: props.traits || [],
       board: props.board,
       // board: demoBoard,
-      settingsModal: false
     }
-  }
-
-  handleToggleModal = () => {
-    const { settingsModal } = this.state
-
-    this.setState({ settingsModal: !settingsModal })
   }
 
   handleChangeTitleAndText = (title, text) => {
     this.setState({ title, text }, () => {
       const { updateBoard } = this.props
-      const { id, title, text, traits, board } = this.state
 
-      updateBoard({ id, title, text, traits, board })
+      updateBoard(this.state)
     })
   }
 
@@ -62,16 +54,15 @@ class BoardMaker extends Component {
 
       this.setState({ board }, () => {
         const { updateBoard } = this.props
-        const { id, title, text, traits, board } = this.state
 
-        updateBoard({ id, title, text, traits, board })
+        updateBoard(this.state)
       })
     }
   }
 
   render () {
-    const { deleteBoard } = this.props
-    const { id, title, text, board, settingsModal } = this.state
+    const { openModals, toggleModal, deleteBoard } = this.props
+    const { id, title, text, board } = this.state
 
     return (
       <>
@@ -82,22 +73,22 @@ class BoardMaker extends Component {
             </h4>
             <I
               className="fas fa-edit fa-smd text-success ml-2"
-              onClick={this.handleToggleModal}
+              onClick={() => toggleModal('boarderMakerSettings')}
             />
           </div>
           <p className="text-break">{text}</p>
         </div>
         <Board boardData={board} onChange={this.handleChangePosition} />
         <Modal
-          show={settingsModal}
-          onHide={this.handleToggleModal}
+          show={openModals.boarderMakerSettings}
+          onHide={() => toggleModal('boarderMakerSettings')}
           centered
         >
           <BoardSettings
             id={id}
             title={title}
             text={text}
-            onHide={this.handleToggleModal}
+            onHide={() => toggleModal('boarderMakerSettings')}
             saveBoard={this.handleChangeTitleAndText}
             deleteBoard={deleteBoard}
           />

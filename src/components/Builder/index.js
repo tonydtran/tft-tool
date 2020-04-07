@@ -24,7 +24,11 @@ const Builder = ({ authUser }) => {
   const firebase = useContext(FirebaseContext)
   const store = useContext(StoreContext)
 
-  const [settingsModal, setSettingsModal] = useState(false)
+  const [openModals, setOpenModals] = useState({
+    builderSettings: false,
+    boarderMakerSettings: false
+  })
+
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [build, setBuild] = useState(new Build({
@@ -49,7 +53,14 @@ const Builder = ({ authUser }) => {
     })()
   }, [])
 
-  const toggleModal = () => setSettingsModal(!settingsModal)
+  const toggleModal = modal => {
+    const currentModals = { ...openModals }
+
+    setOpenModals({
+      ...currentModals,
+      [modal]: !currentModals[modal]
+    })
+  }
 
   const saveBuild = async update => {
     if (authUser) {
@@ -152,7 +163,7 @@ const Builder = ({ authUser }) => {
             <h1 className="d-inline-block text-truncate mb-0">{build.title}</h1>
             <I
               className="fas fa-tools fa-lg text-success ml-2"
-              onClick={toggleModal}
+              onClick={() => toggleModal('builderSettings')}
             />
           </div>
         </div>
@@ -164,36 +175,46 @@ const Builder = ({ authUser }) => {
               key={board.id}
               deleteBoard={deleteBoard}
               updateBoard={updateBoard}
+              openModals={openModals}
+              toggleModal={toggleModal}
               {...board}
             />
           ))
         }
       </Container>
-      <SaveButton onClick={() => saveBuild()}>
-        { //TODO: check if builder is dirty or not to display button or reset wording
-        // Merge save from modal and this button
-          isSaving
-            ? (<Spinner
-                style={{ margin: '0.344rem 0' }}
-                as="span"
-                animation="border"
-                variant="light"
-              />)
-            : (<>
-                <p className="font-weight-bold mb-0">Save</p>
-                <small>
-                {
-                  build.lastUpdate
-                    ? `Last save ${formatDistance(build.lastUpdate, Date.now())} ago`
-                    : 'Never saved'
-                }
-                </small>
-              </>)
-        }
-      </SaveButton>
-      <Modal show={settingsModal} onHide={toggleModal} centered>
+      {
+        !Object.values(openModals).some(modal => modal) && (
+          <SaveButton onClick={() => saveBuild()}>
+            { //TODO: check if builder is dirty or not to display button or reset wording
+              // Merge save from modal and this button
+              isSaving
+                ? (<Spinner
+                  style={{ margin: '0.344rem 0' }}
+                  as="span"
+                  animation="border"
+                  variant="light"
+                />)
+                : (<>
+                  <p className="font-weight-bold mb-0">Save</p>
+                  <small>
+                    {
+                      build.lastUpdate
+                        ? `Last save ${formatDistance(build.lastUpdate, Date.now())} ago`
+                        : 'Never saved'
+                    }
+                  </small>
+                </>)
+            }
+          </SaveButton>
+        )
+      }
+      <Modal
+        show={openModals.builderSettings}
+        onHide={() => toggleModal('builderSettings')}
+        centered
+      >
         <BuildSettings
-          onHide={toggleModal}
+          onHide={() => toggleModal('builderSettings')}
           build={build}
           saveBuild={saveBuild}
           deleteBuild={deleteBuild}
