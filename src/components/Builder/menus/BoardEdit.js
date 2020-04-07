@@ -7,7 +7,7 @@ import Modal from 'react-bootstrap/Modal'
 
 import colors from '../../../vars/colors'
 
-const BoardSettings = (props) => {
+const BoardEdit = (props) => {
   const { id, title, text, onHide, saveBoard, deleteBoard } = props
   const { register, handleSubmit, errors, watch } = useForm()
 
@@ -26,7 +26,7 @@ const BoardSettings = (props) => {
     <>
       <Header className="bg-secondary" closeButton>
         <Modal.Title>
-          <i className="fas fa-tools mr-2" /> Board settings
+          <i className="fas fa-edit mr-2" /> Board edit
         </Modal.Title>
       </Header>
       <Modal.Body className="bg-dark">
@@ -101,4 +101,4 @@ const Delete = styled(Form.Check)`
   }
 `
 
-export default BoardSettings
+export default BoardEdit

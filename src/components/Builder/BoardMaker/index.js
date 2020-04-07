@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal'
 import champions from '../../../data/champions.json'
 
 import Board from './Board'
-import BoardSettings from '../menus/BoardSettings'
+import BoardEdit from '../menus/BoardEdit'
 
 class BoardMaker extends Component {
   constructor (props) {
@@ -73,22 +73,22 @@ class BoardMaker extends Component {
             </h4>
             <I
               className="fas fa-edit fa-smd text-success ml-2"
-              onClick={() => toggleModal('boarderMakerSettings')}
+              onClick={() => toggleModal(`boardEdit-${id}`)}
             />
           </div>
           <p className="text-break">{text}</p>
         </div>
         <Board boardData={board} onChange={this.handleChangePosition} />
         <Modal
-          show={openModals.boarderMakerSettings}
-          onHide={() => toggleModal('boarderMakerSettings')}
+          show={openModals[`boardEdit-${id}`]}
+          onHide={() => toggleModal(`boardEdit-${id}`)}
           centered
         >
-          <BoardSettings
+          <BoardEdit
             id={id}
             title={title}
             text={text}
-            onHide={() => toggleModal('boarderMakerSettings')}
+            onHide={() => toggleModal(`boardEdit-${id}`)}
             saveBoard={this.handleChangeTitleAndText}
             deleteBoard={deleteBoard}
           />

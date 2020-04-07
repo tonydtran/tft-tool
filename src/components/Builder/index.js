@@ -25,8 +25,7 @@ const Builder = ({ authUser }) => {
   const store = useContext(StoreContext)
 
   const [openModals, setOpenModals] = useState({
-    builderSettings: false,
-    boarderMakerSettings: false
+    builderSettings: false
   })
 
   const [isLoading, setIsLoading] = useState(true)
