@@ -178,7 +178,11 @@ const Builder = ({ authUser }) => {
             : (<>
                 <p className="font-weight-bold mb-0">Save</p>
                 <small>
-                  Last save {formatDistance(build.lastUpdate, Date.now())} ago
+                {
+                  build.lastUpdate
+                    ? `Last save ${formatDistance(build.lastUpdate, Date.now())} ago`
+                    : 'Never saved'
+                }
                 </small>
               </>)
         }
