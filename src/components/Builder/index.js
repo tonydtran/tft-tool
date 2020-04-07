@@ -37,8 +37,12 @@ const Builder = ({ authUser }) => {
       // TODO: handle error
       if (id) {
         const loadedBuild = await firebase.build(id).once('value')
-        setBuild(loadedBuild.val())
-        setIsLoading(false)
+        if (loadedBuild.val()) {
+          setBuild(loadedBuild.val())
+          setIsLoading(false)
+        } else {
+          history.replace('/notfound')
+        }
       } else {
         setIsLoading(false)
       }
@@ -122,7 +126,7 @@ const Builder = ({ authUser }) => {
       if (board.id === updatingBoard.id) {
         return updatingBoard
       }
-      
+
       return board
     })
 
