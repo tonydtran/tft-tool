@@ -7,8 +7,7 @@ import Modal from 'react-bootstrap/Modal'
 
 import colors from '../../../vars/colors'
 
-const BoardEdit = (props) => {
-  const { id, title, text, onHide, saveBoard, deleteBoard } = props
+const BoardEdit = ({ id, title, text, onHide, saveBoard, deleteBoard }) => {
   const { register, handleSubmit, errors, watch } = useForm()
 
   const deleting = watch('deleting', false)

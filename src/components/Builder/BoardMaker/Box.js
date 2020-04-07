@@ -6,7 +6,7 @@ import Hexagon from 'react-hexagon'
 import itemsDataset from '../../../data/items.json'
 import colors from '../../../vars/colors'
 
-const Box = ({ data, onChange }) => {
+const Box = ({ data, onChange, onClick }) => {
   const [dragHovering, setDragHovering] = useState(false)
 
   const onDragStart = event => {
@@ -42,6 +42,7 @@ const Box = ({ data, onChange }) => {
       onDragEnter={e => onDragEnter(e)}
       onDragLeave={e => onDragLeave(e)}
       dragHovering={dragHovering}
+      onClick={() => onClick({...data})}
       {...data}
     >
       <HexContainer

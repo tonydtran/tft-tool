@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Box from './Box'
 
-const Board = ({ boardData, onChange }) => {
+const Board = ({ boardData, onChange, onClick }) => {
   return (
     <div className="d-flex justify-content-center">
       <div className="d-flex flex-column">
@@ -16,6 +16,7 @@ const Board = ({ boardData, onChange }) => {
                     key={boardData[row][box].id}
                     data={boardData[row][box]}
                     onChange={onChange}
+                    onClick={onClick}
                   />
                 ))
               }

@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Modal from 'react-bootstrap/Modal'
 
-import champions from '../../../data/champions.json'
+import { countChamp } from '../../../helpers/board'
+// import champions from '../../../data/champions.json'
 
 import Board from './Board'
 import BoardEdit from '../menus/BoardEdit'
+import ChampEdit from '../menus/ChampEdit'
 
 class BoardMaker extends Component {
   constructor (props) {
@@ -23,15 +25,43 @@ class BoardMaker extends Component {
       traits: props.traits || [],
       board: props.board,
       // board: demoBoard,
+      selectedBox: null
     }
   }
 
   handleChangeTitleAndText = (title, text) => {
     this.setState({ title, text }, () => {
       const { updateBoard } = this.props
+      const { id, title, text, traits, board } = this.state
 
-      updateBoard(this.state)
+      updateBoard({ id, title, text, traits, board })
     })
+  }
+
+  handleToggleChampEditModal = ({ id: boxId, row }) => {
+    const { openModals, toggleModal } = this.props
+    const { id } = this.state
+
+    if (openModals[`champEdit-${id}`]) {
+      this.setState({ selectedBox: null }, () => {
+        toggleModal(`champEdit-${id}`)
+      })
+    } else {
+      this.setState({ selectedBox: { id: boxId, row } }, () => {
+        toggleModal(`champEdit-${id}`)
+      })
+    }
+  }
+
+  handleUpdateBox = ({ boxId, row, champ, carry, items }) => {
+    const { board } = this.state
+
+    board[row][boxId] = {
+      ...board[row][boxId],
+      champ
+    }
+
+    this.setState({ board })
   }
 
   handleChangePosition = (origin, target) => {
@@ -54,16 +84,17 @@ class BoardMaker extends Component {
 
       this.setState({ board }, () => {
         const { updateBoard } = this.props
+        const { id, title, text, traits, board } = this.state
 
-        updateBoard(this.state)
+        updateBoard({ id, title, text, traits, board })
       })
     }
   }
 
   render () {
     const { openModals, toggleModal, deleteBoard } = this.props
-    const { id, title, text, board } = this.state
-
+    const { id, title, text, board, selectedBox } = this.state
+    countChamp(board)
     return (
       <>
         <div className="mb-4">
@@ -78,7 +109,7 @@ class BoardMaker extends Component {
           </div>
           <p className="text-break">{text}</p>
         </div>
-        <Board boardData={board} onChange={this.handleChangePosition} />
+        <Board boardData={board} onChange={this.handleChangePosition} onClick={this.handleToggleChampEditModal} />
         <Modal
           show={openModals[`boardEdit-${id}`]}
           onHide={() => toggleModal(`boardEdit-${id}`)}
@@ -92,6 +123,18 @@ class BoardMaker extends Component {
             saveBoard={this.handleChangeTitleAndText}
             deleteBoard={deleteBoard}
           />
+        </Modal>
+        <Modal
+          show={openModals[`champEdit-${id}`]}
+          onHide={() => toggleModal(`champEdit-${id}`)}
+          centered
+        >
+          {selectedBox && (
+            <ChampEdit
+              {...board[selectedBox.row][selectedBox.id]}
+              onBoxUpdate={this.handleUpdateBox}
+            />
+          )}
         </Modal>
       </>
     )

@@ -4,7 +4,7 @@ const ROWS = ['a', 'b', 'c', 'd']
 const BOXES_BY_ROW = 7
 
 const box = (row, index) => {
-  return { id: `${row}${index}`, row, champ: null, items: [], carry: false }
+  return { id: `${row}${index}`, row, champ: {}, items: [], carry: false }
 }
 
 const row = letter => {
