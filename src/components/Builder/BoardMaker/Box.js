@@ -65,7 +65,7 @@ const Box = ({ data, onChange, onClick, canAddChamp }) => {
         backgroundScale={1.01}
         champ={data.champ}
       />
-      <ItemContainer>
+      <ItemContainer carry={data.carry}>
         {
           data.items && data.items.map(item => (
             <Item
@@ -86,16 +86,16 @@ const Container = styled.div`
     if (carry) return 'scale(1.2)'
     return 'none'
   }};
-  z-index: ${({ carry }) => carry ? '1' : 'auto'};
+  z-index: ${({ carry }) => carry ? '2' : 'auto'};
 
   &:hover {
     transform: ${({ dragHovering }) => !dragHovering ? 'scale(1.1)' : 'none'};
-    z-index: 2;
+    z-index: 4;
   }
 
   &:active {
     transform: scale(1.1);
-    z-index: 2;
+    z-index: 4;
   }
 `
 
@@ -128,6 +128,7 @@ const ItemContainer = styled.div`
   bottom: -0.6vw;
   display: flex;
   justify-content: center;
+  z-index: ${({ carry }) => carry ? '3' : 'auto'};
 `
 
 const Item = styled.div`

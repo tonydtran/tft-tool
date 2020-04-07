@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { useForm } from 'react-hook-form'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
@@ -8,8 +7,9 @@ import Modal from 'react-bootstrap/Modal'
 import colors from '../../../vars/colors'
 import championSet from '../../../data/champions.json'
 import itemSet from '../../../data/items.json'
+import traitSet from '../../../data/traits.json'
 
-const ChampEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry }) => {
+const BoxEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry }) => {
   const [currentBox, setCurrentBox] = useState({ boxId, row, champ, items, carry })
 
   const toggleChamp = newChamp => {
@@ -35,6 +35,22 @@ const ChampEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry 
     }
   }
 
+  const toggleCarry = event => {
+    setCurrentBox({
+      ...currentBox,
+      carry: event.target.checked
+    })
+  }
+
+  const reset = () => {
+    setCurrentBox({
+      ...currentBox,
+      champ: {},
+      items: [],
+      carry: false
+    })
+  }
+
   useEffect(() => {
     onBoxUpdate(currentBox)
   }, [onBoxUpdate, currentBox])
@@ -47,8 +63,60 @@ const ChampEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry 
         </Modal.Title>
       </Header>
       <Modal.Body className="bg-dark">
+        {
+          currentBox.champ.id && (
+            <Section>
+              <strong>Selection</strong>
+              <Selection>
+                <div className="d-flex justify-content-around mb-3">
+                  <div className="d-flex flex-column align-items-center">
+                    <Item image={championSet[currentBox.champ.id].image} className="box-edit-selection" />
+                    <div className="d-flex mt-2 ml-0">
+                      {
+                        championSet[currentBox.champ.id].traits.map(trait => (
+                          <Trait key={trait} image={traitSet[trait].image} />
+                        ))
+                      }
+                    </div>
+                  </div>
+                  <div className="d-flex flex-column align-items-center">
+                    <div className="d-flex">
+                      {
+                        currentBox.items.map(item => (
+                          <Item key={item} image={itemSet[item].image} className="box-edit-selection" />
+                        ))
+                      }
+                    </div>
+                    {
+                      currentBox.carry && (
+                        <Label>
+                          <i className="fas fa-fan mr-2" />CARRY
+                        </Label>
+                      )
+                    }
+                  </div>
+                </div>
+                <div className="d-flex justify-content-center">
+                  <Button variant="danger" size="sm" onClick={reset}>
+                    <i className="fas fa-undo-alt mr-1" />Reset
+                  </Button>
+                </div>
+              </Selection>
+            </Section>
+          )
+        }
         <Section>
-          <strong>Select champion</strong>
+          <div className="d-flex justify-content-between">
+            <strong>Select champion</strong>
+            <Form.Check
+              type="switch"
+              name="carry"
+              id="carry"
+              label="Carry"
+              onChange={toggleCarry}
+              checked={currentBox.carry}
+            />
+          </div>
           <ItemsContainer>
             {
               Object.values(championSet).map(champion => {
@@ -68,7 +136,7 @@ const ChampEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry 
           </ItemsContainer>
         </Section>
         {
-          champ.id && (
+          currentBox.champ.id && (
             <Section>
               <strong>Select items</strong>
               <ItemsContainer>
@@ -104,8 +172,37 @@ const Header = styled(Modal.Header)`
 
 const Section = styled.div`
   & + * {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
   }
+`
+
+const Selection = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 4px;
+  background-color: ${colors.secondary};
+  margin-top: 1rem;
+
+  .box-edit-selection {
+    border-radius: 4px;
+    box-shadow: 0 0 0 2px ${colors.dark};
+
+    & + * {
+      margin-left: 0.5rem;
+    }
+  }
+`
+
+const Label = styled.div`
+  padding: 0.25rem 1rem 0.25rem;
+  background-color: ${colors.purple};
+  color: ${colors.white};
+  font-weight: bolder;
+  line-height: 16px;
+  vertical-align: middle;
+  border-radius: 16px;
+  margin-top: 0.75rem;
 `
 
 const ItemsContainer = styled.div`
@@ -129,4 +226,13 @@ const Item = styled.div`
   border-radius: 2px;
 `
 
-export default React.memo(ChampEdit)
+const Trait = styled.div`
+  width: 2rem;
+  height: 2rem;
+  background-image: ${({ image }) => `url(${image})`};
+  background-size: cover;
+  background-position: center;
+  border-radius: 2px;
+`
+
+export default React.memo(BoxEdit)

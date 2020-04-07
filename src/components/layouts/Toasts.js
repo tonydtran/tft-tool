@@ -27,7 +27,7 @@ const Container = styled.div`
   width: 100%;
   bottom: 0;
   padding: 1rem 1rem;
-  z-index: 3;
+  z-index: 5;
 
   @media ${viewports.desktop} {
     width: unset;

@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal'
 
 import Board from './Board'
 import BoardEdit from '../menus/BoardEdit'
-import ChampEdit from '../menus/ChampEdit'
+import BoxEdit from '../menus/BoxEdit'
 
 class BoardMaker extends Component {
   constructor (props) {
@@ -41,13 +41,13 @@ class BoardMaker extends Component {
     const { openModals, toggleModal } = this.props
     const { id } = this.state
 
-    if (openModals[`champEdit-${id}`]) {
+    if (openModals[`boxEdit-${id}`]) {
       this.setState({ selectedBox: null }, () => {
-        toggleModal(`champEdit-${id}`)
+        toggleModal(`boxEdit-${id}`)
       })
     } else {
       this.setState({ selectedBox: { id: boxId, row } }, () => {
-        toggleModal(`champEdit-${id}`)
+        toggleModal(`boxEdit-${id}`)
       })
     }
   }
@@ -58,7 +58,8 @@ class BoardMaker extends Component {
     board[row][boxId] = {
       ...board[row][boxId],
       champ,
-      items: champ.id ? items : []
+      items: champ.id ? items : [],
+      carry
     }
 
     this.setState({ board })
@@ -125,12 +126,12 @@ class BoardMaker extends Component {
           />
         </Modal>
         <Modal
-          show={openModals[`champEdit-${id}`]}
-          onHide={() => toggleModal(`champEdit-${id}`)}
+          show={openModals[`boxEdit-${id}`]}
+          onHide={() => toggleModal(`boxEdit-${id}`)}
           centered
         >
           {selectedBox && (
-            <ChampEdit
+            <BoxEdit
               {...board[selectedBox.row][selectedBox.id]}
               onBoxUpdate={this.handleUpdateBox}
             />
