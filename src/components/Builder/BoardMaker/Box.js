@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Hexagon from 'react-hexagon'
 
 import itemsDataset from '../../../data/items.json'
 import colors from '../../../vars/colors'
+import { StoreContext } from '../../Store'
 
-const Box = ({ data, onChange, onClick }) => {
+const Box = ({ data, onChange, onClick, canAddChamp }) => {
+  const store = useContext(StoreContext)
+
   const [dragHovering, setDragHovering] = useState(false)
 
   const onDragStart = event => {
@@ -33,6 +36,18 @@ const Box = ({ data, onChange, onClick }) => {
     setDragHovering(false)
   }
 
+  const onBoxClick = () => {
+    if (canAddChamp || (data.champ && data.champ.id)) {
+      onClick({ ...data })
+    } else {
+      store.addMessage(
+        'Limit reached',
+        'Be realistic... you cannot put more than 10 champs on the board!',
+        3000
+      )
+    }
+  }
+
   return (
     <Container
       draggable={!!data.champ}
@@ -42,7 +57,7 @@ const Box = ({ data, onChange, onClick }) => {
       onDragEnter={e => onDragEnter(e)}
       onDragLeave={e => onDragLeave(e)}
       dragHovering={dragHovering}
-      onClick={() => onClick({...data})}
+      onClick={onBoxClick}
       {...data}
     >
       <HexContainer
@@ -102,6 +117,7 @@ const HexContainer = styled(Hexagon)`
       } else {
         return `${colors.secondary} !important;`
       }
+
     }};
   }
 `

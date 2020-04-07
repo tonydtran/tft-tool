@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Modal from 'react-bootstrap/Modal'
 
-import { countChamp } from '../../../helpers/board'
 // import champions from '../../../data/champions.json'
 
 import Board from './Board'
@@ -95,7 +94,7 @@ class BoardMaker extends Component {
   render () {
     const { openModals, toggleModal, deleteBoard } = this.props
     const { id, title, text, board, selectedBox } = this.state
-    countChamp(board)
+
     return (
       <>
         <div className="mb-4">

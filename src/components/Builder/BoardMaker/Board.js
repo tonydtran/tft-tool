@@ -1,9 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { countChamp } from '../../../helpers/board'
 import Box from './Box'
 
 const Board = ({ boardData, onChange, onClick }) => {
+  const canAddChamp = countChamp(boardData) < 10
+
   return (
     <div className="d-flex justify-content-center">
       <div className="d-flex flex-column">
@@ -17,6 +20,7 @@ const Board = ({ boardData, onChange, onClick }) => {
                     data={boardData[row][box]}
                     onChange={onChange}
                     onClick={onClick}
+                    canAddChamp={canAddChamp}
                   />
                 ))
               }

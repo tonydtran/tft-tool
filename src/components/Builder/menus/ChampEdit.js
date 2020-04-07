@@ -123,6 +123,7 @@ const Item = styled.div`
   background-position: center;
   box-shadow: ${({ active }) => active ? `0 0 1px 4px ${colors.success}`: null };
   transform: ${({ active }) => active ? 'scale(1.1)' : null };
+  z-index: ${({ active }) => active ? 2 : 'auto' };
   filter: ${({ grayed }) => grayed ? 'grayscale(100)' : null };
   margin: 2px;
   border-radius: 2px;
