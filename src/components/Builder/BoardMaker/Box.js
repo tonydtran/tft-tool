@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
+import Hexagon from 'react-hexagon'
 
 import itemsDataset from '../../../data/items.json'
+import colors from '../../../vars/colors'
 
 const Box = ({ data, onChange }) => {
   const [dragHovering, setDragHovering] = useState(false)
@@ -42,6 +44,11 @@ const Box = ({ data, onChange }) => {
       dragHovering={dragHovering}
       {...data}
     >
+      <HexContainer
+        backgroundImage={data.champ ? data.champ.image : null}
+        backgroundScale={1.01}
+        champ={data.champ}
+      />
       <ItemContainer>
         {
           data.items && data.items.map(item => (
@@ -58,32 +65,12 @@ const Box = ({ data, onChange }) => {
 
 const Container = styled.div`
   position: relative;
-  display: block;
-  height: 2.4rem;
-  width: 2.4rem;
-  background-color: #444;
-  box-shadow: ${({ champ }) => {
-    if (champ) {
-      switch (champ.cost) {
-        case 2: return `0 0 1px 3px #11b288;`
-        case 3: return `0 0 1px 3px #207ac7;`
-        case 4: return `0 0 1px 3px #c440da;`
-        case 5: return `0 0 1px 3px #ffb93b;`
-        default: return `0 0 1px 3px #303030;`
-      }
-    } else {
-      return `0 0 2px 2px black;`
-    }
-  }};
-  border-radius: 2px;
-  background-image: ${({ champ }) => champ ? `url(${champ.image})` : ''};
-  background-size: contain;
   transform: ${({ dragHovering, carry }) => {
     if (dragHovering) return 'scale(1.3)'
     if (carry) return 'scale(1.2)'
     return 'none'
   }};
-  z-index: ${({ carry }) => carry ? '1' : 'auto' };
+  z-index: ${({ carry }) => carry ? '1' : 'auto'};
 
   &:hover {
     transform: ${({ dragHovering }) => !dragHovering ? 'scale(1.1)' : 'none'};
@@ -96,17 +83,40 @@ const Container = styled.div`
   }
 `
 
+const HexContainer = styled(Hexagon)`
+  width: 10vw;
+
+  polygon {
+    stroke-width: 16px !important;
+    fill: ${({ backgroundImage }) => backgroundImage ? null : `${colors.dark} !important`};
+    stroke: ${({ champ }) => {
+      if (champ) {
+        switch (champ.cost) {
+          case 2: return `${colors.cost2} !important;`
+          case 3: return `${colors.cost3} !important;`
+          case 4: return `${colors.cost4} !important;`
+          case 5: return `${colors.cost5} !important;`
+          default: return `${colors.cost1} !important;`
+        }
+      } else {
+        return `${colors.secondary} !important;`
+      }
+    }};
+  }
+`
+
 const ItemContainer = styled.div`
   position: absolute;
-  bottom: -0.4rem;
+  width: 100%;
+  bottom: -0.4vw;
   display: flex;
   justify-content: center;
 `
 
 const Item = styled.div`
   display: block;
-  height: 0.8rem;
-  width: 0.8rem;
+  height: 3vw;
+  width: 3vw;
   border-radius: 2px;
   background-image: ${({ image }) => `url(${image})`};
   background-size: contain;

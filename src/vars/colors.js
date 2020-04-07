@@ -20,4 +20,9 @@ export default {
   'danger': '#E74C3C',
   'light': '#adb5bd',
   'dark': '#303030',
+  'cost1': '#444',
+  'cost2': '#11b288',
+  'cost3': '#207ac7',
+  'cost4': '#c440da',
+  'cost5': '#ffb93b'
 }

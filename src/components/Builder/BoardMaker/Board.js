@@ -5,44 +5,37 @@ import Box from './Box'
 
 const Board = ({ boardData, onChange }) => {
   return (
-    <Container>
-      {
-        Object.keys(boardData).map(row => (
-          <Row key={`row-${row}`}>
-            {
-              Object.keys(boardData[row]).map(box => (
-                <Box
-                  key={boardData[row][box].id}
-                  data={boardData[row][box]}
-                  onChange={onChange}
+    <div className="d-flex justify-content-center">
+      <div className="d-flex flex-column">
+        {
+          Object.keys(boardData).map(row => (
+            <Row key={`row-${row}`}>
+              {
+                Object.keys(boardData[row]).map(box => (
+                  <Box
+                    key={boardData[row][box].id}
+                    data={boardData[row][box]}
+                    onChange={onChange}
                   />
-              ))
-            }
-          </Row>
-        ))
-      }
-    </Container>
+                ))
+              }
+            </Row>
+          ))
+        }
+      </div>
+    </div>
   )
 }
 
 const Row = styled.div`
-  display: flex;
+  display: inline-flex;
 
-  &:nth-child(odd) {
-    margin-left: 1.2rem;
+  &:nth-child(even) {
+    margin-left: 6vw;
   }
 
   > * + * {
-    margin-left: 0.6rem;
-  }
-`
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  > * + * {
-    margin-top: 0.8rem;
+    margin-left: 2vw;
   }
 `
 
