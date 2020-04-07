@@ -25,9 +25,12 @@ class ErrorBoundary extends Component {
     if (hasError) return (
       <>
         <Img src="/assets/images/teemo.png" alt="teemo" />
-        <div className="text-center">
+        <div className="text-center mt-4">
           <h4>Oops! Something went wrong</h4>
-          <p>Please reload the page and retry or try later</p>
+          <p>
+            As every elo hell player says, it's not our fault but our providers'!
+            <a href="/builds" className="ml-2">Let's ff...</a>
+          </p>
         </div>
       </>
     )
