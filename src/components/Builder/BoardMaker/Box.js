@@ -109,7 +109,7 @@ const HexContainer = styled(Hexagon)`
 const ItemContainer = styled.div`
   position: absolute;
   width: 100%;
-  bottom: -0.4vw;
+  bottom: -0.6vw;
   display: flex;
   justify-content: center;
 `
