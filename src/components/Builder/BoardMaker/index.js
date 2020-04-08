@@ -57,9 +57,10 @@ class BoardMaker extends Component {
     this.setState({ board })
   }
 
-  handleChangePosition = (origin, target) => {
-    if (origin.id !== target.id) {
-      const { board } = this.state
+  handleChangePosition = (origin, target, boardId) => {
+    const { id, board } = this.state
+
+    if ((id === boardId) && (origin.id !== target.id)) {
 
       board[target.row][target.id] = {
         ...target,
@@ -102,7 +103,12 @@ class BoardMaker extends Component {
           </div>
           <p className="text-break">{text}</p>
         </div>
-        <Board boardData={board} onChange={this.handleChangePosition} onClick={this.handleToggleChampEditModal} />
+        <Board
+          boardData={board}
+          boardId={id}
+          onChange={this.handleChangePosition}
+          onClick={this.handleToggleChampEditModal}
+        />
         <Modal
           show={openModals[`boardEdit-${id}`]}
           onHide={() => toggleModal(`boardEdit-${id}`)}

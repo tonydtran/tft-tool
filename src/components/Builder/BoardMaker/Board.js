@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { countChamp } from '../../../helpers/board'
 import Box from './Box'
 
-const Board = ({ boardData, onChange, onClick }) => {
+const Board = ({ boardData, boardId, onChange, onClick }) => {
   const canAddChamp = countChamp(boardData) < 10
 
   return (
@@ -18,6 +18,7 @@ const Board = ({ boardData, onChange, onClick }) => {
                   <Box
                     key={boardData[row][box].id}
                     data={boardData[row][box]}
+                    boardId={boardId}
                     onChange={onChange}
                     onClick={onClick}
                     canAddChamp={canAddChamp}

@@ -7,13 +7,14 @@ import itemsDataset from '../../../data/items.json'
 import colors from '../../../vars/colors'
 import { StoreContext } from '../../Store'
 
-const Box = ({ data, onChange, onClick, canAddChamp }) => {
+const Box = ({ data, boardId, onChange, onClick, canAddChamp }) => {
   const store = useContext(StoreContext)
 
   const [dragHovering, setDragHovering] = useState(false)
 
   const onDragStart = event => {
     event.dataTransfer.setData('originData', JSON.stringify(data))
+    event.dataTransfer.setData('originBoardId', boardId)
   }
 
   const onDragOver = event => {
@@ -22,7 +23,8 @@ const Box = ({ data, onChange, onClick, canAddChamp }) => {
 
   const onDrop = event => {
     const originData = event.dataTransfer.getData('originData')
-    onChange(JSON.parse(originData), data)
+    const originBoardId = event.dataTransfer.getData('originBoardId')
+    onChange(JSON.parse(originData), data, originBoardId)
     setDragHovering(false)
   }
 
