@@ -15,6 +15,7 @@ const BoardEdit = ({ id, title, text, onHide, saveBoard, deleteBoard }) => {
   const onSubmit = async ({ title, text, deleting }) => {
     if (deleting) {
       await deleteBoard(id)
+      onHide()
     } else {
       saveBoard(title, text)
       onHide()
