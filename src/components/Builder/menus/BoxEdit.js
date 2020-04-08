@@ -79,22 +79,26 @@ const BoxEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry })
                       }
                     </div>
                   </div>
-                  <div className="d-flex flex-column align-items-center">
-                    <div className="d-flex">
-                      {
-                        currentBox.items.map(item => (
-                          <Item key={item} image={itemSet[item].image} className="box-edit-selection" />
-                        ))
-                      }
-                    </div>
-                    {
-                      currentBox.carry && (
-                        <Label>
-                          <i className="fas fa-fan mr-2" />CARRY
-                        </Label>
-                      )
-                    }
-                  </div>
+                  {
+                    (currentBox.items.length > 0 || currentBox.carry) && (
+                      <div className="d-flex flex-column align-items-center">
+                        <div className="d-flex">
+                          {
+                            currentBox.items.map(item => (
+                              <Item key={item} image={itemSet[item].image} className="box-edit-selection" />
+                            ))
+                          }
+                        </div>
+                        {
+                          currentBox.carry && (
+                            <Label>
+                              <i className="fas fa-fan mr-2" />CARRY
+                            </Label>
+                          )
+                        }
+                      </div>
+                    )
+                  }
                 </div>
                 <div className="d-flex justify-content-center">
                   <Button variant="danger" size="sm" onClick={reset}>
@@ -227,12 +231,16 @@ const Item = styled.div`
 `
 
 const Trait = styled.div`
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   background-image: ${({ image }) => `url(${image})`};
   background-size: cover;
   background-position: center;
-  border-radius: 2px;
+  margin-top: 0.20rem;
+
+  & + * {
+    margin-left: 0.5rem;
+  }
 `
 
 export default React.memo(BoxEdit)
