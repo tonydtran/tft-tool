@@ -10,13 +10,33 @@ class StoreProvider extends Component {
     super(props)
 
     this.state = {
-      messages: []
+      messages: [],
+      viewport: window.innerWidth >= 992 ? 'desktop' : 'mobile'
     }
   }
 
   async componentDidMount() {
+    window.addEventListener('resize', this.updateViewport)
+
     // TODO: load here data (champs, items, etc)
     // But need admin interface first to upload data to upload data to firebase
+  }
+
+  updateViewport = () => {
+    // TODO: handle later tablet view
+    const { viewport } = this.state
+
+    if (viewport === 'desktop' && window.innerWidth < 992) {
+      this.setState({
+        viewport: 'mobile'
+      })
+    }
+
+    if (viewport === 'mobile' && window.innerWidth >= 992) {
+      this.setState({
+        viewport: 'desktop'
+      })
+    }
   }
 
   addMessage = (title, body, duration) => {
