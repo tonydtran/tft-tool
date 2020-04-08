@@ -8,11 +8,11 @@ const Item = ({ id, isPublic, title, lastUpdate, onClick }) => (
   <Container onClick={() => onClick(id)}>
     <div className="d-flex flex-column">
       <div className="d-flex align-items-baseline">
-        {
+        {/* {
           isPublic
             ? <i className="fas fa-unlock mr-2 text-info" />
             : <i className="fas fa-lock mr-2 text-warning" />
-        }
+        } */}
         <strong className="text-break">
           {title}
         </strong>

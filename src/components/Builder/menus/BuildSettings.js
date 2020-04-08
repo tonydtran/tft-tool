@@ -48,7 +48,7 @@ const BuildSettings = ({ onHide, build, saveBuild, deleteBuild, isLoading }) => 
               <Form.Control.Feedback type="invalid">{errors.title.message}</Form.Control.Feedback>
             )}
           </Form.Group>
-          <Form.Group controlId="isPublic">
+          {/* <Form.Group controlId="isPublic">
             <Form.Check
               type="switch"
               label="Public"
@@ -59,7 +59,7 @@ const BuildSettings = ({ onHide, build, saveBuild, deleteBuild, isLoading }) => 
               disabled={deleting}
             />
             <Form.Text>Allow your build to be viewable by everyone</Form.Text>
-          </Form.Group>
+          </Form.Group> */}
           {
             build.lastUpdate && (
               <Form.Group controlId="deleting">

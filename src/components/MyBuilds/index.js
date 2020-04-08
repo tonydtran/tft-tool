@@ -27,7 +27,7 @@ const MyBuilds = () => {
         .orderByChild('authorUid')
         .equalTo(userUid)
         .ref.once('value')
-      
+
       if (userBuilds.val()) {
         const sortedBuilds = Object.values(userBuilds.val()).sort((a, b) => b.lastUpdate - a.lastUpdate)
 
