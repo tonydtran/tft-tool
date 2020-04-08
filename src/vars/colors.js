@@ -20,9 +20,13 @@ export default {
   'danger': '#E74C3C',
   'light': '#adb5bd',
   'dark': '#303030',
-  'cost1': '#444',
-  'cost2': '#11b288',
-  'cost3': '#207ac7',
-  'cost4': '#c440da',
-  'cost5': '#ffb93b'
+  'cost1': '#29313b',
+  'cost2': '#15552d',
+  'cost3': '#1b547e',
+  'cost4': '#660b4e',
+  'cost5': '#9c6d12',
+  'trait-default': '#4b4b4b',
+  'bronze': '#de8e5a',
+  'silver': '#c8e5e9',
+  'gold': '#c6ae5a'
 }
