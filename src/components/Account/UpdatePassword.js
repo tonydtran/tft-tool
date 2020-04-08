@@ -144,6 +144,6 @@ const UpdatePassword = ({ history }) => {
   )
 }
 
-const condition = authUser => !!authUser
+const condition = ({ authUser }) => !!authUser
 
 export default withAuthorization(condition)(UpdatePassword)

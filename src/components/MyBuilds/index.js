@@ -75,6 +75,6 @@ const MyBuilds = () => {
   )
 }
 
-const condition = authUser => !!authUser
+const condition = ({ authUser }) => !!authUser
 
 export default withAuthorization(condition)(MyBuilds)
