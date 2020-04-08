@@ -143,6 +143,16 @@ const Builder = ({ authUser }) => {
     setBuild({ ...build, boards: currentBoards })
   }
 
+  const addNewBoard = () => {
+    const { boards } = build
+
+    boards.push(new BoardSet())
+
+    setBuild({
+      ...build, boards
+    })
+  }
+
   if (isLoading) return <Loading />
 
   return (
@@ -180,6 +190,12 @@ const Builder = ({ authUser }) => {
             />
           ))
         }
+        <div className="d-flex justify-content-center">
+          <AddBoardButton onClick={addNewBoard}>
+            <i className="fas fa-plus-circle mr-2" />
+            <strong>Add a new board</strong>
+          </AddBoardButton>
+        </div>
       </Container>
       {
         !Object.values(openModals).some(modal => modal) && (
@@ -233,7 +249,25 @@ const I = styled.i`
 `
 
 const Container = styled.div`
-  padding: 0 1rem 1rem;
+  position: relative;
+  padding: 0 1rem 2rem;
+`
+
+const AddBoardButton = styled.div`
+  box-shadow: 0 0 0 2px ${colors.primary};
+  border-radius: 0.25rem;
+  padding: 0.25rem 1rem;
+  background-color: ${colors.secondary};
+  color: ${colors.info};
+
+  &:hover, &:active {
+    transform: scale(1.05);
+    cursor: pointer;
+    transition: transform 300ms;
+    background-color: ${colors.light};
+    color: ${colors.primary};
+    box-shadow: 0 0 0 2px ${colors.light};
+  }
 `
 
 const SaveButton = styled.div`

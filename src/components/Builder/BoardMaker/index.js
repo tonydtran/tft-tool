@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Modal from 'react-bootstrap/Modal'
 
-// import champions from '../../../data/champions.json'
-
 import Board from './Board'
 import BoardEdit from '../menus/BoardEdit'
 import BoxEdit from '../menus/BoxEdit'
@@ -12,18 +10,12 @@ class BoardMaker extends Component {
   constructor (props) {
     super(props)
 
-    // const demoBoard = props.board
-    // demoBoard.a.a4 = { ...props.board.a.a4, champ: champions['ahri'], carry: false, items: [1, 2, 3] }
-    // demoBoard.b.b4 = { ...props.board.b.b4, champ: champions['syndra'] }
-    // demoBoard.b.b5 = { ...props.board.b.b5, champ: champions['zoe'] }
-
     this.state = {
       id: props.id,
       title: props.title,
       text: props.text || '',
       traits: props.traits || [],
       board: props.board,
-      // board: demoBoard,
       selectedBox: null
     }
   }
@@ -97,7 +89,7 @@ class BoardMaker extends Component {
     const { id, title, text, board, selectedBox } = this.state
 
     return (
-      <>
+      <Container>
         <div className="mb-4">
           <div className="d-flex align-items-baseline">
             <h4 className="d-inline-block text-truncate font-weight-bold">
@@ -137,10 +129,14 @@ class BoardMaker extends Component {
             />
           )}
         </Modal>
-      </>
+      </Container>
     )
   }
 }
+
+const Container = styled.div`
+  margin-bottom: 3rem;
+`
 
 const I = styled.i`
   &:hover, &:active {
