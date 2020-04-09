@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useContext } from 'react'
-// import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
 import Card from 'react-bootstrap/Card'
 
-import Loading from '../layouts/Loading'
-import ViewHeader from '../shared/layouts/ViewHeader'
-import NewBuildButton from './NewBuildButton'
-import Item from './Item'
-
 import { withAuthorization } from '../Session'
 import { FirebaseContext } from '../Firebase'
+
+import Loading from '../layouts/Loading'
+import ViewHeader from '../shared/layouts/ViewHeader'
+import Viewport from '../shared/layouts/Viewport'
+import NewBuildButton from './NewBuildButton'
+import Item from './Item'
 
 const MyBuilds = () => {
   const firebase = useContext(FirebaseContext)
@@ -52,26 +52,30 @@ const MyBuilds = () => {
   if (isLoading) return <Loading />
 
   return (
-    <>
-      <ViewHeader>
-        <h1 className="mb-5">My builds</h1>
-      </ViewHeader>
-      <Card bg="dark" className="pb-3">
-        {/* TODO: Add a header with date filter */}
-        <Card.Body>
-          {builds ? <NewBuildButton /> : noBuilds }
-          {
-            builds && builds.map(build => (
-              <Item
-                key={build.id}
-                {...build}
-                onClick={goTo}
-              />
-            ))
-          }
-        </Card.Body>
-      </Card>
-    </>
+    <Viewport>
+      {viewport => (
+        <>
+          <ViewHeader>
+            <h1 className="mb-5">My builds</h1>
+          </ViewHeader>
+          <Card bg="dark" className="pb-3">
+            {/* TODO: Add a header with date filter, search bar, etc */}
+            <Card.Body>
+              {builds ? <NewBuildButton /> : noBuilds}
+              {
+                builds && builds.map(build => (
+                  <Item
+                    key={build.id}
+                    {...build}
+                    onClick={goTo}
+                  />
+                ))
+              }
+            </Card.Body>
+          </Card>
+        </>
+      )}
+    </Viewport>
   )
 }
 
