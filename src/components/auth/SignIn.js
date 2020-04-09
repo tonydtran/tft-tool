@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import Form from 'react-bootstrap/Form'
@@ -6,6 +7,7 @@ import Button from 'react-bootstrap/Button'
 import Spinner from 'react-bootstrap/Spinner'
 import Card from 'react-bootstrap/Card'
 
+import { StoreContext } from '../Store'
 import { FirebaseContext } from '../Firebase'
 import ViewHeader from '../shared/layouts/ViewHeader'
 
@@ -21,6 +23,7 @@ const firebaseErrorHandler = error => {
 
 const SignIn = ({ history }) => {
   const firebase = useContext(FirebaseContext)
+  const { state: { viewport } } = useContext(StoreContext)
   const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, errors, setError } = useForm()
 
@@ -41,7 +44,7 @@ const SignIn = ({ history }) => {
       <ViewHeader>
         <h1>Sign in</h1>
       </ViewHeader>
-      <Card bg="dark">
+      <Container bg="dark" viewport={viewport}>
         <Card.Body>
           <Form noValidate onSubmit={handleSubmit(onSubmit)}>
             <Form.Group controlId="email">
@@ -69,20 +72,21 @@ const SignIn = ({ history }) => {
                 <Form.Control.Feedback type="invalid">{errors.password.message}</Form.Control.Feedback>
               )}
             </Form.Group>
-            <Button
-              className="mt-5"
-              variant="primary"
-              type="submit"
-              size="lg"
-              block
-              disabled={Object.keys(errors).length > 0 || isLoading}
-            >
-              {
-                isLoading
-                  ? <Spinner as="span" animation="border" variant="light" />
-                  : 'Sign in'
-              }
-            </Button>
+            <div className="d-flex justify-content-center mt-5">
+              <Button
+                variant="primary"
+                type="submit"
+                size="lg"
+                block={viewport !== 'desktop'}
+                disabled={Object.keys(errors).length > 0 || isLoading}
+              >
+                {
+                  isLoading
+                    ? <Spinner as="span" animation="border" variant="light" />
+                    : 'Sign in'
+                }
+              </Button>
+            </div>
           </Form>
           <div className="text-center mt-4">
             <Link to="/resetpassword">Forgot your password?</Link>
@@ -91,9 +95,16 @@ const SignIn = ({ history }) => {
             </p>
           </div>
         </Card.Body>
-      </Card>
+      </Container>
     </>
   )
 }
+
+const Container = styled(Card)`
+  ${({ viewport }) => viewport === 'desktop'
+    ? 'max-width: 40rem; margin: auto'
+    : undefined
+  }
+`
 
 export default React.memo(SignIn)
