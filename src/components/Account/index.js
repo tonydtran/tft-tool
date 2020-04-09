@@ -82,6 +82,6 @@ const Settings = () => {
   )
 }
 
-const condition = ({ authUser }) => !!authUser
+const condition = currentUser => !!currentUser
 
 export default withAuthorization(condition)(Settings)

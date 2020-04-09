@@ -19,7 +19,7 @@ const withAuthorization = condition => Component => props => {
         history.push('/')
       } else {
         const userData = await firebase.getCurrentUserData()
-        const listenedCurrentUser = { authUser, userData: userData.val() }
+        const listenedCurrentUser = { ...userData.val() }
         setCurrentUser(listenedCurrentUser)
         setIsloading(false)
       }
