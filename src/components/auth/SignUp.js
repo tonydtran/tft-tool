@@ -7,7 +7,6 @@ import Spinner from 'react-bootstrap/Spinner'
 import Card from 'react-bootstrap/Card'
 
 import User from '../../models/User'
-import { StoreContext } from '../Store'
 import { FirebaseContext } from '../Firebase'
 import ViewHeader from '../shared/layouts/ViewHeader'
 import Viewport from '../shared/layouts/Viewport'
@@ -24,7 +23,6 @@ const firebaseErrorHandler = error => {
 
 const SignUp = ({ history }) => {
   const firebase = useContext(FirebaseContext)
-  const { state: { viewport } } = useContext(StoreContext)
   const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, errors, setError, watch } = useForm()
 
