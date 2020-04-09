@@ -15,11 +15,14 @@ const withAuthorization = condition => Component => props => {
 
   useEffect(() => {
     const listener = firebase.auth.onAuthStateChanged(async authUser => {
-      const userData = await firebase.getCurrentUserData()
-      const listenedCurrentUser = { authUser, userData: userData.val() }
-      setCurrentUser(listenedCurrentUser)
-      setIsloading(false)
-      if (!condition(listenedCurrentUser)) history.push('/')
+      if (!authUser) {
+        history.push('/')
+      } else {
+        const userData = await firebase.getCurrentUserData()
+        const listenedCurrentUser = { authUser, userData: userData.val() }
+        setCurrentUser(listenedCurrentUser)
+        setIsloading(false)
+      }
     })
 
     return () => listener()
