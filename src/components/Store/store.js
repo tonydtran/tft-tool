@@ -4,6 +4,10 @@ import StoreContext from './context'
 import { FirebaseContext } from '../Firebase'
 import Message from '../../models/Message'
 
+import itemSet from '../../data/items.json'
+import championSet from '../../data/champions.json'
+import traitSet from '../../data/traits.json'
+
 class StoreProvider extends Component {
   static contextType = FirebaseContext
   constructor(props) {
@@ -11,7 +15,10 @@ class StoreProvider extends Component {
 
     this.state = {
       messages: [],
-      viewport: window.innerWidth >= 992 ? 'desktop' : 'mobile'
+      viewport: window.innerWidth >= 992 ? 'desktop' : 'mobile',
+      itemSet,
+      championSet,
+      traitSet
     }
   }
 

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Hexagon from 'react-hexagon'
 
-import itemsDataset from '../../../data/items.json'
 import colors from '../../../vars/colors'
 import { StoreContext } from '../../Store'
 
 const Box = ({ data, boardId, onChange, onClick, canAddChamp }) => {
   const store = useContext(StoreContext)
+  const { addMessage, state: { itemSet } } = store
 
   const [dragHovering, setDragHovering] = useState(false)
 
@@ -42,7 +42,7 @@ const Box = ({ data, boardId, onChange, onClick, canAddChamp }) => {
     if (canAddChamp || (data.champ && data.champ.id)) {
       onClick({ ...data })
     } else {
-      store.addMessage(
+      addMessage(
         'Limit reached',
         'Be realistic... you cannot put more than 10 champs on the board!',
         3000
@@ -72,7 +72,7 @@ const Box = ({ data, boardId, onChange, onClick, canAddChamp }) => {
           data.items && data.items.map(item => (
             <Item
               key={`${data.champ.id}-${item}`}
-              image={itemsDataset[item].image}
+              image={itemSet[item].image}
             />
           ))
         }

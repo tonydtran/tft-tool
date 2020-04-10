@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styled from 'styled-components'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 
+import { StoreContext } from '../../Store'
 import colors from '../../../vars/colors'
-import championSet from '../../../data/champions.json'
-import itemSet from '../../../data/items.json'
-import traitSet from '../../../data/traits.json'
 
 const BoxEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry }) => {
+  const { state: { championSet, itemSet, traitSet } } = useContext(StoreContext)
   const [currentBox, setCurrentBox] = useState({ boxId, row, champ, items, carry })
 
   const toggleChamp = newChamp => {
