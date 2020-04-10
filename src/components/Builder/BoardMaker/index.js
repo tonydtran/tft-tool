@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Modal from 'react-bootstrap/Modal'
 
@@ -6,7 +6,7 @@ import Board from './Board'
 import BoardEdit from '../menus/BoardEdit'
 import BoxEdit from '../menus/BoxEdit'
 
-class BoardMaker extends Component {
+class BoardMaker extends PureComponent {
   constructor (props) {
     super(props)
 
@@ -54,7 +54,12 @@ class BoardMaker extends Component {
       carry
     }
 
-    this.setState({ board })
+    this.setState({ board }, () => {
+      const { updateBoard } = this.props
+      const { id, title, text, traits, board } = this.state
+
+      updateBoard({ id, title, text, traits, board })
+    })
   }
 
   handleChangePosition = (origin, target, boardId) => {
@@ -85,6 +90,24 @@ class BoardMaker extends Component {
     }
   }
 
+  handleAddChamp = (champ, box) => {
+    const { board } = this.state
+
+    board[box.row][box.id] = {
+      ...board[box.row][box.id],
+      champ,
+      items: [],
+      carry: false
+    }
+
+    this.setState({ board }, () => {
+      const { updateBoard } = this.props
+      const { id, title, text, traits, board } = this.state
+
+      updateBoard({ id, title, text, traits, board })
+    })
+  }
+
   render () {
     const { openModals, toggleModal, deleteBoard } = this.props
     const { id, title, text, board, selectedBox } = this.state
@@ -108,6 +131,7 @@ class BoardMaker extends Component {
           boardId={id}
           onChange={this.handleChangePosition}
           onClick={this.handleToggleChampEditModal}
+          onAdd={this.handleAddChamp}
         />
         <Modal
           show={openModals[`boardEdit-${id}`]}

@@ -6,7 +6,7 @@ import Hexagon from 'react-hexagon'
 import colors from '../../../vars/colors'
 import { StoreContext } from '../../Store'
 
-const Box = ({ data, boardId, onChange, onClick, canAddChamp }) => {
+const Box = ({ data, boardId, onChange, onClick, onAdd, canAddChamp }) => {
   const store = useContext(StoreContext)
   const { addMessage, state: { itemSet } } = store
 
@@ -26,7 +26,15 @@ const Box = ({ data, boardId, onChange, onClick, canAddChamp }) => {
   const onDrop = event => {
     const originData = event.dataTransfer.getData('originData')
     const originBoardId = event.dataTransfer.getData('originBoardId')
-    onChange(JSON.parse(originData), data, originBoardId)
+    const fromSideMenu = event.dataTransfer.getData('source') 
+
+    if (fromSideMenu === 'sideMenu') {
+      const newChampData = event.dataTransfer.getData('newChampData')
+      onAdd(JSON.parse(newChampData), data)
+    } else {
+      onChange(JSON.parse(originData), data, originBoardId)
+    }
+
     setDragHovering(false)
   }
 
@@ -91,7 +99,7 @@ const Container = styled.div`
   &:hover, &:active {
     transform: scale(1.1);
     z-index: 2;
-    cursor: grab;
+    cursor: ${({ champ }) => champ ? 'grab' : 'default'};
   }
 `
 
@@ -135,7 +143,6 @@ const ItemContainer = styled.div`
   left: -10%;
   display: flex;
   justify-content: center;
-  ${'' /* z-index: ${({ carry }) => carry ? '3' : 'auto'}; */}
 `
 
 const Item = styled.div`
