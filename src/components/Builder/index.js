@@ -17,12 +17,14 @@ import BoardSet from '../../models/BoardSet'
 import ViewHeader from '../shared/layouts/ViewHeader'
 import BuildSettings from './menus/BuildSettings'
 import BoardMaker from './BoardMaker'
+import SideMenu from './menus/SideMenu'
 
 const Builder = ({ authUser }) => {
   const routeMatch = useRouteMatch()
   const history = useHistory()
   const firebase = useContext(FirebaseContext)
   const store = useContext(StoreContext)
+  const { state: { viewport } } = store
 
   const [openModals, setOpenModals] = useState({
     builderSettings: false
@@ -177,28 +179,33 @@ const Builder = ({ authUser }) => {
           </div>
         </div>
       </ViewHeader>
-      <Container className="">
-        {
-          build.boards && build.boards.map(board => (
-            <BoardMaker
-              key={board.id}
-              deleteBoard={deleteBoard}
-              updateBoard={updateBoard}
-              openModals={openModals}
-              toggleModal={toggleModal}
-              {...board}
-            />
-          ))
-        }
-        <div className="d-flex justify-content-center">
-          <AddBoardButton onClick={addNewBoard}>
-            <i className="fas fa-plus-circle mr-2" />
-            <strong>Add a new board</strong>
-          </AddBoardButton>
-        </div>
+      <Container viewport={viewport}>
+        <Main>
+          {
+            build.boards && build.boards.map(board => (
+              <BoardMaker
+                key={board.id}
+                deleteBoard={deleteBoard}
+                updateBoard={updateBoard}
+                openModals={openModals}
+                toggleModal={toggleModal}
+                {...board}
+              />
+            ))
+          }
+          <div className="d-flex justify-content-center">
+            <AddBoardButton onClick={addNewBoard}>
+              <i className="fas fa-plus-circle mr-2" />
+              <strong>Add a new board</strong>
+            </AddBoardButton>
+          </div>
+        </Main>
+        <Side>
+          <SideMenu />
+        </Side>
       </Container>
       {
-        !Object.values(openModals).some(modal => modal) && (
+        !Object.values(openModals).some(modal => modal) && viewport !== 'desktop' && (
           <SaveButton onClick={() => saveBuild()}>
             { //TODO: check if builder is dirty or not to display button or reset wording
               // Merge save from modal and this button
@@ -249,8 +256,22 @@ const I = styled.i`
 `
 
 const Container = styled.div`
+  display: flex;
+  justify-content: space-around;
   position: relative;
-  padding: 0 1rem 2rem;
+  width: 100%;
+  padding: ${({ viewport }) => viewport !== 'desktop'
+    ? '0 1rem 2rem'
+    : '0'
+  };
+`
+
+const Main = styled.div`
+
+`
+
+const Side = styled.div`
+  margin-left: 4rem;
 `
 
 const AddBoardButton = styled.div`

@@ -151,6 +151,8 @@ const Item = styled.div`
 
   &:hover {
     cursor: no-drop;
+    box-shadow: 0 0 0 1px ${colors.gray},
+      inset 0 0 0 15px rgba(231, 76, 60, 0.5);
   }
 
   & + * {
