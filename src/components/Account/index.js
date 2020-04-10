@@ -66,7 +66,7 @@ const Settings = () => {
             }
           >
             <Button
-              className="d-flex align-items-baseline"
+              className="d-flex align-items-baseline justify-content-center"
               variant="outline-danger"
               block={viewport !== 'desktop'}
               size="sm"

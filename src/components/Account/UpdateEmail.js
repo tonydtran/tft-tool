@@ -10,6 +10,7 @@ import { FirebaseContext } from '../Firebase'
 import { withAuthorization } from '../Session'
 import { StoreContext } from '../Store'
 import ViewHeader from '../shared/layouts/ViewHeader'
+import Viewport from '../shared/layouts/Viewport'
 
 const firebaseErrorHandler = error => {
   const isEmailRelated = error.code.includes('email')
@@ -61,61 +62,67 @@ const UpdateEmail = ({ history }) => {
   }
 
   return (
-    <>
-      <ViewHeader>
-        <div className="mt-2 mb-2">
-          <Link to="/settings">
-            <i className="fas fa-chevron-left fa-sm" /> Settings
+    <Viewport>
+      {viewport => (
+        <>
+          <ViewHeader>
+            <div className="mt-2 mb-2">
+              <Link to="/settings">
+                <i className="fas fa-chevron-left fa-sm" /> Settings
         </Link>
-        </div>
-        <h1>Update email</h1>
-      </ViewHeader>
-      <Card bg="dark">
-        <Card.Body>
-          <Form noValidate onSubmit={handleSubmit(onSubmit)}>
-            <Form.Group controlId="email">
-              <Form.Label>New email address</Form.Label>
-              <Form.Control
-                name="email"
-                type="email"
-                placeholder={userEmail}
-                isInvalid={errors.email}
-                ref={register({ required: 'Required.' })}
-              />
-              {errors.email && (
-                <Form.Control.Feedback type="invalid">{errors.email.message}</Form.Control.Feedback>
-              )}
-            </Form.Group>
-            <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                name="password"
-                type="password"
-                isInvalid={errors.password}
-                ref={register({ required: 'Required' })}
-              />
-              {errors.password && (
-                <Form.Control.Feedback type="invalid">{errors.password.message}</Form.Control.Feedback>
-              )}
-              <Form.Text>Enter your password to update your email address</Form.Text>
-            </Form.Group>
-            <Button
-              className="mt-4"
-              variant="primary"
-              type="submit"
-              block
-              disabled={Object.keys(errors).length > 0 || isLoading}
-            >
-              {
-                isLoading
-                  ? <Spinner className="ml-2" as="span" animation="border" variant="light" size="sm" />
-                  : 'Update my email address'
-              }
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
-    </>
+            </div>
+            <h1>Update email</h1>
+          </ViewHeader>
+          <Card bg="dark">
+            <Card.Body>
+              <Form noValidate onSubmit={handleSubmit(onSubmit)}>
+                <Form.Group controlId="email">
+                  <Form.Label>New email address</Form.Label>
+                  <Form.Control
+                    name="email"
+                    type="email"
+                    placeholder={userEmail}
+                    isInvalid={errors.email}
+                    ref={register({ required: 'Required.' })}
+                  />
+                  {errors.email && (
+                    <Form.Control.Feedback type="invalid">{errors.email.message}</Form.Control.Feedback>
+                  )}
+                </Form.Group>
+                <Form.Group controlId="password">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    name="password"
+                    type="password"
+                    isInvalid={errors.password}
+                    ref={register({ required: 'Required' })}
+                  />
+                  {errors.password && (
+                    <Form.Control.Feedback type="invalid">{errors.password.message}</Form.Control.Feedback>
+                  )}
+                  <Form.Text>Enter your password to update your email address</Form.Text>
+                </Form.Group>
+                <div className="d-flex justify-content-center mt-5">
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    block={viewport !== 'desktop'}
+                    disabled={Object.keys(errors).length > 0 || isLoading}
+                    style={viewport === 'desktop' ? { minWidth: '204px' } : undefined}
+                  >
+                    {
+                      isLoading
+                        ? <Spinner className="ml-2" as="span" animation="border" variant="light" size="sm" />
+                        : 'Update my email address'
+                    }
+                  </Button>
+                </div>
+              </Form>
+            </Card.Body>
+          </Card>
+        </>
+      )}
+    </Viewport>
   )
 }
 
