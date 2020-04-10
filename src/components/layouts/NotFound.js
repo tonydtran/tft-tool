@@ -1,7 +1,7 @@
 import React from 'react'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Button from 'react-bootstrap/Button'
-
+// TODO: desktop view
 const NotFound = ({ history }) => (
   <Jumbotron>
     <h1>Page not found</h1>

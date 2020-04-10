@@ -307,4 +307,4 @@ const SaveButton = styled.div`
   }
 `
 
-export default withOrWithoutAuthorization(Builder)
+export default React.memo(withOrWithoutAuthorization(Builder))

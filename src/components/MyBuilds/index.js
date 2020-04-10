@@ -80,4 +80,4 @@ const MyBuilds = ({ currentUser: { uid } }) => {
 
 const condition = currentUser => !!currentUser
 
-export default withAuthorization(condition)(MyBuilds)
+export default React.memo(withAuthorization(condition)(MyBuilds))

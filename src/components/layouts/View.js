@@ -32,4 +32,4 @@ const Container = styled.div`
   }
 `
 
-export default View
+export default React.memo(View)

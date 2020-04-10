@@ -101,4 +101,4 @@ const Delete = styled(Form.Check)`
   }
 `
 
-export default BoardEdit
+export default React.memo(BoardEdit)

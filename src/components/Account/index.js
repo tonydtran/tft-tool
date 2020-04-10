@@ -84,4 +84,4 @@ const Settings = () => {
 
 const condition = currentUser => !!currentUser
 
-export default withAuthorization(condition)(Settings)
+export default React.memo(withAuthorization(condition)(Settings))

@@ -63,4 +63,4 @@ const Item = styled.div`
   }
 `
 
-export default SideMenu
+export default React.memo(SideMenu)

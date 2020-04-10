@@ -37,4 +37,4 @@ const Container = styled.div`
   }
 `
 
-export default Item
+export default React.memo(Item)

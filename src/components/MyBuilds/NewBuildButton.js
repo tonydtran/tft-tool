@@ -51,4 +51,4 @@ const Container = styled.div`
   }
 `
 
-export default NewBuildButton
+export default React.memo(NewBuildButton)

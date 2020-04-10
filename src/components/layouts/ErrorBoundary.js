@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
-class ErrorBoundary extends Component {
+class ErrorBoundary extends PureComponent {
   constructor(props) {
     super(props)
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
 import StoreContext from './context'
 import { FirebaseContext } from '../Firebase'
@@ -8,7 +8,7 @@ import itemSet from '../../data/items.json'
 import championSet from '../../data/champions.json'
 import traitSet from '../../data/traits.json'
 
-class StoreProvider extends Component {
+class StoreProvider extends PureComponent {
   static contextType = FirebaseContext
   constructor(props) {
     super(props)

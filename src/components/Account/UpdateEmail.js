@@ -128,4 +128,4 @@ const UpdateEmail = ({ history }) => {
 
 const condition = currentUser => !!currentUser
 
-export default withAuthorization(condition)(UpdateEmail)
+export default React.memo(withAuthorization(condition)(UpdateEmail))

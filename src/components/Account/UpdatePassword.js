@@ -153,4 +153,4 @@ const UpdatePassword = ({ history }) => {
 
 const condition = currentUser => !!currentUser
 
-export default withAuthorization(condition)(UpdatePassword)
+export default React.memo(withAuthorization(condition)(UpdatePassword))

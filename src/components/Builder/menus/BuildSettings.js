@@ -184,4 +184,4 @@ const Delete = styled(Form.Check)`
   }
 `
 
-export default BuildSettings
+export default React.memo(BuildSettings)

@@ -88,4 +88,4 @@ const Link = ({ to, label }) => {
   )
 }
 
-export default NavBar
+export default React.memo(NavBar)
