@@ -9,7 +9,7 @@ const Board = ({ boardData, boardId, onChange, onClick }) => {
 
   return (
     <div className="d-flex justify-content-center">
-      <div className="d-flex flex-column">
+      <Container>
         {
           Object.keys(boardData).map(row => (
             <Row key={`row-${row}`}>
@@ -28,20 +28,34 @@ const Board = ({ boardData, boardId, onChange, onClick }) => {
             </Row>
           ))
         }
-      </div>
+      </Container>
     </div>
   )
 }
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 40rem;
+  height: 100%;
+`
+
 const Row = styled.div`
-  display: inline-flex;
+  position: relative;
+  display: flex;
+  margin-bottom: calc(100% / 40);
 
   &:nth-child(even) {
-    margin-left: 6vw;
+    margin-left: calc(100% / 15);
+  }
+
+  &:nth-child(odd) {
+    margin-right: calc(100% / 15);
   }
 
   > * + * {
-    margin-left: 2vw;
+    margin-left: calc(100% / 40);
   }
 `
 

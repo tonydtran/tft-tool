@@ -83,26 +83,19 @@ const Box = ({ data, boardId, onChange, onClick, canAddChamp }) => {
 
 const Container = styled.div`
   position: relative;
-  transform: ${({ dragHovering, carry }) => {
-    if (dragHovering) return 'scale(1.3)'
-    if (carry) return 'scale(1.2)'
-    return 'none'
-  }};
+  transform: ${({ carry }) => carry ? 'scale(1.3)' : undefined};
   z-index: ${({ carry }) => carry ? '2' : 'auto'};
+  transition: 300ms;
 
-  &:hover {
-    transform: ${({ dragHovering }) => !dragHovering ? 'scale(1.1)' : 'none'};
+  &:hover, &:active {
+    transform: scale(1.3);
     z-index: 4;
-  }
-
-  &:active {
-    transform: scale(1.1);
-    z-index: 4;
+    cursor: pointer;
   }
 `
 
 const HexContainer = styled(Hexagon)`
-  width: 10vw;
+  width: 100%;
 
   polygon {
     stroke-width: 16px !important;
@@ -119,15 +112,16 @@ const HexContainer = styled(Hexagon)`
       } else {
         return `${colors.secondary} !important;`
       }
-
     }};
   }
 `
 
 const ItemContainer = styled.div`
   position: absolute;
-  width: 100%;
-  bottom: -0.6vw;
+  width: 120%;
+  height: 100%;
+  top: 85%;
+  left: -10%;
   display: flex;
   justify-content: center;
   z-index: ${({ carry }) => carry ? '3' : 'auto'};
@@ -135,13 +129,18 @@ const ItemContainer = styled.div`
 
 const Item = styled.div`
   display: block;
-  height: 3vw;
-  width: 3vw;
-  border-radius: 2px;
+  width: calc(100% / 3);
+  height: calc(100% / 3);
+  border-radius: 50%;
   background-image: ${({ image }) => `url(${image})`};
-  background-size: contain;
+  background-size: cover;
   background-position: center;
-  box-shadow: inset 0 0 1px 0 white;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 0 1px ${colors.gray};
+
+  & + * {
+    margin-left: 2px;
+  }
 `
 
 Box.propTypes = {
