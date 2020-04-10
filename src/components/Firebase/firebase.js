@@ -43,6 +43,8 @@ class Firebase {
   }
 
   // Database API
+  ref = path => this.db.ref(path)
+
   //- Users API
   user = uid => this.db.ref(`users/${uid}`)
 

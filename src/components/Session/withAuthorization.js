@@ -30,7 +30,7 @@ const withAuthorization = condition => Component => props => {
 
   if (isLoading) return <Loading />
 
-  if (condition(currentUser)) return <Component {...props} />
+  if (condition(currentUser)) return <Component currentUser={currentUser} {...props} />
 
   return null
 }

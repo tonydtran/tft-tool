@@ -12,7 +12,7 @@ import Viewport from '../shared/layouts/Viewport'
 import NewBuildButton from './NewBuildButton'
 import Item from './Item'
 
-const MyBuilds = () => {
+const MyBuilds = ({ currentUser: { uid } }) => {
   const firebase = useContext(FirebaseContext)
   const history = useHistory()
 
@@ -22,11 +22,10 @@ const MyBuilds = () => {
   useEffect(() => {
     (async () => {
       // TODO: Implement error handling
-      const userUid = await firebase.getCurrentUserUid()
       const userBuilds = await firebase.builds()
         .orderByChild('authorUid')
-        .equalTo(userUid)
-        .ref.once('value')
+        .equalTo(uid)
+        .once('value' )
 
       if (userBuilds.val()) {
         const sortedBuilds = Object.values(userBuilds.val()).sort((a, b) => b.lastUpdate - a.lastUpdate)
@@ -58,7 +57,7 @@ const MyBuilds = () => {
           <ViewHeader>
             <h1 className="mb-5">My builds</h1>
           </ViewHeader>
-          <Card bg="dark" className="pb-3">
+          <Card bg="dark">
             {/* TODO: Add a header with date filter, search bar, etc */}
             <Card.Body>
               {builds ? <NewBuildButton /> : noBuilds}
