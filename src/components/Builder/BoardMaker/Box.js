@@ -13,12 +13,14 @@ const Box = ({ data, boardId, onChange, onClick, canAddChamp }) => {
   const [dragHovering, setDragHovering] = useState(false)
 
   const onDragStart = event => {
+    event.stopPropagation()
     event.dataTransfer.setData('originData', JSON.stringify(data))
     event.dataTransfer.setData('originBoardId', boardId)
   }
 
   const onDragOver = event => {
     event.preventDefault()
+    if (!dragHovering) setDragHovering(true)
   }
 
   const onDrop = event => {
@@ -30,7 +32,6 @@ const Box = ({ data, boardId, onChange, onClick, canAddChamp }) => {
 
   const onDragEnter = event => {
     event.preventDefault()
-    setDragHovering(true)
   }
 
   const onDragLeave = event => {
@@ -66,6 +67,7 @@ const Box = ({ data, boardId, onChange, onClick, canAddChamp }) => {
         backgroundImage={data.champ ? data.champ.image : null}
         backgroundScale={1.01}
         champ={data.champ}
+        dragHovering={dragHovering}
       />
       <ItemContainer carry={data.carry}>
         {
@@ -73,6 +75,7 @@ const Box = ({ data, boardId, onChange, onClick, canAddChamp }) => {
             <Item
               key={`${data.champ.id}-${item}`}
               image={itemSet[item].image}
+              onClick={() => console.log('delete')}
             />
           ))
         }
@@ -83,14 +86,12 @@ const Box = ({ data, boardId, onChange, onClick, canAddChamp }) => {
 
 const Container = styled.div`
   position: relative;
-  transform: ${({ carry }) => carry ? 'scale(1.3)' : undefined};
-  z-index: ${({ carry }) => carry ? '2' : 'auto'};
-  transition: 300ms;
+  transition: transform 300ms;
 
   &:hover, &:active {
-    transform: scale(1.3);
-    z-index: 4;
-    cursor: pointer;
+    transform: scale(1.1);
+    z-index: 2;
+    cursor: grab;
   }
 `
 
@@ -99,7 +100,17 @@ const HexContainer = styled(Hexagon)`
 
   polygon {
     stroke-width: 16px !important;
-    fill: ${({ backgroundImage }) => backgroundImage ? null : `${colors.dark} !important`};
+    fill: ${({ backgroundImage, dragHovering, champ }) => {
+      if (dragHovering) {
+        return `${colors.primary} !important`
+      } else {
+        if (backgroundImage) {
+          return undefined
+        } else {
+          return `${colors.dark} !important`
+        }
+      }
+    }};
     stroke: ${({ champ }) => {
       if (champ) {
         switch (champ.cost) {
@@ -119,24 +130,28 @@ const HexContainer = styled(Hexagon)`
 const ItemContainer = styled.div`
   position: absolute;
   width: 120%;
-  height: 100%;
+  height: 34%;
   top: 85%;
   left: -10%;
   display: flex;
   justify-content: center;
-  z-index: ${({ carry }) => carry ? '3' : 'auto'};
+  ${'' /* z-index: ${({ carry }) => carry ? '3' : 'auto'}; */}
 `
 
 const Item = styled.div`
   display: block;
   width: calc(100% / 3);
-  height: calc(100% / 3);
+  height: 100%;
   border-radius: 50%;
   background-image: ${({ image }) => `url(${image})`};
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   box-shadow: 0 0 0 1px ${colors.gray};
+
+  &:hover {
+    cursor: no-drop;
+  }
 
   & + * {
     margin-left: 2px;
