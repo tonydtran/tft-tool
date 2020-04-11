@@ -1,37 +1,42 @@
-import React, { useState, useEffect, useContext } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Card from 'react-bootstrap/Card'
+import Nav from 'react-bootstrap/Nav'
 
-import { StoreContext } from '../../../Store'
 import colors from '../../../../vars/colors'
 
+import ChampionTab from './ChampionTab'
+
 const SideMenu = () => {
-  const { state: { championSet } } = useContext(StoreContext)
-
-  const onDragStart = (event, data) => {
-    event.stopPropagation()
-    event.dataTransfer.setData('newChampData', JSON.stringify(data))
-    event.dataTransfer.setData('source', 'sideMenu')
-  }
-
-  const onDragOver = event => {
-    event.preventDefault()
-  }
+  const [activeTab, setActiveTab] = useState('champions')
 
   return (
     <Container bg="drak">
+      <Card.Header>
+        <Nav variant="tabs" fill>
+          <Nav.Item>
+            <Link
+              active={activeTab === 'champions'}
+              onClick={() => setActiveTab('champions')}
+            >
+              Champions
+            </Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Link
+              active={activeTab === 'items'}
+              onClick={() => setActiveTab('items')}
+            >
+              Items
+            </Link>
+          </Nav.Item>
+        </Nav>
+      </Card.Header>
       <Card.Body>
         <div className="d-flex flex-column">
-          <div className="d-flex flex-wrap justify-content-center">
-            {Object.values(championSet).map(champion => (
-              <Item
-                key={champion.id}
-                draggable
-                onDragStart={e => onDragStart(e, champion)}
-                onDragOver={onDragOver}
-                {...champion}
-              />
-            ))}
+          <div className={activeTab === 'champions' ? 'd-block' : 'd-none'}>
+            <ChampionTab />
           </div>
         </div>
       </Card.Body>
@@ -40,26 +45,15 @@ const SideMenu = () => {
 }
 
 const Container = styled(Card)`
+  width: 100%;
   max-width: 40rem;
 `
 
-const Item = styled.div`
-  width: 5vw;
-  max-width: 4rem;
-  height: 5vw;
-  max-height: 4rem;
-  background-image: ${({ image }) => `url(${image})`};
-  background-size: cover;
-  background-position: center;
-  margin: 4px;
-  border-radius: 2px;
-  transition: transform 300ms;
+const Link = styled(Nav.Link)`
+  background-color: ${({ active }) => active ? colors.dark : 'transparent'} !important;
 
-  &:hover, &:active {
-    transform: scale(1.1);
-    cursor: grab;
-    box-shadow: 0 0 1px 4px ${colors.success};
-    z-index: 2;
+  &:hover {
+    background-color: ${({ active }) => active ? colors.dark : colors.gray} !important;
   }
 `
 

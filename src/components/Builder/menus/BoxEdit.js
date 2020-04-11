@@ -100,7 +100,7 @@ const BoxEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry })
                   }
                 </div>
                 <div className="d-flex justify-content-center">
-                  <Button variant="danger" size="sm" onClick={reset}>
+                  <Button variant="outline-danger" size="sm" onClick={reset}>
                     <i className="fas fa-undo-alt mr-1" />Reset
                   </Button>
                 </div>
