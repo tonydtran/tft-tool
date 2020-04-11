@@ -46,7 +46,6 @@ const SideMenu = () => {
 
 const Container = styled(Card)`
   width: 100%;
-  max-width: 40rem;
 `
 
 const Link = styled(Nav.Link)`

@@ -28,7 +28,7 @@ const Container = styled.div`
   min-height: calc(100vh - 70.375px);
 
   @media ${viewports.desktop} {
-    padding: 1rem 4rem 2rem;
+    padding: 1rem 4rem 0;
   }
 `
 

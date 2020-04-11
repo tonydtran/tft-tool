@@ -55,7 +55,7 @@ const MyBuilds = ({ currentUser: { uid } }) => {
       {viewport => (
         <>
           <ViewHeader>
-            <h1 className="mb-5">My builds</h1>
+            <h1>My builds</h1>
           </ViewHeader>
           <Card bg="dark">
             {/* TODO: Add a header with date filter, search bar, etc */}

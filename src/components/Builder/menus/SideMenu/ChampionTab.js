@@ -129,7 +129,7 @@ const ChampionTab = () => {
           <i className="fas fa-undo-alt mr-1" />Reset filters
         </Button>
       </Form.Group>
-      <div className="d-flex flex-wrap justify-content-center mt-4">
+      <ItemContainer>
         {champions.map(champion => (
           <Item
             key={champion.id}
@@ -139,16 +139,28 @@ const ChampionTab = () => {
             {...champion}
           />
         ))}
-      </div>
+      </ItemContainer>
     </>
   )
 }
 
+const ItemContainer = styled.div`
+  padding: 1rem;
+  background-color: ${colors.secondary};
+  border-radius: 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1.5rem;
+  overflow-y: scroll;
+  max-height: 35vh
+`
+
 const Item = styled.div`
-  width: 5vw;
-  max-width: 4rem;
-  height: 5vw;
-  max-height: 4rem;
+  width: 4vw;
+  max-width: 3.5rem;
+  height: 4vw;
+  max-height: 3.5rem;
   background-image: ${({ image }) => `url(${image})`};
   background-size: cover;
   background-position: center;
