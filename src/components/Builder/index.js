@@ -200,9 +200,13 @@ const Builder = ({ authUser }) => {
             </AddBoardButton>
           </div>
         </Main>
-        <Side>
-          <SideMenu />
-        </Side>
+        {
+          viewport === 'desktop' && (
+            <Side>
+              <SideMenu />
+            </Side>
+          )
+        }
       </Container>
       {
         !Object.values(openModals).some(modal => modal) && viewport !== 'desktop' && (
