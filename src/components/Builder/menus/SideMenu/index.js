@@ -28,7 +28,7 @@ const SideMenu = () => {
                 key={champion.id}
                 draggable
                 onDragStart={e => onDragStart(e, champion)}
-                onDragOver={e => onDragOver(e)}
+                onDragOver={onDragOver}
                 {...champion}
               />
             ))}

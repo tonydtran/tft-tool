@@ -183,12 +183,12 @@ const Selection = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  border-radius: 4px;
+  border-radius: 0.25rem;
   background-color: ${colors.secondary};
   margin-top: 1rem;
 
   .box-edit-selection {
-    border-radius: 4px;
+    border-radius: 0.25rem;
     box-shadow: 0 0 0 2px ${colors.dark};
 
     & + * {

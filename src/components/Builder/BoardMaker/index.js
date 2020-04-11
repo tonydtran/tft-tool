@@ -109,7 +109,7 @@ class BoardMaker extends PureComponent {
   }
 
   render () {
-    const { openModals, toggleModal, deleteBoard } = this.props
+    const { openModals, toggleModal, deleteBoard, toggleTrash } = this.props
     const { id, title, text, board, selectedBox } = this.state
 
     return (
@@ -132,6 +132,7 @@ class BoardMaker extends PureComponent {
           onChange={this.handleChangePosition}
           onClick={this.handleToggleChampEditModal}
           onAdd={this.handleAddChamp}
+          toggleTrash={toggleTrash}
         />
         <Modal
           show={openModals[`boardEdit-${id}`]}

@@ -6,7 +6,7 @@ import Hexagon from 'react-hexagon'
 import colors from '../../../vars/colors'
 import { StoreContext } from '../../Store'
 
-const Box = ({ data, boardId, onChange, onClick, onAdd, canAddChamp }) => {
+const Box = ({ data, boardId, onChange, onClick, onAdd, canAddChamp, toggleTrash }) => {
   const store = useContext(StoreContext)
   const { addMessage, state: { itemSet } } = store
 
@@ -16,6 +16,8 @@ const Box = ({ data, boardId, onChange, onClick, onAdd, canAddChamp }) => {
     event.stopPropagation()
     event.dataTransfer.setData('originData', JSON.stringify(data))
     event.dataTransfer.setData('originBoardId', boardId)
+    event.dataTransfer.setData('source', 'board')
+    toggleTrash(true)
   }
 
   const onDragOver = event => {
@@ -26,9 +28,9 @@ const Box = ({ data, boardId, onChange, onClick, onAdd, canAddChamp }) => {
   const onDrop = event => {
     const originData = event.dataTransfer.getData('originData')
     const originBoardId = event.dataTransfer.getData('originBoardId')
-    const fromSideMenu = event.dataTransfer.getData('source') 
+    const source = event.dataTransfer.getData('source') 
 
-    if (fromSideMenu === 'sideMenu') {
+    if (source === 'sideMenu') {
       const newChampData = event.dataTransfer.getData('newChampData')
       onAdd(JSON.parse(newChampData), data)
     } else {
@@ -47,6 +49,11 @@ const Box = ({ data, boardId, onChange, onClick, onAdd, canAddChamp }) => {
     setDragHovering(false)
   }
 
+  const onDragEnd = event => {
+    event.preventDefault()
+    toggleTrash(false)
+  }
+
   const onBoxClick = () => {
     if (canAddChamp || (data.champ && data.champ.id)) {
       onClick({ ...data })
@@ -61,12 +68,13 @@ const Box = ({ data, boardId, onChange, onClick, onAdd, canAddChamp }) => {
 
   return (
     <Container
-      draggable={!!data.champ}
-      onDragStart={e => onDragStart(e)}
-      onDrop={e => onDrop(e)}
-      onDragOver={e => onDragOver(e)}
-      onDragEnter={e => onDragEnter(e)}
-      onDragLeave={e => onDragLeave(e)}
+      draggable={!!(data.champ && data.champ.id)}
+      onDragStart={onDragStart}
+      onDrop={onDrop}
+      onDragOver={onDragOver}
+      onDragEnter={onDragEnter}
+      onDragLeave={onDragLeave}
+      onDragEnd={onDragEnd}
       dragHovering={dragHovering}
       onClick={onBoxClick}
       {...data}
@@ -120,7 +128,7 @@ const HexContainer = styled(Hexagon)`
       }
     }};
     stroke: ${({ champ }) => {
-      if (champ) {
+      if (champ && champ.id) {
         switch (champ.cost) {
           case 2: return `${colors.cost2} !important;`
           case 3: return `${colors.cost3} !important;`

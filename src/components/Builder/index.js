@@ -29,12 +29,13 @@ const Builder = ({ authUser }) => {
   const [openModals, setOpenModals] = useState({
     builderSettings: false
   })
-
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [build, setBuild] = useState(new Build({
     boards: [new BoardSet()]
   }))
+  const [deleteHovering, setDeleteHovering] = useState(false)
+  const [deleteDragging, setDeleteDragging] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -155,6 +156,45 @@ const Builder = ({ authUser }) => {
     })
   }
 
+  const onDeleteDragOver = event => {
+    event.preventDefault()
+    if (!deleteHovering) {
+      setDeleteHovering(true)
+    }
+  }
+
+  const onDeleteDragEnter = event => {
+    event.preventDefault()
+  }
+
+  const onDeleteDragLeave = event => {
+    event.preventDefault()
+    if (deleteHovering) setDeleteHovering(false)
+  }
+
+  const onDeleteDrop = event => {
+    const source = event.dataTransfer.getData('source') 
+    
+    if (source !== 'sideMenu') {
+      const currentBoards = [...build.boards]
+      const { id, row } = JSON.parse(event.dataTransfer.getData('originData'))
+      const boardId = event.dataTransfer.getData('originBoardId')
+      const boardToEditIndex = currentBoards.findIndex(board => board.id === boardId)
+      
+      currentBoards[boardToEditIndex].board[row][id] = {
+        id,
+        row,
+        carry: false,
+        champ: {},
+        items: []
+      }
+
+      setBuild({ ...build, boards: currentBoards })
+    }
+
+    setDeleteHovering(false)
+  }
+
   if (isLoading) return <Loading />
 
   return (
@@ -189,6 +229,7 @@ const Builder = ({ authUser }) => {
                 updateBoard={updateBoard}
                 openModals={openModals}
                 toggleModal={toggleModal}
+                toggleTrash={setDeleteDragging}
                 {...board}
               />
             ))
@@ -232,6 +273,26 @@ const Builder = ({ authUser }) => {
                 </>)
             }
           </SaveButton>
+        )
+      }
+      {
+        deleteDragging && (
+          <DeleteZone
+            dropppable
+            onDrop={onDeleteDrop}
+            onDragOver={onDeleteDragOver}
+            onDragEnter={onDeleteDragEnter}
+            onDragLeave={onDeleteDragLeave}
+            dragHovering={deleteHovering}
+            viewport={viewport}
+          >
+            <i
+              className={viewport === 'desktop'
+                ? 'fas fa-trash fa-3x'
+                : 'fas fa-trash fa-2x'
+              }
+            />
+          </DeleteZone>
         )
       }
       <Modal
@@ -308,6 +369,38 @@ const SaveButton = styled.div`
   &:active {
     background-color: ${colors.light};
     color: ${colors.primary};
+  }
+`
+
+const DeleteZone = styled.div`
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  width: 100%;
+  background-color: ${({ dragHovering }) => dragHovering
+    ? colors.danger
+    : colors.secondary
+  };
+  box-shadow: inset 0 0 1px 2px ${colors.danger};
+  bottom: ${({ viewport }) => viewport === 'desktop'
+    ? '2rem'
+    : '0'
+  };
+  border-radius: ${({ viewport }) => viewport === 'desktop'
+    ? '0.25rem'
+    : '0'
+  };
+  z-index: 5;
+
+  i {
+    margin: ${({ viewport }) => viewport === 'desktop'
+      ? '2rem'
+      : '1rem'
+    };
+    color: ${({ dragHovering }) => dragHovering
+      ? colors.white
+      : colors.danger
+    };
   }
 `
 
