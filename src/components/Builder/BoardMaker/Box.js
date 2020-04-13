@@ -30,8 +30,16 @@ const Box = ({ data, boardId, onChange, onClick, onAddChamp, onAddItem, canAddCh
 
     switch (source) {
       case 'championTab':
-        const newChampData = event.dataTransfer.getData('newChampData')
-        onAddChamp(JSON.parse(newChampData), data)
+        if (canAddChamp) {
+          const newChampData = event.dataTransfer.getData('newChampData')
+          onAddChamp(JSON.parse(newChampData), data)
+        } else {
+          addMessage(
+            'Limit reached',
+            'Be realistic... you cannot put more than 10 champs on the board!',
+            3000
+          )
+        }
         break
 
       case 'itemTab':
