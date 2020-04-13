@@ -6,7 +6,17 @@ import Hexagon from 'react-hexagon'
 import colors from '../../../vars/colors'
 import { StoreContext } from '../../Store'
 
-const Box = ({ data, boardId, onChange, onClick, onAddChamp, onAddItem, canAddChamp, toggleTrash }) => {
+const Box = ({
+  data,
+  boardId,
+  onChange,
+  onClick,
+  onAddChamp,
+  onAddItem,
+  onRemoveItem,
+  canAddChamp,
+  toggleTrash
+}) => {
   const store = useContext(StoreContext)
   const { addMessage, state: { itemSet } } = store
 
@@ -70,7 +80,8 @@ const Box = ({ data, boardId, onChange, onClick, onAddChamp, onAddItem, canAddCh
     toggleTrash(false)
   }
 
-  const onBoxClick = () => {
+  const onBoxClick = e => {
+    e.stopPropagation()
     if (canAddChamp || (data.champ && data.champ.id)) {
       onClick({ ...data })
     } else {
@@ -80,6 +91,11 @@ const Box = ({ data, boardId, onChange, onClick, onAddChamp, onAddItem, canAddCh
         3000
       )
     }
+  }
+
+  const itemClick = (e, itemId, data) => {
+    e.stopPropagation()
+    onRemoveItem(itemId, data)
   }
 
   return (
@@ -107,7 +123,7 @@ const Box = ({ data, boardId, onChange, onClick, onAddChamp, onAddItem, canAddCh
             <Item
               key={`${data.champ.id}-${item}`}
               image={itemSet[item].image}
-              onClick={() => console.log('delete')}
+              onClick={e => itemClick(e, item, data)}
             />
           ))
         }
@@ -123,7 +139,7 @@ const Container = styled.div`
   &:hover, &:active {
     transform: scale(1.1);
     z-index: 2;
-    cursor: ${({ champ }) => champ ? 'grab' : 'default'};
+    cursor: ${({ champ }) => champ && champ.id ? 'grab' : 'default'};
   }
 `
 

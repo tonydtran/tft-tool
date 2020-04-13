@@ -4,7 +4,16 @@ import styled from 'styled-components'
 import { countChamp } from '../../../helpers/board'
 import Box from './Box'
 
-const Board = ({ boardData, boardId, onChange, onClick, onAddChamp, onAddItem, toggleTrash }) => {
+const Board = ({
+  boardData,
+  boardId,
+  onChange,
+  onClick,
+  onAddChamp,
+  onAddItem,
+  onRemoveItem,
+  toggleTrash
+}) => {
   const canAddChamp = countChamp(boardData) < 10
 
   return (
@@ -23,6 +32,7 @@ const Board = ({ boardData, boardId, onChange, onClick, onAddChamp, onAddItem, t
                     onClick={onClick}
                     onAddChamp={onAddChamp}
                     onAddItem={onAddItem}
+                    onRemoveItem={onRemoveItem}
                     canAddChamp={canAddChamp}
                     toggleTrash={toggleTrash}
                   />

@@ -20,6 +20,15 @@ class BoardMaker extends PureComponent {
     }
   }
 
+  handleUpdatelocalBoardAndBuild = newBoard => {
+    this.setState({ board: newBoard }, () => {
+      const { updateBoard } = this.props
+      const { id, title, text, traits, board } = this.state
+
+      updateBoard({ id, title, text, traits, board })
+    })
+  }
+
   handleChangeTitleAndText = (title, text) => {
     this.setState({ title, text }, () => {
       const { updateBoard } = this.props
@@ -54,12 +63,7 @@ class BoardMaker extends PureComponent {
       carry
     }
 
-    this.setState({ board }, () => {
-      const { updateBoard } = this.props
-      const { id, title, text, traits, board } = this.state
-
-      updateBoard({ id, title, text, traits, board })
-    })
+    this.handleUpdatelocalBoardAndBuild(board)
   }
 
   handleChangePosition = (origin, target, boardId) => {
@@ -81,12 +85,7 @@ class BoardMaker extends PureComponent {
         carry: target.carry
       }
 
-      this.setState({ board }, () => {
-        const { updateBoard } = this.props
-        const { id, title, text, traits, board } = this.state
-
-        updateBoard({ id, title, text, traits, board })
-      })
+      this.handleUpdatelocalBoardAndBuild(board)
     }
   }
 
@@ -100,12 +99,7 @@ class BoardMaker extends PureComponent {
       carry: false
     }
 
-    this.setState({ board }, () => {
-      const { updateBoard } = this.props
-      const { id, title, text, traits, board } = this.state
-
-      updateBoard({ id, title, text, traits, board })
-    })
+    this.handleUpdatelocalBoardAndBuild(board)
   }
 
   handleAddItem = (item, box) => {
@@ -126,12 +120,20 @@ class BoardMaker extends PureComponent {
       }
     }
 
-    this.setState({ board }, () => {
-      const { updateBoard } = this.props
-      const { id, title, text, traits, board } = this.state
+    this.handleUpdatelocalBoardAndBuild(board)
+  }
 
-      updateBoard({ id, title, text, traits, board })
-    })
+  handleDeleteItem = (item, box) => {
+    const { board } = this.state
+    const targetBox = board[box.row][box.id]
+    const targetBoxItem = board[box.row][box.id].items
+
+    board[box.row][box.id] = {
+      ...targetBox,
+      items: targetBoxItem.filter(currentItem => currentItem !== item)
+    }
+
+    this.handleUpdatelocalBoardAndBuild(board)
   }
 
   render () {
@@ -159,6 +161,7 @@ class BoardMaker extends PureComponent {
           onClick={this.handleToggleChampEditModal}
           onAddChamp={this.handleAddChamp}
           onAddItem={this.handleAddItem}
+          onRemoveItem={this.handleDeleteItem}
           toggleTrash={toggleTrash}
         />
         <Modal
