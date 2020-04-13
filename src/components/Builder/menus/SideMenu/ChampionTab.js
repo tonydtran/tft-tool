@@ -52,7 +52,7 @@ const ChampionTab = () => {
   const onDragStart = (event, data) => {
     event.stopPropagation()
     event.dataTransfer.setData('newChampData', JSON.stringify(data))
-    event.dataTransfer.setData('source', 'sideMenu')
+    event.dataTransfer.setData('source', 'championTab')
   }
 
   const onDragOver = event => {

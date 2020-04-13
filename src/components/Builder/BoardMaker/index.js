@@ -108,6 +108,32 @@ class BoardMaker extends PureComponent {
     })
   }
 
+  handleAddItem = (item, box) => {
+    const { board } = this.state
+    const targetBox = board[box.row][box.id]
+    const targetBoxItem = board[box.row][box.id].items
+      ? board[box.row][box.id].items
+      : []
+
+    if (
+      targetBox.champ &&
+      targetBox.champ.id &&
+      targetBoxItem.length < 3
+    ) {
+      board[box.row][box.id] = {
+        ...targetBox,
+        items: [...targetBoxItem, item]
+      }
+    }
+
+    this.setState({ board }, () => {
+      const { updateBoard } = this.props
+      const { id, title, text, traits, board } = this.state
+
+      updateBoard({ id, title, text, traits, board })
+    })
+  }
+
   render () {
     const { openModals, toggleModal, deleteBoard, toggleTrash } = this.props
     const { id, title, text, board, selectedBox } = this.state
@@ -131,7 +157,8 @@ class BoardMaker extends PureComponent {
           boardId={id}
           onChange={this.handleChangePosition}
           onClick={this.handleToggleChampEditModal}
-          onAdd={this.handleAddChamp}
+          onAddChamp={this.handleAddChamp}
+          onAddItem={this.handleAddItem}
           toggleTrash={toggleTrash}
         />
         <Modal

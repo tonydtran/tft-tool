@@ -6,7 +6,7 @@ import Hexagon from 'react-hexagon'
 import colors from '../../../vars/colors'
 import { StoreContext } from '../../Store'
 
-const Box = ({ data, boardId, onChange, onClick, onAdd, canAddChamp, toggleTrash }) => {
+const Box = ({ data, boardId, onChange, onClick, onAddChamp, onAddItem, canAddChamp, toggleTrash }) => {
   const store = useContext(StoreContext)
   const { addMessage, state: { itemSet } } = store
 
@@ -26,15 +26,23 @@ const Box = ({ data, boardId, onChange, onClick, onAdd, canAddChamp, toggleTrash
   }
 
   const onDrop = event => {
-    const originData = event.dataTransfer.getData('originData')
-    const originBoardId = event.dataTransfer.getData('originBoardId')
     const source = event.dataTransfer.getData('source') 
 
-    if (source === 'sideMenu') {
-      const newChampData = event.dataTransfer.getData('newChampData')
-      onAdd(JSON.parse(newChampData), data)
-    } else {
-      onChange(JSON.parse(originData), data, originBoardId)
+    switch (source) {
+      case 'championTab':
+        const newChampData = event.dataTransfer.getData('newChampData')
+        onAddChamp(JSON.parse(newChampData), data)
+        break
+
+      case 'itemTab':
+        const newItem = event.dataTransfer.getData('newItem')
+        onAddItem(JSON.parse(newItem), data)
+        break
+
+      default:
+        const originData = event.dataTransfer.getData('originData')
+        const originBoardId = event.dataTransfer.getData('originBoardId')
+        onChange(JSON.parse(originData), data, originBoardId)
     }
 
     setDragHovering(false)

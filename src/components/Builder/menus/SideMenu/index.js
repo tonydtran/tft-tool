@@ -7,6 +7,7 @@ import Nav from 'react-bootstrap/Nav'
 import colors from '../../../../vars/colors'
 
 import ChampionTab from './ChampionTab'
+import ItemTab from './ItemTab'
 
 const SideMenu = () => {
   const [activeTab, setActiveTab] = useState('champions')
@@ -37,6 +38,9 @@ const SideMenu = () => {
         <div className="d-flex flex-column">
           <div className={activeTab === 'champions' ? 'd-block' : 'd-none'}>
             <ChampionTab />
+          </div>
+          <div className={activeTab === 'items' ? 'd-block' : 'd-none'}>
+            <ItemTab />
           </div>
         </div>
       </Card.Body>

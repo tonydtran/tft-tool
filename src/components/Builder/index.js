@@ -176,7 +176,7 @@ const Builder = ({ authUser }) => {
   const onDeleteDrop = event => {
     const source = event.dataTransfer.getData('source') 
     
-    if (source !== 'sideMenu') {
+    if (source === 'board') {
       const currentBoards = [...build.boards]
       const { id, row } = JSON.parse(event.dataTransfer.getData('originData'))
       const boardId = event.dataTransfer.getData('originBoardId')

@@ -9,11 +9,7 @@
       "sorcerer"
     ],
     "image": "/assets/champions/ahri.png",
-    "recommended": [
-      37,
-      44,
-      34
-    ]
+    "recommended": []
   },
   "annie": {
     "id": "annie",
