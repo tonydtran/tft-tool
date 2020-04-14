@@ -36,7 +36,7 @@ const Box = ({
   }
 
   const onDrop = event => {
-    const source = event.dataTransfer.getData('source') 
+    const source = event.dataTransfer.getData('source')
 
     switch (source) {
       case 'championTab':
@@ -111,6 +111,13 @@ const Box = ({
       onClick={onBoxClick}
       {...data}
     >
+      {
+        data.carry && (
+          <Carry>
+            <i className="fas fa-crown" />
+          </Carry>
+        )
+      }
       <HexContainer
         backgroundImage={data.champ ? data.champ.image : null}
         backgroundScale={1.01}
@@ -141,6 +148,15 @@ const Container = styled.div`
     z-index: 2;
     cursor: ${({ champ }) => champ && champ.id ? 'grab' : 'default'};
   }
+`
+
+const Carry = styled.div`
+  position: absolute;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  top: -0.5vh;
+  color: ${colors.yellow};
 `
 
 const HexContainer = styled(Hexagon)`

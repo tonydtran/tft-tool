@@ -69,7 +69,7 @@ const BoxEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry })
               <Selection>
                 <div className="d-flex justify-content-around mb-3">
                   <div className="d-flex flex-column align-items-center">
-                    <Item image={championSet[currentBox.champ.id].image} className="box-edit-selection" />
+                    <StaticItem image={championSet[currentBox.champ.id].image} className="box-edit-selection" />
                     <div className="d-flex mt-2 ml-0">
                       {
                         championSet[currentBox.champ.id].traits.map(trait => (
@@ -84,14 +84,14 @@ const BoxEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry })
                         <div className="d-flex">
                           {
                             currentBox.items.map(item => (
-                              <Item key={item} image={itemSet[item].image} className="box-edit-selection" />
+                              <StaticItem key={item} image={itemSet[item].image} className="box-edit-selection" />
                             ))
                           }
                         </div>
                         {
                           currentBox.carry && (
                             <Label>
-                              <i className="fas fa-fan mr-2" />CARRY
+                              <i className="fas fa-crown mr-2" />CARRY
                             </Label>
                           )
                         }
@@ -111,7 +111,7 @@ const BoxEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry })
         <Section>
           <div className="d-flex justify-content-between">
             <strong>Select champion</strong>
-            <Form.Check
+            <Checkbox
               type="switch"
               name="carry"
               id="carry"
@@ -199,13 +199,19 @@ const Selection = styled.div`
 
 const Label = styled.div`
   padding: 0.25rem 1rem 0.25rem;
-  background-color: ${colors.purple};
+  background-color: ${colors.yellow};
   color: ${colors.white};
   font-weight: bolder;
   line-height: 16px;
   vertical-align: middle;
   border-radius: 16px;
   margin-top: 0.75rem;
+`
+
+const Checkbox = styled(Form.Check)`
+  input, label {
+    cursor: pointer;
+  }
 `
 
 const ItemsContainer = styled.div`
@@ -225,6 +231,25 @@ const Item = styled.div`
   transform: ${({ active }) => active ? 'scale(1.1)' : null };
   z-index: ${({ active }) => active ? 2 : 'auto' };
   filter: ${({ grayed }) => grayed ? 'grayscale(100)' : null };
+  margin: 2px;
+  border-radius: 2px;
+  transition: transform 300ms;
+
+  &:hover {
+    transform: scale(1.1);
+    filter: none;
+    box-shadow: 0 0 1px 4px ${colors.success};
+    z-index: 2;
+    cursor: pointer;
+  }
+`
+
+const StaticItem = styled.div`
+  width: 3rem;
+  height: 3rem;
+  background-image: ${({ image }) => `url(${image})`};
+  background-size: cover;
+  background-position: center;
   margin: 2px;
   border-radius: 2px;
 `
