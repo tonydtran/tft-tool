@@ -14,7 +14,8 @@ const BoxEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry })
   const toggleChamp = newChamp => {
     setCurrentBox({
       ...currentBox,
-      champ: newChamp.id === currentBox.champ.id ? {} : newChamp
+      champ: newChamp.id === currentBox.champ.id ? {} : newChamp,
+      carry: newChamp.id === currentBox.champ.id ? false : carry
     })
   }
 
@@ -116,6 +117,7 @@ const BoxEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry })
               name="carry"
               id="carry"
               label="Carry"
+              disabled={!champ.id}
               onChange={toggleCarry}
               checked={currentBox.carry}
             />
@@ -210,7 +212,7 @@ const Label = styled.div`
 
 const Checkbox = styled(Form.Check)`
   input, label {
-    cursor: pointer;
+    cursor: ${({ disabled }) => disabled ? 'not-allowed' : 'pointer'};
   }
 `
 
