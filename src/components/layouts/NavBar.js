@@ -64,6 +64,11 @@ const NavBar = () => {
                 </>
             )
           }
+          <Navbar.Text>
+            <small className="font-weight-light font-italic">
+              Current patch: <span className="font-weight-bold">v10.7</span>
+            </small>
+          </Navbar.Text>
         </NavContainer>
       </Navbar.Collapse>
     </Navbar>
