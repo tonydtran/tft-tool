@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import Modal from 'react-bootstrap/Modal'
+import ShowMoreText from 'react-show-more-text'
 
 import Board from './Board'
 import BoardEdit from '../menus/BoardEdit'
@@ -152,7 +153,9 @@ class BoardMaker extends PureComponent {
               onClick={() => toggleModal(`boardEdit-${id}`)}
             />
           </div>
-          <p className="text-break">{text}</p>
+          <ShowMoreText more="show more" less="Show less" keepNewLines={true}>
+            {text}
+          </ShowMoreText>
         </div>
         <Board
           boardData={board}

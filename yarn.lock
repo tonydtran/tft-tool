@@ -10584,6 +10584,14 @@ react-scripts@3.4.1:
   optionalDependencies:
     fsevents "2.1.2"
 
+react-show-more-text@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-show-more-text/-/react-show-more-text-1.4.0.tgz#b9ddd51ab08f5dc92a444fa78d81819c9b8e1618"
+  integrity sha512-hX8rveIhbjan8v+iTQ7Rzg6ua5Ul6HZqG7KqgqtW/7bhrA51MPoj2jGj+wo6qtHmeUYGC+z8Ujd2ED7ojhWuSA==
+  dependencies:
+    prop-types "^15.7.2"
+    react-truncate "^2.1.5"
+
 react-transition-group@^4.0.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.3.0.tgz#fea832e386cf8796c58b61874a3319704f5ce683"
@@ -10593,6 +10601,11 @@ react-transition-group@^4.0.0:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-truncate@^2.1.5:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-truncate/-/react-truncate-2.4.0.tgz#3cf5ff09ab86f93e3c078d359f4de6d75aa60510"
+  integrity sha512-3QW11/COYwi6iPUaunUhl06DW5NJBJD1WkmxW5YxqqUu6kvP+msB3jfoLg8WRbu57JqgebjVW8Lknw6T5/QZdA==
 
 react@^16.13.1:
   version "16.13.1"
