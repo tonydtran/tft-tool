@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useMemo } from 'react'
 import styled from 'styled-components'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -10,6 +10,10 @@ import colors from '../../../vars/colors'
 const BoxEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry }) => {
   const { state: { championSet, itemSet, traitSet } } = useContext(StoreContext)
   const [currentBox, setCurrentBox] = useState({ boxId, row, champ, items, carry })
+
+  const completeItems = useMemo(() => {
+    return Object.values(itemSet).filter(item => item.id > 10)
+  }, [itemSet])
 
   const toggleChamp = newChamp => {
     setCurrentBox({
@@ -146,7 +150,7 @@ const BoxEdit = ({ id: boxId, row, onBoxUpdate, champ = {}, items = [], carry })
               <strong>Select items</strong>
               <ItemsContainer>
                 {
-                  Object.values(itemSet).map(item => {
+                  completeItems.map(item => {
                     const active = currentBox.items.indexOf(item.id) !== -1
                     const grayed = !active && currentBox.items.length === 3
                     return (
@@ -230,7 +234,6 @@ const Item = styled.div`
   background-size: cover;
   background-position: center;
   box-shadow: ${({ active }) => active ? `0 0 1px 4px ${colors.success}`: null };
-  transform: ${({ active }) => active ? 'scale(1.1)' : null };
   z-index: ${({ active }) => active ? 2 : 'auto' };
   filter: ${({ grayed }) => grayed ? 'grayscale(100)' : null };
   margin: 2px;
