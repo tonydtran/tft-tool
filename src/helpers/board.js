@@ -1,12 +1,32 @@
 export const countChamp = board => {
-  const count = []
+  return Object.values(board).reduce((acc, row) => {
+    let count = acc
+    Object.values(row).forEach(box => {
+      if (box.champ && box.champ.id) count = count + 1
+    })
 
-  Object.values(board).forEach(row => {
-    count.push(Object.values(row).reduce((acc, box) => {
-      if (box.champ && box.champ.id) return acc + 1
-      return acc
-    }, 0))
+    return count
+  }, 0)
+}
+
+export const countTraits = board => {
+  const traits = Object.values(board).reduce((acc, row) => {
+    Object.values(row).forEach(box => {
+      if (box.champ && box.champ.id) {
+        box.champ.traits.forEach(trait => {
+          acc[trait] ? acc[trait] = acc[trait] + 1 : acc[trait] = 1
+        })
+      }
+    })
+
+    return acc
+  }, {})
+
+  return Object.entries(traits).map(tupple => {
+    return { [tupple[0]]: tupple[1] }
+  }).sort((a, b) => {
+    if (Object.values(a) < Object.values(b)) return 1
+    if (Object.values(b) < Object.values(a)) return -1
+    return 0
   })
-
-  return count.reduce((acc, rowCount) => acc + rowCount, 0)
 }

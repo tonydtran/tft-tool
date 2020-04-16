@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import Modal from 'react-bootstrap/Modal'
 import ShowMoreText from 'react-show-more-text'
 
+import { countTraits } from '../../../helpers/board'
+
 import Board from './Board'
 import BoardEdit from '../menus/BoardEdit'
 import BoxEdit from '../menus/BoxEdit'
@@ -140,6 +142,8 @@ class BoardMaker extends PureComponent {
   render () {
     const { openModals, toggleModal, deleteBoard, toggleTrash } = this.props
     const { id, title, text, board, selectedBox } = this.state
+
+    console.log(countTraits(board))
 
     return (
       <Container>
