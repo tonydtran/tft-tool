@@ -3,9 +3,8 @@ import styled from 'styled-components'
 import Modal from 'react-bootstrap/Modal'
 import ShowMoreText from 'react-show-more-text'
 
-import { countTraits } from '../../../helpers/board'
-
 import Board from './Board'
+import { CollaspableTraits } from './Traits'
 import BoardEdit from '../menus/BoardEdit'
 import BoxEdit from '../menus/BoxEdit'
 
@@ -143,8 +142,6 @@ class BoardMaker extends PureComponent {
     const { openModals, toggleModal, deleteBoard, toggleTrash } = this.props
     const { id, title, text, board, selectedBox } = this.state
 
-    console.log(countTraits(board))
-
     return (
       <Container>
         <div className="mb-4">
@@ -171,6 +168,7 @@ class BoardMaker extends PureComponent {
           onRemoveItem={this.handleDeleteItem}
           toggleTrash={toggleTrash}
         />
+        <CollaspableTraits className="mt-4" id={id} board={board} />
         <Modal
           show={openModals[`boardEdit-${id}`]}
           onHide={() => toggleModal(`boardEdit-${id}`)}

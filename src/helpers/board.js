@@ -1,3 +1,11 @@
+import traitSet from '../data/traits.json'
+
+const tiers = {
+  bronze: 1,
+  silver: 2,
+  gold: 3
+}
+
 export const countChamp = board => {
   return Object.values(board).reduce((acc, row) => {
     let count = acc
@@ -22,11 +30,42 @@ export const countTraits = board => {
     return acc
   }, {})
 
-  return Object.entries(traits).map(tupple => {
-    return { [tupple[0]]: tupple[1] }
-  }).sort((a, b) => {
-    if (Object.values(a) < Object.values(b)) return 1
-    if (Object.values(b) < Object.values(a)) return -1
-    return 0
-  })
+  return Object.entries(traits).map(tupple => ({
+    id: tupple[0],
+    count: tupple[1]
+  }))
+    .sort((a, b) => b.count - a.count)
+    .map(trait => {
+      const dataTrait = traitSet[trait.id]
+      const levels = dataTrait.sets.map(level => {
+        let isActive = false
+        if (trait.count >= level.min) {
+          isActive = true
+
+          if (level.max) {
+            isActive = trait.count <= level.max
+          }
+        }
+
+        const style = level.style || 'gold'
+
+        return {
+          style,
+          min: level.min,
+          isActive
+        }
+      })
+
+      let tier = 0
+      const activeLevel = levels.find(level => level.isActive)
+      if (activeLevel) tier = tiers[activeLevel.style]
+
+      return {
+        ...dataTrait,
+        levels,
+        count: trait.count,
+        tier
+      }
+    })
+    .sort((a, b) => b.tier - a.tier)
 }
