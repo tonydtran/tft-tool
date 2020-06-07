@@ -26,7 +26,7 @@ export default {
   'cost4': '#660b4e',
   'cost5': '#9c6d12',
   'trait-default': '#4b4b4b',
-  'bronze': '#de8e5a',
-  'silver': '#c8e5e9',
-  'gold': '#c6ae5a'
+  'bronze': '#cd7f32',
+  'silver': '#A9A9A9',
+  'gold': '#CFB53B'
 }

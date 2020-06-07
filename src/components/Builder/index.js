@@ -201,76 +201,80 @@ const Builder = ({ authUser }) => {
   return (
     <>
       <Container viewport={viewport}>
-        <Main viewport={viewport}>
-          <div style={{ margin: viewport !== 'desktop' ? '0 -1rem' : undefined }}>
-            <ViewHeader>
-              <div className={authUser ? 'mt-2' : null}>
-                {authUser && (
-                  <Button
-                    variant="link"
-                    className="p-0"
-                    onClick={() => history.push('/builds')}
-                  >
-                    <i className="fas fa-chevron-left fa-sm" /> My builds
-                  </Button>
-                )}
-                <div className="d-flex align-items-baseline">
-                  <h1 className="d-inline-block text-truncate mb-0">{build.title}</h1>
-                  <I
-                    className="fas fa-tools fa-lg text-success ml-2"
-                    onClick={() => toggleModal('builderSettings')}
-                  />
+        <div className={viewport === 'desktop' ? 'd-flex justify-content-center' : undefined}>
+          <Main viewport={viewport}>
+            <div style={{ margin: viewport !== 'desktop' ? '0 -1rem' : undefined }}>
+              <ViewHeader>
+                <div className={authUser ? 'mt-2' : null}>
+                  {authUser && (
+                    <Button
+                      variant="link"
+                      className="p-0"
+                      onClick={() => history.push('/builds')}
+                    >
+                      <i className="fas fa-chevron-left fa-sm" /> My builds
+                    </Button>
+                  )}
+                  <div className="d-flex align-items-baseline">
+                    <h1 className="d-inline-block text-truncate mb-0">{build.title}</h1>
+                    <I
+                      className="fas fa-tools fa-lg text-success ml-2"
+                      onClick={() => toggleModal('builderSettings')}
+                    />
+                  </div>
                 </div>
-              </div>
-            </ViewHeader>
-          </div>
-          {
-            build.boards && build.boards.map(board => (
-              <BoardMaker
-                key={board.id}
-                deleteBoard={deleteBoard}
-                updateBoard={updateBoard}
-                openModals={openModals}
-                toggleModal={toggleModal}
-                toggleTrash={setDeleteDragging}
-                {...board}
-              />
-            ))
-          }
-          <div className="d-flex justify-content-center">
-            <AddBoardButton onClick={addNewBoard}>
-              <i className="fas fa-plus-circle mr-2" />
-              <strong>Add a new board</strong>
-            </AddBoardButton>
-          </div>
-        </Main>
+              </ViewHeader>
+            </div>
+            {
+              build.boards && build.boards.map(board => (
+                <BoardMaker
+                  key={board.id}
+                  deleteBoard={deleteBoard}
+                  updateBoard={updateBoard}
+                  openModals={openModals}
+                  toggleModal={toggleModal}
+                  toggleTrash={setDeleteDragging}
+                  {...board}
+                />
+              ))
+            }
+            <div className="d-flex justify-content-center">
+              <AddBoardButton onClick={addNewBoard}>
+                <i className="fas fa-plus-circle mr-2" />
+                <strong>Add a new board</strong>
+              </AddBoardButton>
+            </div>
+          </Main>
+        </div>
         {
           viewport === 'desktop' && (
-            <Side>
-              <SaveButton onClick={() => saveBuild()} viewport={viewport}>
-                { //TODO: check if builder is dirty or not to display button or reset wording
-                  // Merge save from modal and this button
-                  isSaving
-                    ? (<Spinner
-                      style={{ margin: '0.344rem 0' }}
-                      as="span"
-                      animation="border"
-                      variant="dark"
-                    />)
-                    : (<>
-                      <p className="font-weight-bold mb-0">Save</p>
-                      <small>
-                        {
-                          build.lastUpdate
-                            ? `Last save ${formatDistance(build.lastUpdate, Date.now())} ago`
-                            : 'Never saved'
-                        }
-                      </small>
-                    </>)
-                }
-              </SaveButton>
-              <SideMenu />
-            </Side>
+            <div className="mt-3 d-flex justify-content-center">
+              <Side>
+                <SaveButton onClick={() => saveBuild()} viewport={viewport}>
+                  { //TODO: check if builder is dirty or not to display button or reset wording
+                    // Merge save from modal and this button
+                    isSaving
+                      ? (<Spinner
+                        style={{ margin: '0.344rem 0' }}
+                        as="span"
+                        animation="border"
+                        variant="dark"
+                      />)
+                      : (<>
+                        <p className="font-weight-bold mb-0">Save</p>
+                        <small>
+                          {
+                            build.lastUpdate
+                              ? `Last save ${formatDistance(build.lastUpdate, Date.now())} ago`
+                              : 'Never saved'
+                          }
+                        </small>
+                      </>)
+                  }
+                </SaveButton>
+                <SideMenu />
+              </Side>
+            </div>
           )
         }
       </Container>
@@ -346,17 +350,32 @@ const I = styled.i`
 `
 
 const Container = styled.div`
-  display: ${({ viewport }) => viewport !== 'desktop'
+  width: 100%;
+  position: relative;
+  ${({ viewport }) => {
+    if (viewport === 'desktop') {
+      return `
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-column-gap: 2rem;
+      `
+    } else {
+      return `
+        display: block;
+        padding: 0 1rem 2rem;
+      `
+    }
+  }}
+  ${'' /* display: ${({ viewport }) => viewport !== 'desktop'
     ? 'block'
     : 'flex'
   };
-  justify-content: space-around;
-  position: relative;
-  width: 100%;
-  padding: ${({ viewport }) => viewport !== 'desktop'
+  justify-content: space-around; */}
+  ${'' /* padding: ${({ viewport }) => viewport !== 'desktop'
     ? '0 1rem 2rem'
     : '0'
-  };
+  }; */}
 `
 
 const Main = styled.div`
@@ -366,8 +385,8 @@ const Main = styled.div`
       return `
         max-width: 40rem;
         max-height: 88vh;
-        overflow-y: auto;
-        padding-right: 4rem;
+        ${'' /* overflow-y: auto; */}
+        ${'' /* padding-right: 4rem; */}
         margin: 0;
       `
     }
@@ -375,9 +394,8 @@ const Main = styled.div`
 `
 
 const Side = styled.div`
-  position: relative;
-  margin-top: 1rem;
-  width: 40rem;
+  position: fixed;
+  max-width: 40rem;
 `
 
 const AddBoardButton = styled.div`
